@@ -4,9 +4,9 @@
 
 Point getPosition(Point & prevPosition, Point & currentPosition, double initialVelocity, const double & acceleration, const double & timeStep) 
 {
-	//do something
+	// Verlet Integration code for calculating the next position of a particle in motion
 	// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
-	//return finalPosition
+	// the velocity will be calculated using Stormer-Verlet method
 	Point finalPosition;
 	finalPosition.x =(int) 2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x;
 	finalPosition.y =(int) 2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y;
