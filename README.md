@@ -1,9 +1,7 @@
-# CPP
-Hello there!
+#CPP
 
-Welcome to my C++ repository. Here I keep the results of some of my novice attempts
-at learning the language. As such, I'm sure there are many mistakes in my code. Also there
-is little to no comments present. Feel free to correct the problems if you see any. However,
-if you wish to change the functionality of the code, I request you to do so either on a new file or by cloning the repository.
+Basic Computer Graphics Project using the Borland Graphics Interface
+I have been using Visual Studio 2017. So please watch out for windows specific 
+functions that I might have used.
 
-Thanks for visiting!
+Cheers!
