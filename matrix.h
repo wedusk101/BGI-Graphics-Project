@@ -5,7 +5,7 @@
 #include <cmath>
 #include "primitives.h"
 
-void rotate(Point &p, double theta); // rotates a ray about the origin by an angle of theta radians
-void translate(Point &p, int tx, int ty); // translates a point P(x,y) by tx and ty 
+void rotate(Point &p, const double &theta); // rotates a ray about the origin by an angle of theta radians
+void translate(Point &p, const int &tx, const int &ty); // translates a point P(x,y) by tx and ty 
 
 #endif
