@@ -26,9 +26,9 @@ int main()
 	circle(ball.center.x, ball.center.y, 20);
 	while(1) // check this
 	{
-		if (ismouseclick(WM_LBUTTONDOWN))
+		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
-			getmouseclick(WM_LBUTTONDOWN, mouse.x, mouse.y);
+			getmouseclick(WM_LBUTTONDOWN, mouse.x, mouse.y); // gets the location of the mouse pointer when  the mouse is clicked 
 			if (locus.x - mouse.x < 10 && locus.y - mouse.y < 10)
 			{
 				outtextxy(mouse.x, mouse.y, "HIT!");
