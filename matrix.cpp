@@ -5,8 +5,9 @@
 
 void rotate(Point & p, double theta) 
 {
-	p.x = (int) p.x * cos(theta) - p.y * sin(theta);
-	p.y = (int) p.x * sin(theta) + p.y * cos(theta);
+	Point bak = p; 
+	p.x = (int) bak.x * cos(theta) - bak.y * sin(theta);
+	p.y = (int) bak.x * sin(theta) + bak.y * cos(theta);
 }
 
 void translate(Point & p, int tx, int ty) 
