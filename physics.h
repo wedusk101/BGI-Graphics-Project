@@ -5,6 +5,6 @@
 #include <cmath>
 #include "primitives.h"
 
-Point getPosition(Point & prevPosition, Point & currentPosition, double initialVelocity, const double & acceleration, const double & timeStep); 
+Point getPosition(Point &prevPosition, Point &currentPosition, double initialVelocity, const double &acceleration, const double &timeStep); 
 
 #endif

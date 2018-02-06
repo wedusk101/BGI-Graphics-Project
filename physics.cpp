@@ -2,7 +2,7 @@
 #include <cmath>
 #include "primitives.h"
 
-Point getPosition(Point & prevPosition, Point & currentPosition, double initialVelocity, const double & acceleration, const double & timeStep) 
+Point getPosition(Point &prevPosition, Point &currentPosition, double initialVelocity, const double &acceleration, const double &timeStep) 
 {
 	// Verlet Integration code for calculating the next position of a particle in motion
 	// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
