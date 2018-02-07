@@ -1,5 +1,7 @@
 //physics.cpp
+#include <iostream>
 #include "physics.h"
+#include "matrix.h"
 
 Point getPosition(Point &prevPosition, Point &currentPosition, const double &initialVelocity, const double &acceleration, const double &timeStep) 
 {
@@ -14,18 +16,15 @@ Point getPosition(Point &prevPosition, Point &currentPosition, const double &ini
 	return finalPosition;
 }
 
-Point getReflectionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax)
+void getCollisionVector(const Point &collisionPosition, const Point &prevPosition, Point &nextPosition, const double &stepSize, const int &xMax, const int &yMax)
 {
 	// returns a point along the direction of the particle's motion vector after collision using the laws of reflection
 	double dy = 0.0, dx = 0.0, thetaInitial = 0.0, thetaReflected = 0.0;
-	Point nextPosition;
-	if (collisionPosition.x == prevPosition.x || collisionPosition.y == prevPosition.y) // particle moves perpendicular to either axis
-		return prevPosition;
+	nextPosition = prevPosition;
 	dy = prevPosition.y - collisionPosition.y;
 	dx = prevPosition.x - collisionPosition.x;
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
-	thetaReflected = 3.141592653589 - thetaInitial; // pi - theta
-	nextPosition.x = (int) prevPosition.x - stepSize;
-	nextPosition.y = (int) tan(thetaReflected) * (prevPosition.y - stepSize); // tan(thetaReflected) is the slope of the reflected ray
-	return nextPosition;
+	thetaReflected = 3.141592653 - 2 * thetaInitial; // pi - 2 * theta
+	std::cout << thetaInitial << std::endl;
+	rotate(nextPosition, thetaReflected);
 }

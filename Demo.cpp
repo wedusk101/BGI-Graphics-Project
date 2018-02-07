@@ -6,7 +6,6 @@
 #include "graphics.h"
 #include "primitives.h"
 #include "physics.h"
-//#include "matrix.h"
 
 int main()
 {
@@ -19,7 +18,7 @@ int main()
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
 	std::cin >> ball.radius;
-	std::cout << "Please enter the coordinates for the nextPoint point along the path of the ball (x,y)." << std::endl;
+	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	std::cin >> nextPoint.x >> nextPoint.y;
 	initwindow(800, 600, "First Sample");
 	setcolor(12); // Pink 
@@ -41,19 +40,15 @@ int main()
 		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
 		{
 			// this part is working as expected
-			/*
 			nextPoint.x = rand() % xMax; // reflection needs to be set up
 			nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
-			*/
-			
-			// this part has bugs
-			nextPoint = getReflectionVector(locus, ball.center, stepSize, xMax, yMax);
-			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);
-			
-			
+						
+			/* this part has bugs
+			getCollisionVector(locus, ball.center, nextPoint, stepSize, xMax, yMax);
+			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);*/		
 		}
-		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
-		std::cout << "nextPoint: " << locus.x << " " << locus.y << std::endl; // for debugging
+		//std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
+		//std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
 		circle(locus.x, locus.y, ball.radius);
 		delay(250); // 60 FPS but the speed of the ball needs to be adjusted
 		cleardevice();		
