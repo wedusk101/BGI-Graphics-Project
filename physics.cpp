@@ -1,5 +1,5 @@
 //physics.cpp
-#include <iostream>
+//#include <iostream>
 #include "physics.h"
 #include "matrix.h"
 
@@ -25,6 +25,6 @@ void getCollisionVector(const Point &collisionPosition, const Point &prevPositio
 	dx = prevPosition.x - collisionPosition.x;
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
 	thetaReflected = 3.141592653 - 2 * thetaInitial; // pi - 2 * theta
-	std::cout << thetaInitial << std::endl;
+	// std::cout << thetaInitial << std::endl; ----- for debugging
 	rotate(nextPosition, thetaReflected);
 }
