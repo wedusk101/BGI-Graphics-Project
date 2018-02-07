@@ -47,7 +47,7 @@ int main()
 			*/
 			
 			// this part has bugs
-			nextPoint = getReflectionVector(locus, ball.center, stepSize);
+			nextPoint = getReflectionVector(locus, ball.center, stepSize, xMax, yMax);
 			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);
 			
 			

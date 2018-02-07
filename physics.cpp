@@ -14,7 +14,7 @@ Point getPosition(Point &prevPosition, Point &currentPosition, const double &ini
 	return finalPosition;
 }
 
-Point getReflectionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize)
+Point getReflectionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax)
 {
 	// returns a point along the direction of the particle's motion vector after collision using the laws of reflection
 	double dy = 0.0, dx = 0.0, thetaInitial = 0.0, thetaReflected = 0.0;
@@ -25,7 +25,7 @@ Point getReflectionVector(const Point &collisionPosition, const Point &prevPosit
 	dx = prevPosition.x - collisionPosition.x;
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
 	thetaReflected = 3.141592653589 - thetaInitial; // pi - theta
-	nextPosition.x = (int) prevPosition.x + stepSize;
-	nextPosition.y = (int) tan(thetaReflected) * (prevPosition.y + stepSize); // tan(thetaReflected) is the slope of the reflected ray
+	nextPosition.x = (int) prevPosition.x - stepSize;
+	nextPosition.y = (int) tan(thetaReflected) * (prevPosition.y - stepSize); // tan(thetaReflected) is the slope of the reflected ray
 	return nextPosition;
 }
