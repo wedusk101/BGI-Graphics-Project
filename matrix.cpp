@@ -1,6 +1,4 @@
 //matrix.cpp
-#include <cmath>
-#include "primitives.h"
 #include "matrix.h"
 
 void rotate(Point &p, const double &theta) 
