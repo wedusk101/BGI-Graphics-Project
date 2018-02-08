@@ -5,8 +5,8 @@
 #include <cmath>
 #include "primitives.h"
 
-Point getPosition(Point &prevPosition, Point &currentPosition, const double &initialVelocity, const double &acceleration, const double &timeStep);
-Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax);
+Point getPosition(Point &, Point &, const double &, const double &, const double &);
+Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &);
 
 inline double getEuclideanDistance(const int &x1, const int &y1, const int &x2, const int &y2)
 {

@@ -15,7 +15,7 @@ Point getPosition(Point &prevPosition, Point &currentPosition, const double &ini
 	return finalPosition;
 }
 
-Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &ymax)
+Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax)
 {
 	// returns a point along the direction of the particle's motion vector after collision using the laws of reflection
 	double dy = 0.0, dx = 0.0, thetaInitial = 0.0, thetaReflected = 0.0;
@@ -25,7 +25,58 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
 	thetaReflected = 3.141592653 - 2 * thetaInitial; // pi - 2 * theta
 	//std::cout << thetaInitial << std::endl; ----- for debugging
-	//if(collisionPosition.x > xMax) consider different cases for xMax and yMax and also the direction of motion using dy and dx
+	if (collisionPosition.x < 0)
+	{
+		if (dy < 0)
+		{
+			nextPosition.x = (int)prevPosition.x + stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y + stepSize); // tan(thetaReflected) is the slope of the reflected ray
+		}
+		if (dy > 0)
+		{
+			nextPosition.x = (int)prevPosition.x + stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y - stepSize);
+		}
+	}
+	if (collisionPosition.x > xMax)
+	{
+		if (dy < 0)
+		{
+			nextPosition.x = (int)prevPosition.x - stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y + stepSize);
+		}
+		if (dy > 0)
+		{
+			nextPosition.x = (int)prevPosition.x - stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y - stepSize);
+		}
+	}
+	if (collisionPosition.y < 0)
+	{
+		if (dx < 0)
+		{
+			nextPosition.x = (int)prevPosition.x + stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y + stepSize);
+		}
+		if (dx > 0)
+		{
+			nextPosition.x = (int)prevPosition.x - stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y + stepSize);
+		}
+	}
+	if (collisionPosition.y > yMax)
+	{
+		if (dx < 0)
+		{
+			nextPosition.x = (int)prevPosition.x + stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y - stepSize);
+		}
+		if (dx > 0)
+		{
+			nextPosition.x = (int)prevPosition.x - stepSize;
+			nextPosition.y = (int)tan(thetaReflected) * (prevPosition.y - stepSize);
+		}
+	}
 	//translate(nextPosition, -collisionPosition.x, -collisionPosition.y);
 	rotate(nextPosition, thetaReflected); // maybe requires a translation to the origin first?
 	//translate(nextPosition, collisionPosition.x, collisionPosition.y);

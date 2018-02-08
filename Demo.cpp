@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <cstdlib>
 #include <ctime>
-#include <cmath>
 #include "graphics.h"
 #include "primitives.h"
 #include "physics.h"
