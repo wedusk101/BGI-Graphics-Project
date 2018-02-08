@@ -1,4 +1,3 @@
-//physics.cpp
 //#include <iostream>
 #include "physics.h"
 #include "matrix.h"
@@ -16,15 +15,18 @@ Point getPosition(Point &prevPosition, Point &currentPosition, const double &ini
 	return finalPosition;
 }
 
-void getCollisionVector(const Point &collisionPosition, const Point &prevPosition, Point &nextPosition, const double &stepSize, const int &xMax, const int &yMax)
+Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &ymax)
 {
 	// returns a point along the direction of the particle's motion vector after collision using the laws of reflection
 	double dy = 0.0, dx = 0.0, thetaInitial = 0.0, thetaReflected = 0.0;
-	nextPosition = prevPosition;
+	Point nextPosition = prevPosition;
 	dy = prevPosition.y - collisionPosition.y;
 	dx = prevPosition.x - collisionPosition.x;
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
 	thetaReflected = 3.141592653 - 2 * thetaInitial; // pi - 2 * theta
-	// std::cout << thetaInitial << std::endl; ----- for debugging
+	//std::cout << thetaInitial << std::endl; ----- for debugging
+	//translate(nextPosition, -collisionPosition.x, -collisionPosition.y);
 	rotate(nextPosition, thetaReflected); // maybe requires a translation to the origin first?
+	return nextPosition;
+	//translate(nextPosition, collisionPosition.x, collisionPosition.y);
 }
