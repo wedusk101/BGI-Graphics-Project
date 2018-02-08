@@ -25,8 +25,9 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	thetaInitial = atan2(dy, dx); // returns the principal value of theta by calculating the correct quadrant
 	thetaReflected = 3.141592653 - 2 * thetaInitial; // pi - 2 * theta
 	//std::cout << thetaInitial << std::endl; ----- for debugging
+	//if(collisionPosition.x > xMax) consider different cases for xMax and yMax and also the direction of motion using dy and dx
 	//translate(nextPosition, -collisionPosition.x, -collisionPosition.y);
 	rotate(nextPosition, thetaReflected); // maybe requires a translation to the origin first?
-	return nextPosition;
 	//translate(nextPosition, collisionPosition.x, collisionPosition.y);
+	return nextPosition;
 }

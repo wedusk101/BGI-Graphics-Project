@@ -40,13 +40,12 @@ int main()
 		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
 		{
 			// this part is working as expected
-			/*nextPoint.x = rand() % xMax; // reflection needs to be set up
+			nextPoint.x = rand() % xMax; // reflection needs to be set up
 			nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
-			*/
-
-			//this part has bugs
+			
+			/*//this part has bugs
 			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax);
-			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);	
+			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);*/	
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
