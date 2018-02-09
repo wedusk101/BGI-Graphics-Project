@@ -22,7 +22,7 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	dy = prevPosition.y - collisionPosition.y;
 	dx = prevPosition.x - collisionPosition.x;
 	if (collisionPosition.x < 0 || collisionPosition.x > xMax)
-	{
+	{	// reduce the velocity and trace the follwoing conditions to fix bugs
 		if (dy < 0)
 		{
 			nextPosition.x = prevPosition.x;
