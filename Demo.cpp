@@ -14,7 +14,7 @@ int main()
 	int score = 0;
 	std::string points;
 	double initialVelocity = 0.005; // set according to situation - not needed here as of now
-	const double acceleration = 0.0, stepSize = 2.0; // arbitrary acceleration value - for g take 9.8
+	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	Point locus, nextPoint, mouse;
 	Circle ball;
 	std::cout << "Please enter the coordinates for the center of the ball (x,y)." << std::endl;
@@ -22,7 +22,7 @@ int main()
 	std::cout << "Please enter the radius of the ball." << std::endl;
 	std::cin >> ball.radius;
 	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
-	std::cin >> nextPoint.x >> nextPoint.y;
+	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 	initwindow(800, 600, "First Sample");
 	setcolor(12); // Pink 
 	int xMax = getmaxx(), yMax = getmaxy();
