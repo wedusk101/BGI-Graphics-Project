@@ -31,13 +31,13 @@ int main()
 	while (1) // check this
 	{
 		points = std::to_string(score);
-		char const *pstr = points.c_str();
-		outtextxy(xMax - 160, 50, "SCORE: ");
+		const char *pstr = points.c_str();
+		outtextxy(xMax - 170, 50, "SCORE: ");
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
 			getmouseclick(WM_LBUTTONDOWN, mouse.x, mouse.y); // gets the location of the mouse pointer when the mouse is clicked 
-			if (locus.x - mouse.x < 10 && locus.y - mouse.y < 10)
+			if (locus.x - mouse.x < 10 && locus.y - mouse.y < 10) // registers a hit
 			{
 				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
 				score += 10;
@@ -48,12 +48,12 @@ int main()
 		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
 		{
 			// this part is working as expected
-			nextPoint.x = rand() % xMax; // reflection needs to be set up
+			nextPoint.x = rand() % xMax; 
 			nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
 			
-			/*this part has bugs
-			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax);
-			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);*/
+			//this part has bugs
+			//nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax);
+			//locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
