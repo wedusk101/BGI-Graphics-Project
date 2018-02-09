@@ -14,7 +14,7 @@ int main()
 	line(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	std::cout << "Please enter the rotation angle in radians." << std::endl;
 	std::cin >> theta;
-	rotate(l.dst, theta);
+	rotate(l.dst, theta, 0, 0);
 	line(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	system("pause"); // windows only feature
 	closegraph();

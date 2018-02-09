@@ -1,11 +1,11 @@
 //matrix.cpp
 #include "matrix.h"
 
-void rotate(Point &p, const double &theta) 
+void rotate(Point &p, const double &theta, const int &pivotX, const int &pivotY) 
 {
 	Point bak = p; 
-	p.x = (int) bak.x * cos(theta) - bak.y * sin(theta);
-	p.y = (int) bak.x * sin(theta) + bak.y * cos(theta);
+	p.x = (int)pivotX + (bak.x - pivotX) * cos(theta) - (bak.y - pivotY) * sin(theta);
+	p.y = (int)pivotY + (bak.x - pivotX) * sin(theta) + (bak.y - pivotY) * cos(theta);
 }
 
 void translate(Point &p, const int &tx, const int &ty) 
