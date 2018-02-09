@@ -2,13 +2,17 @@
 #include <windows.h>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "graphics.h"
 #include "primitives.h"
 #include "physics.h"
 
+
 int main()
 {
 	srand(time(NULL));
+	int score = 0;
+	std::string points;
 	double initialVelocity = 0.005; // set according to situation - not needed here as of now
 	const double acceleration = 0.0, stepSize = 2.0; // arbitrary acceleration value - for g take 9.8
 	Point locus, nextPoint, mouse;
@@ -26,25 +30,30 @@ int main()
 	circle(ball.center.x, ball.center.y, ball.radius);
 	while (1) // check this
 	{
+		points = std::to_string(score);
+		char const *pstr = points.c_str();
+		outtextxy(xMax - 160, 50, "SCORE: ");
+		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
 			getmouseclick(WM_LBUTTONDOWN, mouse.x, mouse.y); // gets the location of the mouse pointer when the mouse is clicked 
 			if (locus.x - mouse.x < 10 && locus.y - mouse.y < 10)
 			{
-				outtextxy(mouse.x, mouse.y, "HIT!");
-				system("pause");
+				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
+				score += 10;
+				delay(1000); // pauses for a second after a successful hit
 			}
 		}
 		locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize); // nextPoint position of the center of the ball
 		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
 		{
 			// this part is working as expected
-			//nextPoint.x = rand() % xMax; // reflection needs to be set up
-			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
+			nextPoint.x = rand() % xMax; // reflection needs to be set up
+			nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
 			
-			//this part has bugs
+			/*this part has bugs
 			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax);
-			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);	
+			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);*/
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

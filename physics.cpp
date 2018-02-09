@@ -1,6 +1,5 @@
 //#include <iostream>
 #include "physics.h"
-#include "matrix.h"
 
 Point getPosition(Point &prevPosition, Point &currentPosition, const double &initialVelocity, const double &acceleration, const double &timeStep) 
 {
