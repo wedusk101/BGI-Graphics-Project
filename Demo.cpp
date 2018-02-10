@@ -45,13 +45,13 @@ int main()
 		}
 		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint position of the center of the ball
 		circle(locus.x, locus.y, ball.radius);
-		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
+		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection part --- this needs to be in a separate module
 		{
 			// this part is working as expected
 			//nextPoint.x = rand() % xMax; 
 			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
 
-			//this part has bugs --- particle eventually gets stuck at the corner
+			//this part has bugs --- particle eventually gets stuck at a corner
 			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
 			locus = getPosition(locus, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
 			circle(locus.x, locus.y, ball.radius);
