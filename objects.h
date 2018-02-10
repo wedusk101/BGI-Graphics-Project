@@ -30,6 +30,7 @@ typedef struct
 
 } LEG;
 */
+
 typedef struct
 {
 	Circle head;

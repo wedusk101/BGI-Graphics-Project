@@ -19,6 +19,7 @@ typedef struct
 	Point center;
 	int radius;
 } Circle;
+
 typedef struct
 {
 	Point tL;
