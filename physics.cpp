@@ -1,14 +1,14 @@
 //#include <iostream>
 #include "physics.h"
 
-Point getPosition(Point &prevPosition, Point &currentPosition, const double &initialVelocity, const double &acceleration, const double &timeStep) 
+Point getPosition(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep)
 {
 	// Verlet Integration code for calculating the next position of a particle in motion
 	// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
-	// the velocity will be calculated using Stormer-Verlet method ---- this feature hasn't been implemented yet
+	// the velocity will be calculated using Stormer-Verlet method ---- this feature hasn't been implemented here
 	Point finalPosition;
-	finalPosition.x = (int) 2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x;
-	finalPosition.y = (int) 2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y;
+	finalPosition.x = (int)2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x;
+	finalPosition.y = (int)2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y;
 	prevPosition = currentPosition;
 	currentPosition = finalPosition;
 	return finalPosition;
@@ -26,13 +26,13 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 		if (dy < 0)
 		{
 			nextPosition.x = prevPosition.x;
-			nextPosition.y = prevPosition.y - 2 * (prevPosition.y - collisionPosition.y);
+			nextPosition.y = prevPosition.y + 2 * (collisionPosition.y - prevPosition.y);
 			return nextPosition;
 		}
 		if (dy > 0)
 		{
 			nextPosition.x = prevPosition.x;
-			nextPosition.y = prevPosition.y + 2 * (collisionPosition.y - prevPosition.y);
+			nextPosition.y = prevPosition.y - 2 * (prevPosition.y - collisionPosition.y);
 			return nextPosition;
 		}
 	}

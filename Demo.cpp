@@ -12,12 +12,11 @@ int main()
 {
 	srand(time(NULL));
 	int score = 0;
-	std::string points;
-	double initialVelocity = 0.005; // set according to situation - not needed here as of now
+	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
 	Point locus, nextPoint, mouse;
 	Circle ball;
-	std::cout << "Please enter the coordinates for the center of the ball (x,y)." << std::endl;
+	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
 	std::cin >> ball.radius;
@@ -44,22 +43,23 @@ int main()
 				delay(1000); // pauses for a second after a successful hit
 			}
 		}
-		locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize); // nextPoint position of the center of the ball
+		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint position of the center of the ball
+		circle(locus.x, locus.y, ball.radius);
 		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection needs work - this is very crude and is for testing purposes only
 		{
 			// this part is working as expected
 			//nextPoint.x = rand() % xMax; 
-			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions upon hitting the edge of the screen
-			
-			//this part has bugs
-			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax);
-			locus = getPosition(ball.center, nextPoint, initialVelocity, acceleration, stepSize);
+			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
+
+			//this part has bugs --- particle eventually gets stuck at the corner
+			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
+			locus = getPosition(locus, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
+			circle(locus.x, locus.y, ball.radius);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
-		circle(locus.x, locus.y, ball.radius);
-		delay(250); // 60 FPS but the speed of the ball needs to be adjusted
-		cleardevice();		
+		delay(33); // 16ms = 60 FPS, 33 ms = 30 FPS 
+		cleardevice();
 	}
 	system("pause"); // windows only feature
 	closegraph();
