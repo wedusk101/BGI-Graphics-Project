@@ -20,10 +20,4 @@ typedef struct
 	int radius;
 } Circle;
 
-typedef struct
-{
-	Point tl;      //top left
-	Point rb;      //right bottom
-} Rect;                //rectangle
-
 #endif

@@ -1,13 +1,13 @@
 //#include <iostream>
 #include "physics.h"
 
-AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // width = x axis, height = y axis
+AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // objPosition = center of the object, width = x axis, height = y axis
 {
 	AABB bbox;
 	bbox.topLeft.x = objPosition.x - objWidth;
 	bbox.topLeft.y = objPosition.y - objHeight;
 	bbox.bottomRight.x = objPosition.x + objWidth;
-	bbox.bottomRight.y = objPosition.y - objHeight;
+	bbox.bottomRight.y = objPosition.y + objHeight;
 	return bbox;
 }
 
