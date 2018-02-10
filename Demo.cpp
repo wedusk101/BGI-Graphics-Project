@@ -16,6 +16,7 @@ int main()
 	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
 	Point locus, nextPoint, mouse;
 	Circle ball;
+	AABB ballBB;
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
@@ -45,7 +46,8 @@ int main()
 		}
 		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint position of the center of the ball
 		circle(locus.x, locus.y, ball.radius);
-		if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0) // collision detection part --- this needs to be in a separate module
+		ballBB = updateAABB(locus, ball.radius, ball.radius); // axis aligned bounding box for the ball 
+		if (ballBB.topLeft.x < 0 || ballBB.bottomRight.x > xMax || ballBB.topLeft.y < 0 || ballBB.topLeft.y > yMax) // collision detection part --- this needs to be in a separate module
 		{
 			// this part is working as expected
 			//nextPoint.x = rand() % xMax; 

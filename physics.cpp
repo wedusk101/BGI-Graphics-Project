@@ -1,6 +1,16 @@
 //#include <iostream>
 #include "physics.h"
 
+AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // width = x axis, height = y axis
+{
+	AABB bbox;
+	bbox.topLeft.x = objPosition.x - objWidth;
+	bbox.topLeft.y = objPosition.y - objHeight;
+	bbox.bottomRight.x = objPosition.x + objWidth;
+	bbox.bottomRight.y = objPosition.y - objHeight;
+	return bbox;
+}
+
 Point getPosition(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep)
 {
 	// Verlet Integration code for calculating the next position of a particle in motion
