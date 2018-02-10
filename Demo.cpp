@@ -32,7 +32,8 @@ int main()
 	{
 		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint is the next position of the center of the ball
 		circle(locus.x, locus.y, ball.radius);
-		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // axis aligned bounding box for the ball 
+		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // axis aligned bounding box for the ball
+		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
 		points = std::to_string(score);
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
@@ -51,13 +52,14 @@ int main()
 		{
 			
 			// this part is working as expected
-			//nextPoint.x = rand() % xMax; 
-			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
+			// nextPoint.x = rand() % xMax; 
+			// nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
 
 			//this part has bugs --- particle eventually gets stuck at a corner
 			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
 			locus = getPosition(locus, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
 			circle(locus.x, locus.y, ball.radius);
+			//ballBB = updateAABB(locus, ball.radius, ball.radius);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

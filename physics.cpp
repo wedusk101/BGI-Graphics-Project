@@ -1,4 +1,3 @@
-//#include <iostream>
 #include "physics.h"
 
 AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // objPosition = center of the object, width = x axis, height = y axis
@@ -6,8 +5,8 @@ AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHei
 	AABB bbox;
 	bbox.topLeft.x = objPosition.x - objWidth/2;
 	bbox.topLeft.y = objPosition.y - objHeight/2;
-	bbox.bottomRight.x = objPosition.x + objWidth;
-	bbox.bottomRight.y = objPosition.y + objHeight;
+	bbox.bottomRight.x = objPosition.x + objWidth/2;
+	bbox.bottomRight.y = objPosition.y + objHeight/2;
 	return bbox;
 }
 
@@ -33,6 +32,12 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	dx = prevPosition.x - collisionPosition.x;
 	if (collisionPosition.x < 0 || collisionPosition.x > xMax)
 	{	// reduce the velocity and trace the following conditions to fix bugs
+		if (dy == 0)
+		{
+			nextPosition.x = prevPosition.x;
+			nextPosition.y = prevPosition.y;
+			return nextPosition;
+		}
 		if (dy < 0)
 		{
 			nextPosition.x = prevPosition.x;
@@ -48,6 +53,12 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	}
 	if (collisionPosition.y < 0 || collisionPosition.y > yMax)
 	{
+		if (dx == 0)
+		{
+			nextPosition.x = prevPosition.x;
+			nextPosition.y = prevPosition.y;
+			return nextPosition;
+		}
 		if (dx < 0)
 		{
 			nextPosition.x = prevPosition.x + 2 * (collisionPosition.x - prevPosition.x);
