@@ -3,33 +3,6 @@
 
 #include "primitives.h"
 
-/*
-typedef struct
-{
-
-} HEAD;
-
-typedef struct
-{
-
-} NECK;
-
-typedef struct
-{
-
-} TORSO;
-
-typedef struct
-{
-	Point tl;
-	Point rb;
-} HAND;
-
-typedef struct
-{
-
-} LEG;
-*/
 typedef struct
 {
 	Circle head;
