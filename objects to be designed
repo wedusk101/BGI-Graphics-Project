@@ -1,12 +1,21 @@
+In progress
 
-Humanoid 
-target wall(for archery)
-Goal net(for football)
-basket (for basketball)
-bow and arrow design 
-basketball
-football
+1.Humanoid
 
+Up for grab(to be made)
+
+1.target wall(for archery)
+2.Goal net(for football)
+3.basket (for basketball)
+4.bow and arrow design 
+5.basketball
+6.football
+
+Note:
+The objects should be  implemented in a generalised manner following the pre-existing hierarchy of libraries.
+
+
+Advice:
 to get the look and feel download the following games from playstore
 football black
 basketball black

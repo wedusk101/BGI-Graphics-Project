@@ -3,6 +3,7 @@
 
 #include "primitives.h"
 
+<<<<<<< HEAD
 /*
 typedef struct
 {
@@ -31,6 +32,8 @@ typedef struct
 } LEG;
 */
 
+=======
+>>>>>>> origin/master
 typedef struct
 {
 	Circle head;
