@@ -30,6 +30,9 @@ int main()
 	circle(ball.center.x, ball.center.y, ball.radius);
 	while (1) // check this
 	{
+		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint is the next position of the center of the ball
+		circle(locus.x, locus.y, ball.radius);
+		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // axis aligned bounding box for the ball 
 		points = std::to_string(score);
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
@@ -44,11 +47,9 @@ int main()
 				delay(1000); // pauses for a second after a successful hit
 			}
 		}
-		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint position of the center of the ball
-		circle(locus.x, locus.y, ball.radius);
-		ballBB = updateAABB(locus, ball.radius, ball.radius); // axis aligned bounding box for the ball 
-		if (ballBB.topLeft.x < 0 || ballBB.bottomRight.x > xMax || ballBB.topLeft.y < 0 || ballBB.topLeft.y > yMax) // collision detection part --- this needs to be in a separate module
+		if (ballBB.topLeft.x < 0 || ballBB.bottomRight.x > xMax || ballBB.topLeft.y < 0 || ballBB.bottomRight.y > yMax) // <----this doesn't work but this one does ---> if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0)
 		{
+			
 			// this part is working as expected
 			//nextPoint.x = rand() % xMax; 
 			//nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
