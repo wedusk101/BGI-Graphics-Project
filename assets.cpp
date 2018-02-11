@@ -1,6 +1,7 @@
 #include "assets.h"
 #include "graphics.h"
 #include <cstdio>
+
 Humanoid genHumanoid(Point p)
 {
     //restraints to be included to make sure the object is within the window limits

@@ -16,7 +16,7 @@ int main()
 	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
-	AABB ballBB;
+	primitives::AABB ballBB;
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;

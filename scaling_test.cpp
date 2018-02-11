@@ -2,11 +2,12 @@
 #include "graphics.h"
 #include "primitives.h"
 #include "matrix.h"
+#include "windows.h"
 
 int main()
 {
 	Line l;
-	Point scaleFactor;
+	primitives::Point scaleFactor;
 	std::cout << "Please enter the coordinates for the end points of a line (x,y)." << std::endl;
 	std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 	initwindow(800, 600, "First Sample");

@@ -5,17 +5,18 @@
 #include <cmath>
 #include "primitives.h"
 
-using namespace primitives;
-
-typedef struct
+namespace primitives
 {
-	Point topLeft;
-	Point bottomRight;
-} AABB; // Axis Aligned Bounding Box required for physics calculations
+	typedef struct
+	{
+		Point topLeft;
+		Point bottomRight;
+	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
-Point getPosition(Point &, Point &, const double &, const double &);
-Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &);
-AABB updateAABB(const Point&, const int&, const int&);
+	Point getPosition(Point &, Point &, const double &, const double &);
+	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &);
+	AABB updateAABB(const Point&, const int&, const int&);
+}
 
 inline double getEuclideanDistance(const int &x1, const int &y1, const int &x2, const int &y2)
 {
