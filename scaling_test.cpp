@@ -6,7 +6,7 @@
 
 int main()
 {
-	Line l;
+	primitives::Line l;
 	primitives::Point scaleFactor;
 	std::cout << "Please enter the coordinates for the end points of a line (x,y)." << std::endl;
 	std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
