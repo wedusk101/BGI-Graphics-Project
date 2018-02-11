@@ -10,6 +10,18 @@ namespace primitives
 		bbox.topLeft.y = objPosition.y - objHeight/2;
 		bbox.bottomRight.x = objPosition.x + objWidth/2;
 		bbox.bottomRight.y = objPosition.y + objHeight/2;
+		bbox.bottomleft.x = bbox.bottomRight.x - objWidth;
+		bbox.bottomleft.y = bbox.bottomRight.y;
+		bbox.topRight.x = bbox.topLeft.x + objWidth;
+		bbox.topRight.y = bbox.topLeft.y;
+		bbox.topMid.x = (bbox.topLeft.x + bbox.topRight.x) / 2;
+		bbox.topMid.y = bbox.topLeft.y;
+		bbox.bottomMid.x = (bbox.bottomleft.x + bbox.bottomRight.x) / 2;
+		bbox.bottomMid.y = bbox.bottomRight.y;
+		bbox.leftMid.x = bbox.topLeft.x;
+		bbox.leftMid.y = (bbox.topLeft.y + bbox.bottomleft.y) / 2;
+		bbox.rightMid.x = bbox.bottomRight.x;
+		bbox.rightMid.y = (bbox.topRight.y + bbox.bottomRight.y) / 2;
 		return bbox;
 	}
 
@@ -33,7 +45,7 @@ namespace primitives
 		Point nextPosition;
 		dy = prevPosition.y - collisionPosition.y;
 		dx = prevPosition.x - collisionPosition.x;
-		if (collisionPosition.x < 0 || collisionPosition.x > xMax)
+		if (collisionPosition.x <= 0 || collisionPosition.x >= xMax)
 		{	// reduce the velocity and trace the following conditions to fix bugs
 			if (dy == 0)
 			{
@@ -53,7 +65,7 @@ namespace primitives
 				return nextPosition;
 			}
 		}
-		if (collisionPosition.y < 0 || collisionPosition.y > yMax)
+		if (collisionPosition.y <= 0 || collisionPosition.y >= yMax)
 		{
 			if (dx == 0)
 			{

@@ -17,12 +17,15 @@ int main()
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
 	primitives::AABB ballBB;
+	//primitives::Line l;
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
 	std::cin >> ball.radius;
 	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
+	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
+	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 	initwindow(800, 600, "First Sample");
 	setcolor(12); // Pink 
 	int xMax = getmaxx(), yMax = getmaxy();
@@ -30,6 +33,7 @@ int main()
 	circle(ball.center.x, ball.center.y, ball.radius);
 	while (1) // check this
 	{
+		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // nextPoint is the next position of the center of the ball
 		circle(locus.x, locus.y, ball.radius);
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // axis aligned bounding box for the ball
@@ -48,22 +52,51 @@ int main()
 				delay(1000); // pauses for a second after a successful hit
 			}
 		}
-		if (ballBB.topLeft.x < 0 || ballBB.bottomRight.x > xMax || ballBB.topLeft.y < 0 || ballBB.bottomRight.y > yMax) // <----this doesn't work but this one does ---> if (locus.x > xMax || locus.x < 0 || locus.y > yMax || locus.y < 0)
+		/*if (ballBB.bottomRight.x >= l.dst.x) // line collision --- just one case
 		{
-			
-			// this part is working as expected
-			// nextPoint.x = rand() % xMax; 
-			// nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
-
-			//this part has bugs --- particle eventually gets stuck at a corner
-			std::cout << "COLLISION DETECTED!" << std::endl;
-			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
-			locus = getPosition(locus, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
+			nextPoint = getCollisionVector(ballBB.bottomMid, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
+			locus = getPosition(ballBB.bottomMid, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
 			circle(locus.x, locus.y, ball.radius);
-			std::cout << "After Collision Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
-			std::cout << "After Collision Next: " << locus.x << " " << locus.y << std::endl; // for debugging
+		}*/
+		if (ballBB.topLeft.x <= 0) // left side of the AABB collides
+		{
+			nextPoint = getCollisionVector(ballBB.leftMid, ball.center, stepSize, xMax, yMax);
+			locus = getPosition(ballBB.leftMid, nextPoint, acceleration, stepSize); 
+			circle(locus.x, locus.y, ball.radius);
+			std::cout << "CASE 1" << std::endl;
+			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
+			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
 			system("pause");
-			//ballBB = updateAABB(locus, ball.radius, ball.radius);
+		}
+		if (ballBB.topLeft.y <= 0) // top side of the AABB collides
+		{
+			nextPoint = getCollisionVector(ballBB.topMid, ball.center, stepSize, xMax, yMax);
+			locus = getPosition(ballBB.topMid, nextPoint, acceleration, stepSize);
+			circle(locus.x, locus.y, ball.radius);
+			std::cout << "CASE 2" << std::endl;
+			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
+			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
+			system("pause");
+		}
+		if (ballBB.bottomRight.x >= xMax) // right side of the AABB collides
+		{
+			nextPoint = getCollisionVector(ballBB.rightMid, ball.center, stepSize, xMax, yMax);
+			locus = getPosition(ballBB.rightMid, nextPoint, acceleration, stepSize);
+			circle(locus.x, locus.y, ball.radius);
+			std::cout << "CASE 3" << std::endl;
+			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
+			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
+			system("pause");
+		}
+		if (ballBB.bottomRight.y >= yMax) // bottom side of the AABB collides
+		{
+			nextPoint = getCollisionVector(ballBB.bottomMid, ball.center, stepSize, xMax, yMax);
+			locus = getPosition(ballBB.bottomMid, nextPoint, acceleration, stepSize);
+			circle(locus.x, locus.y, ball.radius);
+			std::cout << "CASE 4" << std::endl;
+			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
+			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
+			system("pause");
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

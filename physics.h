@@ -10,7 +10,13 @@ namespace primitives
 	typedef struct
 	{
 		Point topLeft;
+		Point topRight;
+		Point bottomleft;
 		Point bottomRight;
+		Point topMid;
+		Point bottomMid;
+		Point leftMid;
+		Point rightMid;
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
 	Point getPosition(Point &, Point &, const double &, const double &);
