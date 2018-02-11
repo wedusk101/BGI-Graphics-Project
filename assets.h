@@ -3,47 +3,49 @@
 
 #include "primitives.h"
 
-using namespace primitives;
-
-/*
-typedef struct
+namespace primitives
 {
 
-} HEAD;
+	/*
+	typedef struct
+	{
 
-typedef struct
-{
+	} HEAD;
 
-} NECK;
+	typedef struct
+	{
 
-typedef struct
-{
+	} NECK;
 
-} TORSO;
+	typedef struct
+	{
 
-typedef struct
-{
-	Point tl;
-	Point rb;
-} HAND;
+	} TORSO;
 
-typedef struct
-{
+	typedef struct
+	{
+		Point tl;
+		Point rb;
+	} HAND;
 
-} LEG;
-*/
+	typedef struct
+	{
 
-typedef struct
-{
-	Circle head;
-	primitives::Rectangle neck;
-	primitives::Rectangle torso;
-	primitives::Rectangle rHand;
-	primitives::Rectangle lHand;
-	primitives::Rectangle rLeg;
-	primitives::Rectangle lLeg;
-} Humanoid;
+	} LEG;
+	*/
 
-Humanoid genHumanoid(Point p); //centre of the circle constituting the head is passed as argument
+	typedef struct
+	{
+		Circle head;
+		Rectangle neck;
+		Rectangle torso;
+		Rectangle rHand;
+	    Rectangle lHand;
+		Rectangle rLeg;
+		Rectangle lLeg;
+	} Humanoid;
+
+	Humanoid genHumanoid(Point p); //centre of the circle constituting the head is passed as argument
+}
 
 #endif
