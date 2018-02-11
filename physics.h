@@ -5,6 +5,8 @@
 #include <cmath>
 #include "primitives.h"
 
+using namespace primitives;
+
 typedef struct
 {
 	Point topLeft;

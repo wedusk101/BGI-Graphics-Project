@@ -1,5 +1,7 @@
 #include "physics.h"
 
+using namespace primitives;
+
 AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // objPosition = center of the object, width = x axis, height = y axis
 {
 	AABB bbox;
@@ -34,8 +36,7 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	{	// reduce the velocity and trace the following conditions to fix bugs
 		if (dy == 0)
 		{
-			nextPosition.x = prevPosition.x;
-			nextPosition.y = prevPosition.y;
+			nextPosition = prevPosition;
 			return nextPosition;
 		}
 		if (dy < 0)
@@ -55,8 +56,7 @@ Point getCollisionVector(const Point &collisionPosition, const Point &prevPositi
 	{
 		if (dx == 0)
 		{
-			nextPosition.x = prevPosition.x;
-			nextPosition.y = prevPosition.y;
+			nextPosition = prevPosition;
 			return nextPosition;
 		}
 		if (dx < 0)

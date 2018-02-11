@@ -14,8 +14,8 @@ int main()
 	int score = 0;
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
-	Point locus, nextPoint, mouse;
-	Circle ball;
+	primitives::Point locus, nextPoint, mouse;
+	primitives::Circle ball;
 	AABB ballBB;
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
@@ -56,9 +56,13 @@ int main()
 			// nextPoint.y = rand() % yMax; // right now the ball just runs around in random directions at random speeds upon hitting the edge of the screen
 
 			//this part has bugs --- particle eventually gets stuck at a corner
+			std::cout << "COLLISION DETECTED!" << std::endl;
 			nextPoint = getCollisionVector(locus, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
 			locus = getPosition(locus, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
 			circle(locus.x, locus.y, ball.radius);
+			std::cout << "After Collision Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
+			std::cout << "After Collision Next: " << locus.x << " " << locus.y << std::endl; // for debugging
+			system("pause");
 			//ballBB = updateAABB(locus, ball.radius, ball.radius);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging

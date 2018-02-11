@@ -2,28 +2,32 @@
 #ifndef PRIMITIVES__H_
 #define PRIMITIVES__H_
 
-typedef struct
+namespace primitives
 {
-	int x;
-	int y;
-} Point;
 
-typedef struct
-{
-	Point src;
-	Point dst;
-} Line;
+	typedef struct
+	{
+		int x;
+		int y;
+	} Point;
 
-typedef struct
-{
-	Point center;
-	int radius;
-} Circle;
+	typedef struct
+	{
+		Point src;
+		Point dst;
+	} Line;
 
-typedef struct
-{
-	Point tL;
-	Point bR;
-} Rect;
+	typedef struct
+	{
+		Point center;
+		int radius;
+	} Circle;
+
+	typedef struct
+	{
+		Point tL;
+		Point bR;
+	} Rectangle;
+}
 
 #endif
