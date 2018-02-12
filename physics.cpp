@@ -52,6 +52,11 @@ namespace primitives
 				nextPosition = prevPosition;
 				return nextPosition;
 			}
+			if (dy == dx || dy == -dx)
+			{
+				nextPosition = prevPosition;
+				return nextPosition;
+			}
 			if (dy < 0)
 			{
 				nextPosition.x = prevPosition.x;
@@ -68,6 +73,11 @@ namespace primitives
 		if (collisionPosition.y <= 0 || collisionPosition.y >= yMax)
 		{
 			if (dx == 0)
+			{
+				nextPosition = prevPosition;
+				return nextPosition;
+			}
+			if (dx == dy|| dx == -dy)
 			{
 				nextPosition = prevPosition;
 				return nextPosition;
