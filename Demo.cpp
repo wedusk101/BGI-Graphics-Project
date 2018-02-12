@@ -62,6 +62,7 @@ int main()
 		}*/
 		// collision handling part needs to be inside the physics module instead of in main()
 		// also need to handle collisions with the corner
+		// a posteriori collision detection
 		if (ballBB.topLeft.x <= 0) // left side of the AABB collides
 		{
 			nextPoint = getCollisionVector(ballBB.leftMid, prevBB.leftMid, stepSize, xMax, yMax);
@@ -112,7 +113,7 @@ int main()
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
-		delay(33); // 16ms = 60 FPS, 33 ms = 30 FPS 
+		delay(16); // 16ms = 60 FPS, 33 ms = 30 FPS 
 		cleardevice();
 	}
 	system("pause"); // windows only feature
