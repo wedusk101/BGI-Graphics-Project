@@ -45,14 +45,14 @@ namespace primitives
 		Point nextPosition;
 		dy = prevPosition.y - collisionPosition.y;
 		dx = prevPosition.x - collisionPosition.x;
+		if (dy == dx || dy == -dx)
+		{
+			nextPosition = prevPosition;
+			return nextPosition;
+		}
 		if (collisionPosition.x <= 0 || collisionPosition.x >= xMax)
 		{	// reduce the velocity and trace the following conditions to fix bugs
 			if (dy == 0)
-			{
-				nextPosition = prevPosition;
-				return nextPosition;
-			}
-			if (dy == dx || dy == -dx)
 			{
 				nextPosition = prevPosition;
 				return nextPosition;
@@ -73,11 +73,6 @@ namespace primitives
 		if (collisionPosition.y <= 0 || collisionPosition.y >= yMax)
 		{
 			if (dx == 0)
-			{
-				nextPosition = prevPosition;
-				return nextPosition;
-			}
-			if (dx == dy|| dx == -dy)
 			{
 				nextPosition = prevPosition;
 				return nextPosition;

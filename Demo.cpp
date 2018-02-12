@@ -11,7 +11,7 @@ int main()
 {
 	int score = 0;
 	std::string points; // for displaying the score
-	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
+	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB;
