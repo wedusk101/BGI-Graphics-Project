@@ -22,4 +22,12 @@ namespace primitives
 		p.x = sx * p.x;
 		p.y = sy * p.y;
 	}
+
+	Point getTranslatedPoint(const Point &p, const int &tx, const int &ty)
+	{
+		Point translatedPoint;
+		translatedPoint.x = p.x + tx;
+		translatedPoint.y = p.y + ty;
+		return translatedPoint;
+	}
 }
