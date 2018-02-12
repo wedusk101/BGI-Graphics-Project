@@ -1,7 +1,5 @@
 #include <iostream>
 #include <windows.h>
-#include <cstdlib>
-#include <ctime>
 #include <string>
 #include "graphics.h"
 #include "primitives.h"
@@ -10,7 +8,6 @@
 
 int main()
 {
-	srand(time(NULL));
 	int score = 0;
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 1.0; // arbitrary acceleration value - for g take 9.8
@@ -29,7 +26,7 @@ int main()
 	initwindow(800, 600, "First Sample");
 	setcolor(12); // Pink 
 	int xMax = getmaxx(), yMax = getmaxy();
-	std::cout << "X = " << xMax << " Y = " << yMax << std::endl;
+	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
 	circle(ball.center.x, ball.center.y, ball.radius);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius);
 	while (1) // check this
