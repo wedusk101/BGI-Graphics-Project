@@ -15,8 +15,8 @@ int main()
 	line(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	std::cout << "Please enter the scaling values for the axes (sx, sy)." << std::endl;
 	std::cin >> scaleFactor.x >> scaleFactor.y;
-	scale(l.src, scaleFactor.x, scaleFactor.y);
-	scale(l.dst, scaleFactor.x, scaleFactor.y);
+	scaleRay(l.src, scaleFactor.x, scaleFactor.y);
+	scaleRay(l.dst, scaleFactor.x, scaleFactor.y);
 	line(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	system("pause"); // windows only feature
 	closegraph();
