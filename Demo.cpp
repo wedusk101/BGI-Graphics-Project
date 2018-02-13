@@ -9,7 +9,7 @@
 
 int main()
 {
-	int score = 0;
+	int score = 0, frontBuffer = 0, backBuffer = 0;
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	primitives::Point locus, nextPoint, mouse;

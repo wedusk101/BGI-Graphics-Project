@@ -1,3 +1,4 @@
+
 #include "physics.h"
 
 namespace primitives
@@ -31,8 +32,8 @@ namespace primitives
 		// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
 		// the velocity will be calculated using Stormer-Verlet method ---- this feature hasn't been implemented here
 		Point finalPosition;
-		finalPosition.x = (int)2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x;
-		finalPosition.y = (int)2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y;
+		finalPosition.x = (int) round(2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x);
+		finalPosition.y = (int) round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y);
 		prevPosition = currentPosition;
 		currentPosition = finalPosition;
 		return finalPosition;
