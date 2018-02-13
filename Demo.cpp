@@ -9,7 +9,7 @@
 
 int main()
 {
-	int score = 0, frontBuffer = 0, backBuffer = 0;
+	int score = 0;
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	primitives::Point locus, nextPoint, mouse;
@@ -25,7 +25,7 @@ int main()
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 	initwindow(600, 600, "First Sample");
-	setcolor(12); // Pink 
+	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
 	circle(ball.center.x, ball.center.y, ball.radius);
@@ -33,6 +33,7 @@ int main()
 	while (1) // check this
 	{
 		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
+		cleardevice();
 		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
 		prevBB = ballBB; // backs up the ball's bounding box
@@ -113,8 +114,7 @@ int main()
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
-		delay(16); // 16ms = 60 FPS, 33 ms = 30 FPS 
-		cleardevice();
+		swapbuffers(); // double buffering to reduce flicker		
 	}
 	system("pause"); // windows only feature
 	closegraph();
