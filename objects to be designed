@@ -9,11 +9,12 @@ Guidelines:
 6.preferable if you can use Visual c++ when we work in the later stages as The game will be deployed as a 
   Windows conlose application
 7.Do have a look at primitives.h before you proceed
+8.To generalise you will need to work on mathematical aspects do include them in some form of documentation or reference links
 
 **THE MORE METICULOUS WE ARE THE LESSER WILL BE OUR PROBLEMS IN TESTING PHASE**
 
 In progress
-1.Humanoid
+1.Humanoid (Arihant)(I have uploaded a bit of crude code look in assets.cpp if you can contribute plz i am just a call away)
 
 
 
@@ -21,11 +22,14 @@ In progress
 
 Archery Project
 1.target wall
-2.bow and arrow design
+2.bow (Arihant)
+3.arrow
+
 
 Basketball Project
 1.hoop
 2.basketball
+
 
 Football Project
 1.football
