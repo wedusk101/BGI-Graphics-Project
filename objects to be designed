@@ -1,19 +1,35 @@
-In progress
 
+
+Guidelines:
+1.The objects should be  implemented in a generalised manner following the pre-existing hierarchy of libraries.
+2.If the object is to undergo any kind of transformation make sure you track all the required co-ordinates
+3.**When you pick up a object to design mandatorily place your name beside it to avoid conflict**
+4.The structure and generating funcion to be placed in assets.h header file and the definitions and calculations in assets.cpp
+5.If you feel like you can mail me the code prior to committing so that I can verify it - Arihant
+6.preferable if you can use Visual c++ when we work in the later stages as The game will be deployed as a 
+  Windows conlose application
+7.Do have a look at primitives.h before you proceed
+
+**THE MORE METICULOUS WE ARE THE LESSER WILL BE OUR PROBLEMS IN TESTING PHASE**
+
+In progress
 1.Humanoid
 
-Up for grab(to be made)
 
-1.target wall(for archery)
-2.Goal net(for football)
-3.basket (for basketball)
-4.bow and arrow design 
-5.basketball
-6.football
 
-Note:
-The objects should be  implemented in a generalised manner following the pre-existing hierarchy of libraries.
+**Up for grab(to be made)**
 
+Archery Project
+1.target wall
+2.bow and arrow design
+
+Basketball Project
+1.hoop
+2.basket
+
+Football Project
+1.football
+2.Goal net
 
 Advice:
 to get the look and feel download the following games from playstore
