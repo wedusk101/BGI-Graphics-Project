@@ -38,4 +38,13 @@ namespace primitives
 		rotatedPoint.y = (int)pivotY + (p.x - pivotX) * sin(theta) + (p.y - pivotY) * cos(theta);
 		return rotatedPoint;
 	}
+
+	Point getScaledRay(const Point &p, const int &sx, const int &sy)
+	{
+	    Point scaledRay;
+	    scaledRay.x = sx * p.x;
+	    scaledRay.y = sy * p.y;
+	    return scaledRay;
+	}
 }
+
