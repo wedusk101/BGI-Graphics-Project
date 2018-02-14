@@ -7,7 +7,7 @@ Guidelines:
 4.The structure and generating funcion to be placed in assets.h header file and the definitions and calculations in assets.cpp
 5.If you feel like you can mail me the code prior to committing so that I can verify it - Arihant
 6.preferable if you can use Visual c++ when we work in the later stages as The game will be deployed as a 
-  Windows conlose application
+  Windows console application
 7.Do have a look at primitives.h before you proceed
 8.To generalise you will need to work on mathematical aspects do include them in some form of documentation or reference links
 
