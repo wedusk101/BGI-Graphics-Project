@@ -19,7 +19,7 @@ namespace primitives
 		Point rightMid;
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
-	Point getPosition(Point &, Point &, const double &, const double &);
+	Point getNextPositionVerlet(Point &, Point &, const double &, const double &, double &);
 	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &);
 	AABB updateAABB(const Point&, const int&, const int&);
 }

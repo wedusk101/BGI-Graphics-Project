@@ -31,20 +31,11 @@ namespace primitives
 		return translatedPoint;
 	}
 
-	Point getRotatedRay(const Point &p, const double &theta, const int &pivotX, const int &pivotY)
+	Point getRotatedPoint(const Point &p, const double &theta, const int &pivotX, const int &pivotY)
 	{
-		Point rotatedRay;
-		rotatedRay.x = (int)pivotX + (p.x - pivotX) * cos(theta) - (p.y - pivotY) * sin(theta);
-		rotatedRay.y = (int)pivotY + (p.x - pivotX) * sin(theta) + (p.y - pivotY) * cos(theta);
-		return rotatedRay;
-	}
-
-	Point getScaledRay(const Point &p, const int &sx, const int &sy)
-	{
-	    Point scaledRay;
-	    scaledRay.x = sx * p.x;
-	    scaledRay.y = sy * p.y;
-	    return scaledRay;
+		Point rotatedPoint;
+		rotatedPoint.x = (int)pivotX + (p.x - pivotX) * cos(theta) - (p.y - pivotY) * sin(theta);
+		rotatedPoint.y = (int)pivotY + (p.x - pivotX) * sin(theta) + (p.y - pivotY) * cos(theta);
+		return rotatedPoint;
 	}
 }
-

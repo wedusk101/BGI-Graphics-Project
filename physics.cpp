@@ -26,14 +26,18 @@ namespace primitives
 		return bbox;
 	}
 
-	Point getPosition(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep)
+	Point getNextPositionVerlet(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep, double &theta)
 	{
 		// Verlet Integration code for calculating the next position of a particle in motion
 		// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
 		// the velocity will be calculated using Stormer-Verlet method ---- this feature hasn't been implemented here
+		double dy = 0.0, dx = 0.0;
 		Point finalPosition;
-		finalPosition.x = (int) round(2 * currentPosition.x + acceleration * pow(timeStep, 2) - prevPosition.x);
-		finalPosition.y = (int) round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y);
+		dy = prevPosition.y - currentPosition.y;
+		dx = prevPosition.x - currentPosition.x;
+		theta = atan2(dy, dx);
+		finalPosition.x = (int) round(2 * currentPosition.x + acceleration *  pow(timeStep, 2) - prevPosition.x); // cos(theta)
+		finalPosition.y = (int) round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y); //  sin(theta)
 		prevPosition = currentPosition;
 		currentPosition = finalPosition;
 		return finalPosition;

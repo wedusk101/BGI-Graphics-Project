@@ -5,27 +5,47 @@
 
 namespace primitives
 {
+
+	/*
+	typedef struct
+	{
+
+	} HEAD;
+
+	typedef struct
+	{
+
+	} NECK;
+
+	typedef struct
+	{
+
+	} TORSO;
+
+	typedef struct
+	{
+		Point tl;
+		Point rb;
+	} HAND;
+
+	typedef struct
+	{
+
+	} LEG;
+	*/
+
 	typedef struct
 	{
 		Circle head;
 		Rectangle neck;
 		Rectangle torso;
 		Rectangle rHand;
-	  	Rectangle lHand;
+	    Rectangle lHand;
 		Rectangle rLeg;
 		Rectangle lLeg;
 	} Humanoid;
-	
-	typedef struct
-	{
-	    Point center;
-	    Line uString;
-	    Line lString;
-	} Bow;
 
 	Humanoid genHumanoid(Point p); //centre of the circle constituting the head is passed as argument
-	Bow genBow(Point P);           // the argument is the point at which the arc is centered at
-
 }
 
 #endif

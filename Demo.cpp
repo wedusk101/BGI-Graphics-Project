@@ -11,11 +11,13 @@ int main()
 {
 	int score = 0;
 	std::string points; // for displaying the score
-	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
+	const double acceleration = 0.0, stepSize = 0.5;
+	double theta = 0.0; // arbitrary acceleration value - for g take 9.8, theta = pi/4
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB;
 	//primitives::Line l;
+
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
@@ -24,27 +26,31 @@ int main()
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
+
 	initwindow(600, 600, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
+
 	circle(ball.center.x, ball.center.y, ball.radius);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 	while (1) // check this
 	{
 		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 		cleardevice();
-		locus = getPosition(ball.center, nextPoint, acceleration, stepSize); // locus is the next position of the center of the ball along the direction of motion
+		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
 		prevBB = ballBB; // backs up the ball's bounding box
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
+
 		points = std::to_string(score);
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 		//if (GetAsyncKeyState(VK_LEFT)) //keyboard input
 		//setactivepage(int page), setvisualpage(int page), swapbuffers()
+
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
 			getmouseclick(WM_LBUTTONDOWN, mouse.x, mouse.y); // gets the location of the mouse pointer when the mouse is clicked 
@@ -58,7 +64,7 @@ int main()
 		/*if (ballBB.bottomRight.x >= l.dst.x) // line collision --- just one case
 		{
 			nextPoint = getCollisionVector(ballBB.bottomMid, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
-			locus = getPosition(ballBB.bottomMid, nextPoint, acceleration, stepSize); // in getPosition(), locus is the point pf collision of the particle with the box 
+			locus = getNextPositionVerlet(ballBB.bottomMid, nextPoint, acceleration, stepSize); // in getNextPositionVerlet(), locus is the point pf collision of the particle with the box 
 			circle(locus.x, locus.y, ball.radius);
 		}*/
 		// collision handling part needs to be inside the physics module instead of in main()
@@ -69,7 +75,7 @@ int main()
 			nextPoint = getCollisionVector(ballBB.leftMid, prevBB.leftMid, stepSize, xMax, yMax);
 			translatePoint(nextPoint, ball.radius, 0);
 			ball.center = getTranslatedPoint(ballBB.leftMid, ball.radius, 0);
-			locus = getPosition(ball.center, nextPoint, acceleration, stepSize);
+			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
 			circle(locus.x, locus.y, ball.radius);
 			std::cout << "CASE 1" << std::endl; // for debugging
 			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
@@ -81,7 +87,7 @@ int main()
 			nextPoint = getCollisionVector(ballBB.topMid, prevBB.topMid, stepSize, xMax, yMax);
 			translatePoint(nextPoint, 0, ball.radius);
 			ball.center = getTranslatedPoint(ballBB.topMid, 0, ball.radius);
-			locus = getPosition(ball.center, nextPoint, acceleration, stepSize);
+			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
 			circle(locus.x, locus.y, ball.radius);
 			std::cout << "CASE 2" << std::endl; // for debugging
 			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
@@ -93,7 +99,7 @@ int main()
 			nextPoint = getCollisionVector(ballBB.rightMid, prevBB.rightMid, stepSize, xMax, yMax);
 			translatePoint(nextPoint, -ball.radius, 0);
 			ball.center = getTranslatedPoint(ballBB.rightMid, -ball.radius, 0);
-			locus = getPosition(ball.center, nextPoint, acceleration, stepSize);
+			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
 			circle(locus.x, locus.y, ball.radius);
 			std::cout << "CASE 3" << std::endl; // for debugging
 			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
@@ -105,7 +111,7 @@ int main()
 			nextPoint = getCollisionVector(ballBB.bottomMid, prevBB.bottomMid, stepSize, xMax, yMax);
 			translatePoint(nextPoint, 0, -ball.radius);
 			ball.center = getTranslatedPoint(ballBB.bottomMid, 0, -ball.radius);
-			locus = getPosition(ball.center, nextPoint, acceleration, stepSize);
+			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
 			circle(locus.x, locus.y, ball.radius);
 			std::cout << "CASE 4" << std::endl; // for debugging
 			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
