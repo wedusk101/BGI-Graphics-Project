@@ -62,13 +62,6 @@ int main()
 				delay(1000); // pauses for a second after a successful hit
 			}
 		}
-		/*if (ballBB.bottomRight.x >= l.dst.x) // line collision --- just one case
-		{
-			nextPoint = getCollisionVector(ballBB.bottomMid, ball.center, stepSize, xMax, yMax); // returns the next point in the particle's path right after collision
-			locus = getNextPositionVerlet(ballBB.bottomMid, nextPoint, acceleration, stepSize); // in getNextPositionVerlet(), locus is the point pf collision of the particle with the box 
-			circle(locus.x, locus.y, ball.radius);
-		}*/
-		// collision handling part needs to be inside the physics module instead of in main()
 		// also need to handle collisions with the corner
 		// a posteriori collision detection
 		if(collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
