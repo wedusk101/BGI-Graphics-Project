@@ -1,4 +1,6 @@
 //primitives.h
+#pragma once
+
 #ifndef PRIMITIVES__H_
 #define PRIMITIVES__H_
 

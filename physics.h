@@ -1,4 +1,6 @@
 //physics.h
+#pragma once
+
 #ifndef PHYSICS__H_
 #define PHYSICS__H_
 
