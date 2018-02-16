@@ -1,5 +1,6 @@
 //physics.cpp
 #include "physics.h"
+#include "matrix.h"
 
 namespace primitives
 {
@@ -95,5 +96,45 @@ namespace primitives
 				return nextPosition;
 			}
 		}
+	}
+
+	bool collideCircleScreen(Circle &circle, const AABB &objBB, const AABB &prevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
+	{
+		if (objBB.topLeft.x <= 0) // left side of the AABB collides
+		{
+			nextPoint = getCollisionVector(objBB.leftMid, prevBB.leftMid, stepSize, xMax, yMax);
+			translatePoint(nextPoint, circle.radius, 0);
+			circle.center = getTranslatedPoint(objBB.leftMid, circle.radius, 0);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+
+		if (objBB.topLeft.y <= 0) // top side of the AABB collides
+		{
+			nextPoint = getCollisionVector(objBB.topMid, prevBB.topMid, stepSize, xMax, yMax);
+			translatePoint(nextPoint, 0, circle.radius);
+			circle.center = getTranslatedPoint(objBB.topMid, 0, circle.radius);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+
+		if (objBB.bottomRight.x >= xMax) // right side of the AABB collides
+		{
+			nextPoint = getCollisionVector(objBB.rightMid, prevBB.rightMid, stepSize, xMax, yMax);
+			translatePoint(nextPoint, -circle.radius, 0);
+			circle.center = getTranslatedPoint(objBB.rightMid, -circle.radius, 0);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+
+		if (objBB.bottomRight.y >= yMax) // bottom side of the AABB collides
+		{
+			nextPoint = getCollisionVector(objBB.bottomMid, prevBB.bottomMid, stepSize, xMax, yMax);
+			translatePoint(nextPoint, 0, -circle.radius);
+			circle.center = getTranslatedPoint(objBB.bottomMid, 0, -circle.radius);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+		return false;
 	}
 }

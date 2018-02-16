@@ -71,59 +71,16 @@ int main()
 		// collision handling part needs to be inside the physics module instead of in main()
 		// also need to handle collisions with the corner
 		// a posteriori collision detection
-		if (ballBB.topLeft.x <= 0) // left side of the AABB collides
+		if(collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
-			nextPoint = getCollisionVector(ballBB.leftMid, prevBB.leftMid, stepSize, xMax, yMax);
-			translatePoint(nextPoint, ball.radius, 0);
-			ball.center = getTranslatedPoint(ballBB.leftMid, ball.radius, 0);
-			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
 			circle(locus.x, locus.y, ball.radius);
-			std::cout << "CASE 1" << std::endl; // for debugging
-			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
-			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
-			//system("pause"); // for debugging
-		}
-		if (ballBB.topLeft.y <= 0) // top side of the AABB collides
-		{
-			nextPoint = getCollisionVector(ballBB.topMid, prevBB.topMid, stepSize, xMax, yMax);
-			translatePoint(nextPoint, 0, ball.radius);
-			ball.center = getTranslatedPoint(ballBB.topMid, 0, ball.radius);
-			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
-			circle(locus.x, locus.y, ball.radius);
-			std::cout << "CASE 2" << std::endl; // for debugging
-			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
-			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
-			//system("pause"); // for debugging
-		}
-		if (ballBB.bottomRight.x >= xMax) // right side of the AABB collides
-		{
-			nextPoint = getCollisionVector(ballBB.rightMid, prevBB.rightMid, stepSize, xMax, yMax);
-			translatePoint(nextPoint, -ball.radius, 0);
-			ball.center = getTranslatedPoint(ballBB.rightMid, -ball.radius, 0);
-			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize,theta);
-			circle(locus.x, locus.y, ball.radius);
-			std::cout << "CASE 3" << std::endl; // for debugging
-			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
-			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
-			//system("pause"); // for debugging
-		}
-		if (ballBB.bottomRight.y >= yMax) // bottom side of the AABB collides
-		{
-			nextPoint = getCollisionVector(ballBB.bottomMid, prevBB.bottomMid, stepSize, xMax, yMax);
-			translatePoint(nextPoint, 0, -ball.radius);
-			ball.center = getTranslatedPoint(ballBB.bottomMid, 0, -ball.radius);
-			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta);
-			circle(locus.x, locus.y, ball.radius);
-			std::cout << "CASE 4" << std::endl; // for debugging
-			std::cout << "After Collision locus: " << locus.x << " " << locus.y << std::endl; // for debugging
-			std::cout << "After Collision nextPoint: " << nextPoint.x << " " << nextPoint.y << std::endl; // for debugging
-			//system("pause"); // for debugging
+			system("pause"); // for debugging
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
 		swapbuffers(); // double buffering to reduce flicker		
 	}
-	system("pause"); // windows only feature
+	//system("pause"); // windows only feature
 	closegraph();
 	return 0;
 }
