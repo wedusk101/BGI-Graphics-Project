@@ -14,8 +14,8 @@ namespace primitives
 		int x;
 		int y;
 
-		Vec2() : x(0), y(0) {}		
-		Vec2(int x_, int y_) : x(x_), y(y_) {} // member initialization list
+		// Vec2() : x(0), y(0) {}		
+		// Vec2(int x_, int y_) : x(x_), y(y_) {} // member initialization list
 
 		Vec2 operator+ (const Vec2 &v) const
 		{

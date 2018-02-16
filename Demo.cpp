@@ -13,9 +13,13 @@ int main()
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
+
+
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB;
+
+
 	//primitives::Line l;
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
@@ -25,6 +29,8 @@ int main()
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
+
+
 	initwindow(600, 600, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
