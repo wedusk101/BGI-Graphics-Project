@@ -60,8 +60,7 @@ int main()
 			{
 				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
 				score += 10;
-				//delay(1000); // pauses for a second after a successful hit
-				shockWave(locus, ball.radius, ball.radius + 40);
+				delay(1000); // pauses for a second after a successful hit
 			}
 		}
 		// also need to handle collisions with the corner
@@ -70,6 +69,7 @@ int main()
 		{
 			circle(locus.x, locus.y, ball.radius);
 			//system("pause"); // for debugging
+			shockWave(locus, ball.radius, ball.radius + 40);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

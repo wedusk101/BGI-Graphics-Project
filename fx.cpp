@@ -23,7 +23,7 @@ namespace primitives
 				y  = radius * sin(theta) + center.y;
 
 				putpixel(x, y, 12);
-				delay(10);
+				//delay(10);
 			}
 		}
 	}
