@@ -55,7 +55,8 @@ namespace primitives
 		Line lString;
 	} Bow;
 
-	Humanoid genHumanoid(Point p); //centre of the circle constituting the head is passed as argument
+	Humanoid genHumanoid(const Point &); //centre of the circle constituting the head is passed as argument
+	Bow genBow(const Point &);
 }
 
 #endif
