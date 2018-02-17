@@ -5,6 +5,7 @@
 #include "primitives.h"
 #include "physics.h"
 #include "matrix.h"
+#include "fx.h"
 
 
 int main()
@@ -59,7 +60,8 @@ int main()
 			{
 				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
 				score += 10;
-				delay(1000); // pauses for a second after a successful hit
+				//delay(1000); // pauses for a second after a successful hit
+				shockWave(locus, ball.radius, ball.radius + 40);
 			}
 		}
 		// also need to handle collisions with the corner
@@ -67,11 +69,11 @@ int main()
 		if(collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
-			system("pause"); // for debugging
+			//system("pause"); // for debugging
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
-		swapbuffers(); // double buffering to reduce flicker		
+		//swapbuffers(); // double buffering to reduce flicker		
 	}
 	//system("pause"); // windows only feature
 	closegraph();
