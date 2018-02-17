@@ -3,7 +3,6 @@
 #include <ctime>
 #include <cmath>
 #include "graphics.h"
-#include "physics.h"
 #include "fx.h"
 
 namespace primitives
