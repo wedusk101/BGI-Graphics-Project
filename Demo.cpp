@@ -61,6 +61,7 @@ int main()
 				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
+				//primitives::showerConfetti(xMax, yMax); // Work in progress - ignore this function call
 			}
 		}
 		// also need to handle collisions with the corner

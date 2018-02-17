@@ -10,8 +10,9 @@
 namespace primitives
 {
 	void shockWave(const Point &, const int &, const int &);
+	// void showerConfetti(const int &, const int &); // WIP
 }
 
-void boxBlur(const int &, const int &, const int &, const int &, const int &); // WIP
+// void boxBlur(const int &, const int &, const int &, const int &, const int &); // WIP
 
 #endif
