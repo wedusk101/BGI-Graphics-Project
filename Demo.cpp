@@ -59,6 +59,7 @@ int main()
 			if (locus.x - mouse.x < 10 && locus.y - mouse.y < 10) // registers a hit
 			{
 				outtextxy(mouse.x, mouse.y, "HIT! +10"); // displays the hit confirmation
+				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
 				//primitives::showerConfetti(xMax, yMax); // Work in progress - ignore this function call
@@ -74,7 +75,7 @@ int main()
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
-		//swapbuffers(); // double buffering to reduce flicker		
+		swapbuffers(); // double buffering to reduce flicker		
 	}
 	//system("pause"); // windows only feature
 	closegraph();
