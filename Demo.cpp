@@ -62,7 +62,7 @@ int main()
 				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
-				primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call
+				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
 			}
 		}
 		// also need to handle collisions with the corner
