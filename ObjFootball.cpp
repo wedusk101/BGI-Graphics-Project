@@ -152,14 +152,13 @@ namespace primitives
 	system("pause");
 }
 
-/*int main()                    //test bow
+/*int main()                    //test humanoid
 {
     initwindow(480,480);
-    primitives::Bow b1;
+    primitives::Humanoid h1;
     primitives::Point temp;
     printf(" enter x,y \n");
     scanf("%d%d",&temp.x,&temp.y);
-    b1 = primitives::genBow(temp);
+    h1 = primitives::genHumanoid(temp);
     getch();
 }*/
-
