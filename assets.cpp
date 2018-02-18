@@ -190,6 +190,41 @@ namespace primitives
         	rectangle(rod1.tL.x,rod1.tL.y,rod1.bR.x,rod1.bR.y);
         	rectangle(rod2.tL.x,rod2.tL.y,rod2.bR.x,rod2.bR.y);
 	}
+	void goalposT()
+	{
+
+		primitives::Line top,reaR,bottom,front;
+		int maxx=getmaxx();
+		int maxy=getmaxy();
+		top.src.x=maxx*2/3;
+		top.src.y=maxy*1/4;
+		top.dst.x=maxx*5/6;
+		top.dst.y=maxy*1/4;
+		front.src.x=maxx*2/3;
+		front.src.y=maxy*1/4;
+		front.dst.x=maxx*2/3;
+		front.dst.y=maxy;
+		reaR.src.x=maxx*5/6;
+		reaR.src.y=maxy*1/4;
+		reaR.dst.x=maxx;
+		reaR.dst.y=maxy*3/4;
+		bottom.src.x=maxx*2/3;
+		bottom.src.y=maxy;
+		bottom.dst.x=maxx;
+		bottom.dst.y=maxy;
+
+		setlinestyle(0,0,20);
+		line(top.src.x,top.src.y,top.dst.x,top.dst.y);//top bar//
+		setlinestyle(0,0,20);
+		line(reaR.src.x,reaR.src.y,reaR.dst.x,reaR.dst.y);//rear post//
+		setlinestyle(0,0,20);
+		line(front.src.x,front.src.y,front.dst.x,front.dst.y);//front post//
+		setlinestyle(0,0,20);
+		line(bottom.src.x,bottom.src.y,bottom.dst.x,bottom.dst.y);//bottom//
+		setfillstyle(HATCH_FILL,WHITE);
+		floodfill((maxx*2/3)+30,(maxy*1/4)+20,WHITE);
+	}
+
 
 }
 
