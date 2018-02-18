@@ -30,14 +30,13 @@ namespace primitives
 		}
 	}
 
-	void showerConfetti(const int &xMax, const int &yMax) // maybe this needs to be multithreaded - WIP
+	void showerConfetti(const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, const int &width, const int &height, const int &particleCount) // maybe this needs to be multithreaded - WIP
 	{
 		srand(time(NULL));
-		const int height = 3, width = 6, size = 25; // set number of confettis to spawn over here
 		int x = 0, y = 0, tx = 0, ty = 0, i = 0;
-		double theta = 0.0, acceleration = 0.0, dummy = 0.0;
+		double theta = 0.0, dummy = 0.0;
 
-		for (i = 0; i != size; i++)
+		for (i = 0; i != particleCount; i++)
 		{
 			Point locus, currentPosition;
 			Rectangle confetti;
@@ -54,7 +53,7 @@ namespace primitives
 			currentPosition.y = confetti.bR.y + ty;
 
 
-			locus = getNextPositionVerlet(confetti.bR, currentPosition, acceleration, 0.5, dummy);
+			locus = getNextPositionVerlet(confetti.bR, currentPosition, acceleration, stepSize, dummy);
 			while (locus.y <= yMax)
 			{
 				rectangle(confetti.bR.x - width, confetti.bR.y - height, confetti.bR.x, confetti.bR.y);
