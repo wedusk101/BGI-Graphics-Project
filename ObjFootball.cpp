@@ -86,6 +86,22 @@ namespace primitives
 	floodfill(ball.center.x, ball.center.y,15);
 
     }
+	void Rods(const int &X,const int &Y)
+	{
+        	setcolor(15);
+    		primitives :: Rectangle rod1,rod2;
+    		rod1.tL.x = X;
+        	rod1.tL.y = 0;
+        	rod1.bR.y = Y;
+        	rod1.bR.x = rod1.tL.x+50;
+        	rod2.tL.x = rod1.tL.x;
+        	rod2.bR.x = rod1.bR.x;
+        	rod2.bR.y = getmaxy();
+        	rod2.tL.y = rod1.bR.y+100;
+        	rectangle(rod1.tL.x,rod1.tL.y,rod1.bR.x,rod1.bR.y);
+        	rectangle(rod2.tL.x,rod2.tL.y,rod2.bR.x,rod2.bR.y);
+	}
+
 }
  /* int main()
 {
