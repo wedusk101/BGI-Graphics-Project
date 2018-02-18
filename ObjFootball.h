@@ -6,5 +6,6 @@
 namespace primitives
 {
     void football(const Circle &)
+    void Rods(const int &,const int &);
 }
 #endif
