@@ -11,7 +11,7 @@ namespace primitives
 		Rectangle neck;
 		Rectangle torso;
 		Rectangle rHand;
-	    Rectangle lHand;
+	        Rectangle lHand;
 		Rectangle rLeg;
 		Rectangle lLeg;
 	} Humanoid;
