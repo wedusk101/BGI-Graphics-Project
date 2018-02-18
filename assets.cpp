@@ -65,17 +65,6 @@ namespace primitives
 
 }
 
-/*int main()                    //test humanoid
-{
-    initwindow(480,480);
-    primitives::Humanoid h1;
-    primitives::Point temp;
-    printf(" enter x,y \n");
-    scanf("%d%d",&temp.x,&temp.y);
-    h1 = primitives::genHumanoid(temp);
-    getch();
-}*/
-
 /*int main()                    //test bow
 {
     initwindow(480,480);
