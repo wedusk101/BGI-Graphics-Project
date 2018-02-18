@@ -36,35 +36,41 @@ namespace primitives
 		int x = 0, y = 0, tx = 0, ty = 0, i = 0, j = 0;
 		double theta = 0.0, dummy = 0.0;
 
-		for (i = 0; i != particleCount; i++)
+		Point *locus = new Point[particleCount];
+		Point *currentPosition = new Point[particleCount];
+		Rectangle *confetti = new Rectangle[particleCount];
+
+		for (i = 0; i != particleCount; i++) // spawns the particles
 		{
-			for (j = 0; j != particleCount; j++)
-			{
-				Point locus, currentPosition;
-				Rectangle confetti;
-				confetti.tL.x = rand() % xMax - 10; // 10 is a bias value
-				confetti.tL.y = 0;
-				confetti.bR.x = confetti.tL.x + width;
-				confetti.bR.y = height;
-				theta = (rand() % 180) / 57.3; // generates a random angle between 0 and pi radians
-				ty = rand() % (yMax / 50);
-				rotateRay(confetti.tL, theta, 0, 0);
-				rotateRay(confetti.bR, theta, 0, 0);
-				rectangle(confetti.tL.x, confetti.tL.y, confetti.bR.x, confetti.bR.y);
-				currentPosition.x = confetti.bR.x;
-				currentPosition.y = confetti.bR.y + ty;
+			confetti[i].tL.x = rand() % xMax - 10; // 10 is a bias value
+			confetti[i].tL.y = 0;
+			confetti[i].bR.x = confetti[i].tL.x + width;
+			confetti[i].bR.y = height;
 
 
-				locus = getNextPositionVerlet(confetti.bR, currentPosition, acceleration, stepSize, dummy);
-				while (locus.y <= yMax)
-				{
-					rectangle(confetti.bR.x - width, confetti.bR.y - height, confetti.bR.x, confetti.bR.y);
-					locus = getNextPositionVerlet(confetti.bR, currentPosition, acceleration, stepSize, dummy);
-					//cleardevice();
-				}
-			}
+			theta = (rand() % 180) / 57.3; // generates a random angle between 0 and pi radians
+			ty = rand() % (yMax / 50); // controls the velocity of the particles - where 0 <= ty < yMax
+			rotateRay(confetti[i].tL, theta, 0, 0); // rotates individual confettis randomly
+			rotateRay(confetti[i].bR, theta, 0, 0);
+			rectangle(confetti[i].tL.x, confetti[i].tL.y, confetti[i].bR.x, confetti[i].bR.y);
 
+
+			currentPosition[i].x = confetti[i].bR.x;
+			currentPosition[i].y = confetti[i].bR.y + ty;
+
+
+			locus[i] = getNextPositionVerlet(confetti[i].bR, currentPosition[i], acceleration, stepSize, dummy);
 		}
+		
+		
+		for(i = 0; locus[i].y <= yMax; i++) // creates the shower of particles
+		{
+			rectangle(confetti[i].bR.x - width, confetti[i].bR.y - height, confetti[i].bR.x, confetti[i].bR.y);
+			locus[i] = getNextPositionVerlet(confetti[i].bR, currentPosition[i], acceleration, stepSize, dummy);
+			cleardevice();
+		}
+
+		delete locus, currentPosition, confetti; // cleanup
 	}
 }
 
