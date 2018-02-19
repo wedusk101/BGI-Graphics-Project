@@ -225,6 +225,7 @@ namespace primitives
 		line(bottom.src.x,bottom.src.y,bottom.dst.x,bottom.dst.y);//bottom//
 		setfillstyle(HATCH_FILL,WHITE);
 		floodfill((maxx*2/3)+30,(maxy*1/4)+20,WHITE);
+		setlinestyle(0,0,0);
 	}
 
 
