@@ -14,26 +14,25 @@ namespace primitives
 		Line uString;
 		Line lString;
 	} Bow;
-	 typedef struct
+	
+	typedef struct
 	{
 		Circle head;
 		Rectangle neck;
 		Rectangle torso;
 		Rectangle rHand;
-	        Rectangle lHand;
+	    Rectangle lHand;
 		Rectangle rLeg;
 		Rectangle lLeg;
 	} Humanoid;
     
     
-        Humanoid genHumanoid(const Point &); //centre of the circle constituting the head is passed as argument
-        void football(const Circle &);
-        void Rods(const int &,const int &);
-	void goalposT();
-
-
-	  
+    Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
 	Bow genBow(const Point &);
+	
+    void genFootball(const Circle &);
+    void genRods(const int &,const int &);
+	void genGoalPost();	
 }
 
 #endif
