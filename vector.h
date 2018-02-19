@@ -25,7 +25,7 @@ namespace primitives
 			return result;
 		}
 
-		Vec2 operator-(const Vec2 &v) const
+		Vec2 operator- (const Vec2 &v) const
 		{
 			Vec2 result;
 			result.x = x - v.x;

@@ -1,0 +1,4 @@
+﻿  assets.cpp
+q:\libraries\mca\project\game\assets.cpp(107): warning C4101: 'point': unreferenced local variable
+  bgi.vcxproj -> Q:\Libraries\MCA\Project\Game\Debug\Game.exe
+  bgi.vcxproj -> Q:\Libraries\MCA\Project\Game\Debug\Game.pdb (Partial PDB)

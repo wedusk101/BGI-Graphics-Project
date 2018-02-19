@@ -40,9 +40,9 @@ namespace primitives
 		Point *currentPosition = new Point[particleCount];
 		Rectangle *confetti = new Rectangle[particleCount];
 
-		for (i = 0; i != particleCount; i++) // spawns the particles
+		for (i = 0; i != particleCount - 1; i++) // spawns the particles
 		{
-			confetti[i].tL.x = rand() % xMax - 10; // 10 is a bias value
+			confetti[i].tL.x = rand() % xMax; // use a bias value if needed
 			confetti[i].tL.y = 0;
 			confetti[i].bR.x = confetti[i].tL.x + width;
 			confetti[i].bR.y = height;
@@ -63,11 +63,15 @@ namespace primitives
 		}
 		
 		
-		for(i = 0; locus[i].y <= yMax; i++) // creates the shower of particles
+		// for(i = 0; locus[i].y <= yMax; i++) // creates the shower of particles
+		while (locus[j].y <= yMax)
 		{
-			rectangle(confetti[i].bR.x - width, confetti[i].bR.y - height, confetti[i].bR.x, confetti[i].bR.y);
-			locus[i] = getNextPositionVerlet(confetti[i].bR, currentPosition[i], acceleration, stepSize, dummy);
-			cleardevice();
+			for (i = 0, j = i; i != particleCount - 1; i++)
+			{
+				rectangle(confetti[i].bR.x - width, confetti[i].bR.y - height, confetti[i].bR.x, confetti[i].bR.y);
+				locus[i] = getNextPositionVerlet(confetti[i].bR, currentPosition[i], acceleration, stepSize, dummy);
+				//cleardevice();
+			}
 		}
 
 		delete locus, currentPosition, confetti; // cleanup
