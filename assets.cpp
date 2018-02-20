@@ -242,6 +242,28 @@ namespace primitives
 		setfillstyle(HATCH_FILL,WHITE);
 		floodfill((maxx*2/3)+30,(maxy*1/4)+20,WHITE);
 	}
+	Target genTarget(const Point &p)
+    	{
+        	Target targ;
+        	targ.vert.src.x = p.x;
+        	targ.vert.src.y = p.y;
+        	targ.vert.dst.x = p.x;
+        	targ.vert.dst.y = p.y + 125;
+        	targ.horiz.src.x = (targ.vert.src.x + targ.vert.dst.x)/2;
+        	targ.horiz.src.y = (targ.vert.src.y + targ.vert.dst.y)/2;
+        	targ.horiz.dst.x = targ.horiz.src.x + 80;
+        	targ.horiz.dst.y = targ.horiz.src.y;
+        	return targ;
+    	}
+    	void drawTarget(Target targ)
+    	{
+        	setlinestyle(0,0,5);
+        	line(targ.vert.src.x,targ.vert.src.y,targ.vert.dst.x,targ.vert.dst.y);
+        	setlinestyle(0,0,5);
+        	line(targ.horiz.src.x,targ.horiz.src.y,targ.horiz.dst.x,targ.horiz.dst.y);
+        	setlinestyle(0,0,3);
+        	arc(targ.horiz.src.x,targ.horiz.src.y,90,270,12);
+    	}
 
 
 }
@@ -277,4 +299,17 @@ namespace primitives
     h1 = primitives::genHumanoid(temp);
     getch();
 }*/
+
+/*int main()                    //Test Target
+{
+    initwindow(800,480);
+    primitives::Point tar;
+    primitives::Target targ1;
+    tar.x = 710;
+    tar.y = 40;
+    genArrow(p,15);
+    targ1 = genTarget(tar);
+    drawTarget(targ1);
+}
+*/
 
