@@ -35,10 +35,10 @@ int main()
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 
-	box = primitives::getRectangle(200, 0, 400, 400);
+	box = primitives::getRectangle(200, 200, 600, 600);
 
 
-	initwindow(600, 600, "First Sample");
+	initwindow(800, 800, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging

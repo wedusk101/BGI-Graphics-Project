@@ -199,23 +199,23 @@ namespace primitives
 			return true;
 		}
 
-		/*if (circleBB.bottomRight.x >= rectangleBB.topLeft.x) // right side of the circle AABB collides with the left side of the rectangle AABB
+		if (circleBB.bottomRight.x >= rectangleBB.topLeft.x && circleBB.topLeft.x <= rectangleBB.topLeft.x) // right side of the circle AABB collides with the left side of the rectangle AABB
 		{
 			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
 			return true;
-		}*/
+		}
 
-		/*if (circleBB.bottomRight.y >= rectangleBB.topLeft.y) // bottom side of the circle AABB collides with the top side of the rectangle AABB
+		if (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.topLeft.y) // bottom side of the circle AABB collides with the top side of the rectangle AABB
 		{
 			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
 			return true;
-		}*/
+		}
 		return false;
 	}
 }
