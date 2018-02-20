@@ -26,6 +26,7 @@ namespace primitives
 	AABB updateAABB(const Point&, const int&, const int&);
 
 	bool collideCircleScreen(Circle &, const AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleRectangle(Circle &, Rectangle &, const AABB &, const AABB &, const AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 }
 
 inline double getEuclideanDistance(const int &x1, const int &y1, const int &x2, const int &y2)

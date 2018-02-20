@@ -29,6 +29,7 @@ namespace primitives
 	{
 		Point tL;
 		Point bR;
+		Point center; // mid point of the diagonal
 	} Rectangle;
 }
 

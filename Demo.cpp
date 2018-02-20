@@ -15,10 +15,13 @@ int main()
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
 
+	
 
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
-	primitives::AABB ballBB, prevBB;
+	primitives::Rectangle box;
+	primitives::AABB ballBB, prevBB, boxBB, prevBoxBB;
+
 
 
 	//primitives::Line l;
@@ -31,19 +34,30 @@ int main()
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 
+	box.tL.x = 400;
+	box.tL.y = 450;
+	box.bR.x = 500;
+	box.bR.y = 600;
+	box.center.x = 450; 
+	box.center.y = 525;
+
 
 	initwindow(600, 600, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
 	circle(ball.center.x, ball.center.y, ball.radius);
+	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
+	boxBB = updateAABB(box.center, 100, 150);
+	prevBoxBB = boxBB;
 	while (1) // check this
 	{
 		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 		cleardevice();
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
+		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 		prevBB = ballBB; // backs up the ball's bounding box
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
@@ -62,12 +76,20 @@ int main()
 				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
-				primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
+				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
 			}
 		}
-		// also need to handle collisions with the corner
+		
 		// a posteriori collision detection
+
 		if(collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		{
+			circle(locus.x, locus.y, ball.radius);
+			//system("pause"); // for debugging
+			shockWave(locus, ball.radius, ball.radius + 40);
+		}
+
+		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			//system("pause"); // for debugging
