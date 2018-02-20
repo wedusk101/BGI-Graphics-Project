@@ -29,9 +29,11 @@ namespace primitives
     
     Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
 	Bow genBow(const Point &);
+
+	Rectangle getRectangle(const int &, const int &, const int &, const int &);
 	
-    void genFootball(const Point &,const int &);
-    void genRods(const int &,const int &);
+    void genFootball(const Circle &);
+    void genRods(const int &, const int &);
 	void genGoalPost();	
 }
 
