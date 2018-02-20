@@ -30,6 +30,8 @@ namespace primitives
 		Point tL;
 		Point bR;
 		Point center; // mid point of the diagonal
+		int width;
+		int height;
 	} Rectangle;
 }
 

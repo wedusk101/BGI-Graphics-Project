@@ -201,8 +201,10 @@ namespace primitives
 		rect.tL.y = topLeftY;
 		rect.bR.x = bottomRightX;
 		rect.bR.y = bottomRightY;
-		rect.center.x = topLeftX + bottomRightX / 2;
-		rect.center.y = topLeftY + bottomRightY / 2;
+		rect.center.x = (topLeftX + bottomRightX) / 2; // potential overflow bug
+		rect.center.y = (topLeftY + bottomRightY) / 2;
+		rect.width = bottomRightX - topLeftX;
+		rect.height = bottomRightY - topLeftY;
 		return rect;
 	}
 	

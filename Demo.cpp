@@ -3,6 +3,7 @@
 #include <string>
 #include "graphics.h"
 #include "primitives.h"
+#include "assets.h"
 #include "physics.h"
 #include "matrix.h"
 #include "fx.h"
@@ -34,12 +35,7 @@ int main()
 	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
 	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 
-	box.tL.x = 400;
-	box.tL.y = 450;
-	box.bR.x = 500;
-	box.bR.y = 600;
-	box.center.x = 450; 
-	box.center.y = 525;
+	box = primitives::getRectangle(200, 0, 400, 400);
 
 
 	initwindow(600, 600, "First Sample");
@@ -49,8 +45,8 @@ int main()
 	circle(ball.center.x, ball.center.y, ball.radius);
 	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
-	boxBB = updateAABB(box.center, 100, 150);
-	prevBoxBB = boxBB;
+	boxBB = updateAABB(box.center, box.width, box.height);
+	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
 	while (1) // check this
 	{
 		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
@@ -60,7 +56,10 @@ int main()
 		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 		prevBB = ballBB; // backs up the ball's bounding box
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
+		prevBoxBB = boxBB;
+		boxBB = updateAABB(box.center, box.width, box.height);
 		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
+		std::cout << "Box AABB topleft: " << boxBB.topLeft.x << "," << boxBB.topLeft.y << " bottomRight: " << boxBB.bottomRight.x << "," << boxBB.bottomRight.y << std::endl; // debugging
 		points = std::to_string(score);
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
@@ -92,7 +91,7 @@ int main()
 		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
-			//system("pause"); // for debugging
+			system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging

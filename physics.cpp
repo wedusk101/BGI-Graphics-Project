@@ -52,26 +52,28 @@ namespace primitives
 		dy = prevPosition.y - collisionPosition.y;
 		dx = prevPosition.x - collisionPosition.x;
 
-		if (dy == dx || dy == -dx)
+		// object collides with the screen
+
+		if (dy == dx || dy == -dx) // screen corners
 		{
 			nextPosition = prevPosition;
 			return nextPosition;
 		}
 
-		if (collisionPosition.x <= 0 || collisionPosition.x >= xMax)
+		if (collisionPosition.x <= 0 || collisionPosition.x >= xMax) // screen edges
 		{	// reduce the velocity and trace the following conditions to fix bugs
-			if (dy == 0)
+			if (dy == 0) // object moving parallel to x axis
 			{
 				nextPosition = prevPosition;
 				return nextPosition;
 			}
-			if (dy < 0)
+			if (dy < 0) // object moving towards yMax
 			{
 				nextPosition.x = prevPosition.x;
 				nextPosition.y = prevPosition.y + 2 * (collisionPosition.y - prevPosition.y);
 				return nextPosition;
 			}
-			if (dy > 0)
+			if (dy > 0) // object moving towards yMin
 			{
 				nextPosition.x = prevPosition.x;
 				nextPosition.y = prevPosition.y - 2 * (prevPosition.y - collisionPosition.y);
@@ -79,25 +81,61 @@ namespace primitives
 			}
 		}
 
-		if (collisionPosition.y <= 0 || collisionPosition.y >= yMax)
+		if (collisionPosition.y <= 0 || collisionPosition.y >= yMax) // screen edges
 		{
-			if (dx == 0)
+			if (dx == 0) // object moving parallel to y axis
 			{
 				nextPosition = prevPosition;
 				return nextPosition;
 			}
-			if (dx < 0)
+			if (dx < 0) // object moving towards xMax
 			{
 				nextPosition.x = prevPosition.x + 2 * (collisionPosition.x - prevPosition.x);
 				nextPosition.y = prevPosition.y;
 				return nextPosition;
 			}
-			if (dx > 0)
+			if (dx > 0) // object moving towards xMin
 			{
 				nextPosition.x = prevPosition.x - 2 * (prevPosition.x - collisionPosition.x);
 				nextPosition.y = prevPosition.y;
 				return nextPosition;
 			}
+		}
+
+		// object collides with other objects
+
+		if (dy == 0 || dx == 0) // object moving parallel to x axis
+		{
+			nextPosition = prevPosition;
+			return nextPosition;
+		}
+
+		if (dy < 0) // object moving towards yMax
+		{
+			nextPosition.x = prevPosition.x;
+			nextPosition.y = prevPosition.y + 2 * (collisionPosition.y - prevPosition.y);
+			return nextPosition;
+		}
+
+		if (dy > 0) // object moving towards yMin
+		{
+			nextPosition.x = prevPosition.x;
+			nextPosition.y = prevPosition.y - 2 * (prevPosition.y - collisionPosition.y);
+			return nextPosition;
+		}
+
+		if (dx < 0) // object moving towards xMax
+		{
+			nextPosition.x = prevPosition.x + 2 * (collisionPosition.x - prevPosition.x);
+			nextPosition.y = prevPosition.y;
+			return nextPosition;
+		}
+
+		if (dx > 0) // object moving towards xMin
+		{
+			nextPosition.x = prevPosition.x - 2 * (prevPosition.x - collisionPosition.x);
+			nextPosition.y = prevPosition.y;
+			return nextPosition;
 		}
 	}
 
@@ -143,8 +181,8 @@ namespace primitives
 
 	bool collideCircleRectangle(Circle &circle, Rectangle &rectangle, const AABB &circleBB, const AABB &circlePrevBB, const AABB &rectangleBB, const AABB &rectanglePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
 	{
-		if (circleBB.topLeft.x <= rectangleBB.bottomRight.x) // left side of the circle AABB collides with the right side of the rectangle AABB
-		{
+		if (circleBB.topLeft.x <= rectangleBB.bottomRight.x && circleBB.bottomRight.x >= rectangleBB.bottomRight.x) // left side of the circle AABB collides with the right side of the rectangle AABB
+		{			
 			circleNextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
@@ -152,7 +190,7 @@ namespace primitives
 			return true;
 		}
 
-		if (circleBB.topLeft.y <= rectangleBB.bottomRight.y) // top side of the circle AABB collides with the bottom side of the rectangle AABB
+		if(circleBB.topLeft.y <= rectangleBB.bottomRight.y && circleBB.bottomRight.y >= rectangleBB.bottomRight.y) // top side of the circle AABB collides with the bottom side of the rectangle AABB
 		{
 			circleNextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, 0, circle.radius);
@@ -161,23 +199,23 @@ namespace primitives
 			return true;
 		}
 
-		if (circleBB.bottomRight.x >= rectangleBB.topLeft.x) // right side of the circle AABB collides with the left side of the rectangle AABB
+		/*if (circleBB.bottomRight.x >= rectangleBB.topLeft.x) // right side of the circle AABB collides with the left side of the rectangle AABB
 		{
 			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
 			return true;
-		}
+		}*/
 
-		if (circleBB.bottomRight.y >= rectangleBB.topLeft.y) // bottom side of the circle AABB collides with the top side of the rectangle AABB
+		/*if (circleBB.bottomRight.y >= rectangleBB.topLeft.y) // bottom side of the circle AABB collides with the top side of the rectangle AABB
 		{
 			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax);
 			translatePoint(circleNextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
 			return true;
-		}
+		}*/
 		return false;
 	}
 }
