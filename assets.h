@@ -38,8 +38,8 @@ namespace primitives
     
     	typedef struct
 	{
-	    Line vert;
-	    Line horiz;
+	    	Line vert;
+	    	Line horiz;
 	}Target;		
     
 	
