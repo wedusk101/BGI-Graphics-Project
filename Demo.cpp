@@ -91,7 +91,7 @@ int main()
 		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
-			system("pause"); // for debugging
+			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
