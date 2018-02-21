@@ -307,7 +307,6 @@ namespace primitives
     primitives::Target targ1;
     tar.x = 710;
     tar.y = 40;
-    genArrow(p,15);
     targ1 = genTarget(tar);
     drawTarget(targ1);
 }
