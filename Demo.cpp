@@ -64,7 +64,8 @@ int main()
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
-		//if (GetAsyncKeyState(VK_LEFT)) //keyboard input
+		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
+			system("pause");
 		//setactivepage(int page), setvisualpage(int page), swapbuffers()
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
