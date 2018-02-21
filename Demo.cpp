@@ -43,7 +43,7 @@ int main()
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
 	circle(ball.center.x, ball.center.y, ball.radius);
-	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+	//rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 	boxBB = updateAABB(box.center, box.width, box.height);
 	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
@@ -53,7 +53,7 @@ int main()
 		cleardevice();
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
-		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+		//rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 		prevBB = ballBB; // backs up the ball's bounding box
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 		prevBoxBB = boxBB;
@@ -82,19 +82,19 @@ int main()
 		
 		// a posteriori collision detection
 
-		if(collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			//system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 		}
 
-		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		/*if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
-		}
+		}*/
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
 		swapbuffers(); // double buffering to reduce flicker		
