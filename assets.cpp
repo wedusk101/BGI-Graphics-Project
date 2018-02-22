@@ -236,8 +236,8 @@ namespace primitives
         	setlinestyle(0 , 0 , 1);
 
         	/*Function call for a stretched bow.*/
-        	primitives::translatePoint(bow.uString.dst , -25 , 0);
-        	primitives::translatePoint(bow.lString.src , -25 , 0);
+        	translatePoint(bow.uString.dst , -25 , 0);
+        	translatePoint(bow.lString.src , -25 , 0);
 
 
         	line(bow.uString.src.x , bow.uString.src.y , bow.uString.dst.x , bow.uString.dst.y);

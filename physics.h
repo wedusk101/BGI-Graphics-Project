@@ -22,7 +22,7 @@ namespace primitives
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
 	Point getNextPositionVerlet(Point &, Point &, const double &, const double &, double &);
-	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &);
+	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &, const int &);
 	AABB updateAABB(const Point&, const int&, const int&);
 
 	bool collideCircleScreen(Circle &, const AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);

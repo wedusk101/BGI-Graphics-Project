@@ -5,6 +5,7 @@
 #define ASSETS__H_
 
 #include "primitives.h"
+#include "matrix.h"
 
 namespace primitives
 {
