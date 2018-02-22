@@ -19,14 +19,15 @@ namespace primitives
 		Point bottomMid;
 		Point leftMid;
 		Point rightMid;
+		int faceID;	// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
 	Point getNextPositionVerlet(Point &, Point &, const double &, const double &, double &);
 	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &, const int &);
 	AABB updateAABB(const Point&, const int&, const int&);
 
-	bool collideCircleScreen(Circle &, const AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
-	bool collideCircleRectangle(Circle &, Rectangle &, const AABB &, const AABB &, const AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleScreen(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 }
 
 inline double getEuclideanDistance(const int &x1, const int &y1, const int &x2, const int &y2)

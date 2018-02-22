@@ -140,13 +140,13 @@ namespace primitives
 		}
 	}
 
-	bool collideCircleScreen(Circle &circle, const AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
+	bool collideCircleScreen(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
 	{
-		int faceID = 0; // Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
+		// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
 		if (circleBB.topLeft.x <= 0) // left side of the AABB collides
 		{
-			faceID = 4;
-			nextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, faceID);
+			circleBB.faceID = 4;
+			nextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(nextPoint, circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
 			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
@@ -155,8 +155,8 @@ namespace primitives
 
 		if (circleBB.topLeft.y <= 0) // top side of the AABB collides
 		{
-			faceID = 3;
-			nextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, faceID);
+			circleBB.faceID = 3;
+			nextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(nextPoint, 0, circle.radius);
 			circle.center = getTranslatedPoint(circleBB.topMid, 0, circle.radius);
 			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
@@ -165,8 +165,8 @@ namespace primitives
 
 		if (circleBB.bottomRight.x >= xMax) // right side of the AABB collides
 		{
-			faceID = 2;
-			nextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, faceID);
+			circleBB.faceID = 2;
+			nextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(nextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
 			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
@@ -175,8 +175,8 @@ namespace primitives
 
 		if (circleBB.bottomRight.y >= yMax) // bottom side of the AABB collides
 		{
-			faceID = 1;
-			nextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, faceID);
+			circleBB.faceID = 1;
+			nextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(nextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
 			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
@@ -185,14 +185,14 @@ namespace primitives
 		return false;
 	}
 
-	bool collideCircleRectangle(Circle &circle, Rectangle &rectangle, const AABB &circleBB, const AABB &circlePrevBB, const AABB &rectangleBB, const AABB &rectanglePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	bool collideCircleRectangle(Circle &circle, Rectangle &rectangle, AABB &circleBB, const AABB &circlePrevBB, AABB &rectangleBB, const AABB &rectanglePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
 	{
-		int faceID = 0;
 		if (circleBB.topLeft.x <= rectangleBB.bottomRight.x && circleBB.bottomRight.x >= rectangleBB.bottomRight.x && (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.bottomRight.y <= rectangleBB.bottomRight.y || circleBB.topLeft.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.bottomRight.y))
 		{	// left side of the circle AABB collides with the right side of the rectangle AABB
-			faceID = 4;
+			circleBB.faceID = 4;
+			rectangleBB.faceID = 2;
 			std::cout << "\nCASE 1" << std::endl; // debugging
-			circleNextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, faceID);
+			circleNextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
@@ -201,9 +201,10 @@ namespace primitives
 
 		if(circleBB.topLeft.y <= rectangleBB.bottomRight.y && circleBB.bottomRight.y >= rectangleBB.bottomRight.y && (circleBB.bottomRight.x >= rectangleBB.topLeft.x && circleBB.bottomRight.x <= rectangleBB.bottomRight.x || circleBB.topLeft.x >= rectangleBB.topLeft.x && circleBB.topLeft.x <= rectangleBB.bottomRight.x))
 		{	// top side of the circle AABB collides with the bottom side of the rectangle AABB
-			faceID = 3;
+			circleBB.faceID = 3;
+			rectangleBB.faceID = 1;
 			std::cout << "\nCASE 2" << std::endl; // debugging
-			circleNextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, faceID);
+			circleNextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, circle.radius);
 			circle.center = getTranslatedPoint(circleBB.topMid, 0, circle.radius);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
@@ -212,9 +213,10 @@ namespace primitives
 
 		if (circleBB.bottomRight.x >= rectangleBB.topLeft.x && circleBB.topLeft.x <= rectangleBB.topLeft.x && (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.bottomRight.y <= rectangleBB.bottomRight.y || circleBB.topLeft.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.bottomRight.y))
 		{	// right side of the circle AABB collides with the left side of the rectangle AABB
-			faceID = 2;
+			circleBB.faceID = 2;
+			rectangleBB.faceID = 4;
 			std::cout << "\nCASE 3" << std::endl; // debugging
-			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, faceID);
+			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
@@ -223,9 +225,10 @@ namespace primitives
 
 		if (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.topLeft.y && (circleBB.bottomRight.x >= rectangleBB.topLeft.x && circleBB.bottomRight.x <= rectangleBB.bottomRight.x || circleBB.topLeft.x >= rectangleBB.topLeft.x && circleBB.topLeft.x <= rectangleBB.bottomRight.x))
 		{	// bottom side of the circle AABB collides with the top side of the rectangle AABB
-			faceID = 1;
+			circleBB.faceID = 1;
+			rectangleBB.faceID = 3;
 			std::cout << "\nCASE 4" << std::endl; // debugging
-			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, faceID);
+			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
 			circleLocus = getNextPositionVerlet(circle.center, circleNextPoint, acceleration, stepSize, theta);
