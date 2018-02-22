@@ -71,6 +71,7 @@
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
     <ClCompile Include="fx.cpp" />
+    <ClCompile Include="leaderboard.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="misc.cxx" />
     <ClCompile Include="mouse.cxx" />
@@ -87,6 +88,7 @@
     <ClInclude Include="dibutil.h" />
     <ClInclude Include="fx.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="leaderboard.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="primitives.h" />

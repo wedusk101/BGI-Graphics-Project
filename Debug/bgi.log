@@ -1,4 +1,9 @@
-﻿  assets.cpp
-q:\libraries\mca\project\game\assets.cpp(107): warning C4101: 'point': unreferenced local variable
+﻿  fx.cpp
+q:\libraries\mca\project\game\fx.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+q:\libraries\mca\project\game\fx.cpp(24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+q:\libraries\mca\project\game\fx.cpp(25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+q:\libraries\mca\project\game\fx.cpp(35): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Demo.cpp
+  Generating Code...
   bgi.vcxproj -> Q:\Libraries\MCA\Project\Game\Debug\Game.exe
   bgi.vcxproj -> Q:\Libraries\MCA\Project\Game\Debug\Game.pdb (Partial PDB)

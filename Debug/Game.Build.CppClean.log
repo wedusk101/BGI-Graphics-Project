@@ -14,7 +14,11 @@ q:\libraries\mca\project\game\debug\physics.obj
 q:\libraries\mca\project\game\debug\text.obj
 q:\libraries\mca\project\game\debug\winbgi.obj
 q:\libraries\mca\project\game\debug\winthread.obj
-q:\libraries\mca\project\game\debug\scaling_test.obj
+q:\libraries\mca\project\game\debug\objects.obj
+q:\libraries\mca\project\game\debug\assets.obj
+q:\libraries\mca\project\game\debug\translation_test.obj
+q:\libraries\mca\project\game\debug\vector.obj
+q:\libraries\mca\project\game\debug\fx.obj
 q:\libraries\mca\project\game\debug\game.ilk
 q:\libraries\mca\project\game\debug\game.exe
 q:\libraries\mca\project\game\debug\game.pdb
