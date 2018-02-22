@@ -36,6 +36,8 @@ namespace primitives
 		int x = 0, y = 0, tx = 0, ty = 0, i = 0, j = 0;
 		double theta = 0.0, dummy = 0.0;
 
+		// containers should be used here instead of traditional arrays
+		// this is just for legacy purposes and will change soon
 		Point *locus = new Point[particleCount];
 		Point *currentPosition = new Point[particleCount];
 		Rectangle *confetti = new Rectangle[particleCount];
