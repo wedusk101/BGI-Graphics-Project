@@ -36,16 +36,16 @@ namespace primitives
 		Vec2 operator* (const double &c) const // scalar multiplication
 		{
 			Vec2 result;
-			result.x = x * c;
-			result.y = y * c;
+			result.x = static_cast<int>(x * c);
+			result.y = static_cast<int>(y * c);
 			return result;
 		}
 
 		Vec2 operator/ (const double &c) const // scalar division
 		{
 			Vec2 result;
-			result.x = x / c;
-			result.y = y / c;
+			result.x = static_cast<int>(x / c);
+			result.y = static_cast<int>(y / c);
 			return result;
 		}
 

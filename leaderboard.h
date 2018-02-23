@@ -15,10 +15,13 @@ struct Leaderboard
 	int rank;
 	std::string name;
 	int topScore;
+
+	Leaderboard() : rank(1), name("player"), topScore(0) {} // default constructor
 };
 
-// read leaderboard data from file - loadLeaderBoard()
-// write leaderboard data to file - saveLeaderBoard()
+
+void saveLeaderBoard(const std::string &, Leaderboard &); // write leaderboard data to file - serialize object data 
+void loadLeaderBoard(const std::string &, Leaderboard &); // read leaderboard data from file - deserialize object data
 // rank players - sort the data according to high scores - updateLeaderBoard()
 // display leaderboard data - displayLeaderBoard()
 

@@ -38,8 +38,8 @@ namespace primitives
 		dy = prevPosition.y - currentPosition.y;
 		dx = prevPosition.x - currentPosition.x;
 		theta = atan2(dy, dx);
-		finalPosition.x = (int) round(2 * currentPosition.x + acceleration *  pow(timeStep, 2) - prevPosition.x); // cos(theta)
-		finalPosition.y = (int) round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y); //  sin(theta)
+		finalPosition.x = static_cast<int> (round(2 * currentPosition.x + acceleration *  pow(timeStep, 2) - prevPosition.x)); // cos(theta)
+		finalPosition.y = static_cast<int> (round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y)); //  sin(theta)
 		prevPosition = currentPosition;
 		currentPosition = finalPosition;
 		return finalPosition;

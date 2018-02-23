@@ -7,8 +7,8 @@ namespace primitives
 	{
 		Vec2 result;
 		double mag = getMagnitude(v);
-		result.x /= mag;
-		result.y /= mag;
+		result.x = static_cast<int>(v.x / mag);
+		result.y = static_cast<int>(v.y / mag);
 		return result;
 	}
 
