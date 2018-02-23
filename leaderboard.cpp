@@ -13,7 +13,7 @@ void loadLeaderBoard(const std::string &fileName, Leaderboard &playerData) // re
 void saveLeaderBoard(const std::string &fileName, Leaderboard &playerData) // write leaderboard object player data to <filename> from object <playerData>
 {
 	std::ofstream out;
-	out.open(fileName, std::ifstream::binary);
+	out.open(fileName, std::ofstream::binary);
 	out.write(reinterpret_cast<char*>(&playerData), sizeof(Leaderboard));
 	out.close();
 }
