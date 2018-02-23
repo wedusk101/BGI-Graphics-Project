@@ -18,5 +18,10 @@ namespace primitives
 		vec.x = dst.x - src.x;
 		vec.y = dst.y - src.y;
 		return vec;
-	}	
+	}
+
+	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the normal vector to a circle at a given point on its circumference
+	{
+		return point2Vec(p, circle.center) / circle.radius;
+	}
 }
