@@ -47,16 +47,22 @@ namespace primitives
 	
     Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
 	Rectangle getRectangle(const int &, const int &, const int &, const int &);
-	Bow genBow(const Point &);            //Function to generate coordinates for the Bow
-	Arrow genArrow(const Point&, int &);   //Function to generate coordinates for the Arrow
-	Target genTarget(const Point &);      //Function to generate coordinates for the Target
+
+	Bow genInitBow();                           //Function to generate coordinates for the Bow
+	Bow genBow(Bow&);
+	Arrow genArrow(const Point&, int & bowRadius);    //Function to generate coordinates for the Arrow
+    Target genTarget(const Point &);        //Function to generate coordinates for the Target
 
 
     void genFootball(const Circle &);
     void genRods(const int &, const int &);
 	void genGoalPost();
-	void drawBow(Bow);                    //Function to draw the Bow - please pass by reference, const or otherwise - this is quite slow as it copies the object
-	void drawArrow(Arrow);                //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+
+
+	void drawBow(Bow &);                    //Function to draw the Bow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+	void drawInitBow(Bow &);
+	void drawArrow(Arrow &);                //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+	void drawInitArrow(const Point bowCenter, Arrow &);
 	void drawTarget(Target);              //Function to draw the Target - please pass by reference, const or otherwise - this is quite slow as it copies the object
 }
 
