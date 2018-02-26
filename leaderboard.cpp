@@ -18,8 +18,12 @@ void loadLeaderBoard(const std::string &fileName, Leaderboard &playerData) // re
 	in.close();
 }
 
+bool updateLeaderBoard(const Leaderboard &a, const Leaderboard &b) // rank players - sort the data according to high scores 
+{
+	return a.topScore > b.topScore; // call std::sort(playerVector.begin(), playerVector.end(), updateLeaderBoard)
+}
 
-
-// updateLeaderBoard()
-
-// displayLeaderBoard()
+void displayLeaderBoard(const Leaderboard &playerData)
+{
+	// display data
+}
