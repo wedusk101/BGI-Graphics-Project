@@ -6,9 +6,8 @@
 
 #include <string>
 #include <fstream>
-//#include <vector>
-//#include <algorithm>
-//#include "graphics.h"
+// #include <algorithm>
+#include "graphics.h"
 
 struct Leaderboard
 {
@@ -22,7 +21,9 @@ struct Leaderboard
 
 void saveLeaderBoard(const std::string &, Leaderboard &); // write leaderboard data to file - serialize object data 
 void loadLeaderBoard(const std::string &, Leaderboard &); // read leaderboard data from file - deserialize object data
-// rank players - sort the data according to high scores - updateLeaderBoard(array or vector of Leaderboards)
-// display leaderboard data - displayLeaderBoard(const Leaderboard &playerData)
+
+bool updateLeaderBoard(const Leaderboard &, const Leaderboard &); // rank players - sort the data according to high scores 
+
+void displayLeaderBoard(const Leaderboard &); // display leaderboard data 
 
 #endif
