@@ -89,3 +89,5 @@ void boxBlur(const int &xpx, const int &ypx, const int &xMax, const int &yMax, c
 	if (ypx < 0 || ypx > yMax)
 		return;
 }
+
+void ramp() //

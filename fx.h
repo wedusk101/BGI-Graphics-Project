@@ -14,5 +14,7 @@ namespace primitives
 }
 
 // void boxBlur(const int &, const int &, const int &, const int &, const int &); // WIP
+//void ramp(starting point, ending point, type = linear/exponential, color); 
+
 
 #endif
