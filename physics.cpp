@@ -55,7 +55,7 @@ namespace primitives
 
 		// object collides with the screen
 
-		if (dy == dx || dy == -dx) // screen corners
+		if (dy == dx || dy == -dx) // screen corners - needs additional tweaking for cases where the point of collision is not a corner
 		{
 			nextPosition = prevPosition;
 			return nextPosition;
