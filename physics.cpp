@@ -37,7 +37,7 @@ namespace primitives
 		Point finalPosition;
 		dy = prevPosition.y - currentPosition.y;
 		dx = prevPosition.x - currentPosition.x;
-		theta = atan2(dy, dx);
+		theta = atan2(dy, dx);                        //atan2() returns the principal value of the arc tangent of y/x , expressed in radians.
 		finalPosition.x = static_cast<int> (round(2 * currentPosition.x + acceleration *  pow(timeStep, 2) - prevPosition.x)); // cos(theta)
 		finalPosition.y = static_cast<int> (round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y)); //  sin(theta)
 		prevPosition = currentPosition;
@@ -236,6 +236,7 @@ namespace primitives
 		}
 		return false;
 	}
+<<<<<<< HEAD
 
 	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
@@ -259,4 +260,6 @@ namespace primitives
         }
         return false;
     }
+=======
+>>>>>>> origin/master
 }
