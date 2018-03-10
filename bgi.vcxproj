@@ -71,6 +71,7 @@
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
     <ClCompile Include="fx.cpp" />
+    <ClCompile Include="gameplay.cpp" />
     <ClCompile Include="leaderboard.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="misc.cxx" />
@@ -87,6 +88,7 @@
     <ClInclude Include="assets.h" />
     <ClInclude Include="dibutil.h" />
     <ClInclude Include="fx.h" />
+    <ClInclude Include="gameplay.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="leaderboard.h" />
     <ClInclude Include="matrix.h" />

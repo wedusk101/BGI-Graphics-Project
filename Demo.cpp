@@ -6,6 +6,7 @@
 #include "assets.h"
 #include "physics.h"
 #include "fx.h"
+#include "gameplay.h"
 
 
 int main()
@@ -13,7 +14,7 @@ int main()
 	int score = 0;
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
-	double theta = 0.0;
+	double theta = 0.0, dirArrowTheta = 4.8, dirArrowRadius = 0.0, dirArrowStep = 0.005;
 
 	
 
@@ -21,35 +22,38 @@ int main()
 	primitives::Circle ball;
 	primitives::Rectangle box;
 	primitives::AABB ballBB, prevBB, boxBB, prevBoxBB;
+	primitives::Line l; // direction arrow testing for football
 
-
-
-	//primitives::Line l;
+	
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
 	std::cout << "Please enter the radius of the ball." << std::endl;
 	std::cin >> ball.radius;
 	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
-	//std::cout << "Please enter the coordinates for the end points of the line." << std::endl;
-	//std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
+	
+	
+	box = primitives::getRectangle(100, 100, 300, 300);
 
-	box = primitives::getRectangle(200, 200, 600, 600);
 
-
-	initwindow(800, 800, "First Sample");
+	initwindow(400, 400, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
+	l.src.x = xMax / 2, l.src.y = yMax, l.dst.x = xMax / 2, l.dst.y = yMax - 50; // hardcoded values for the direction arrow 
+
+	dirArrowRadius = getEuclideanDistance(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	circle(ball.center.x, ball.center.y, ball.radius);
 	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 	boxBB = updateAABB(box.center, box.width, box.height);
 	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
+	
 	while (1) // check this
 	{
-		//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 		cleardevice();
+		// line(l.src.x, l.src.y, l.dst.x, l.dst.y); // direction arrow testing for football
+		//drawDirectionArrow(l);
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
 		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
@@ -65,6 +69,13 @@ int main()
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
+
+		if (dirArrowTheta <= 0 || dirArrowTheta >= 1.570796) // pi / 2 radians
+			dirArrowStep *= -1; // changes the direction of rotation
+		rotateRay(l.dst, dirArrowTheta, l.src.x, l.src.y);
+		line(l.src.x, l.src.y, l.dst.x, l.dst.y);
+		dirArrowTheta += dirArrowStep;
+
 		//setactivepage(int page), setvisualpage(int page), swapbuffers()
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
