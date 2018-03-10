@@ -1,7 +1,7 @@
 //physics.cpp
 #include "physics.h"
 #include "matrix.h"
-#include <iostream> // debugging 
+#include <iostream> // debugging
 
 namespace primitives
 {
@@ -31,7 +31,7 @@ namespace primitives
 	Point getNextPositionVerlet(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep, double &theta)
 	{
 		// Verlet Integration code for calculating the next position of a particle in motion
-		// acceleration is constant as we are ignoring the third order derivative of position(jerk) 
+		// acceleration is constant as we are ignoring the third order derivative of position(jerk)
 		// the velocity will be calculated using Stormer-Verlet method ---- this feature hasn't been implemented here
 		double dy = 0.0, dx = 0.0;
 		Point finalPosition;
@@ -44,10 +44,10 @@ namespace primitives
 		currentPosition = finalPosition;
 		return finalPosition;
 	}
-	
+
 	Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax, const int &faceID)
 	{
-		// returns a point along the direction of the particle's motion vector after collision 
+		// returns a point along the direction of the particle's motion vector after collision
 		double dy = 0.0, dx = 0.0;
 		Point nextPosition;
 		dy = prevPosition.y - collisionPosition.y;
@@ -236,4 +236,27 @@ namespace primitives
 		}
 		return false;
 	}
+
+	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
+    {
+
+        if(bowCord.y+75>=yMax)
+        {
+            nextPoint=prevBow.center;
+            translatePoint(nextPoint, 0, -75);
+			bowCord = getTranslatedPoint(bow.center, 0, -75);
+			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
+            return true;
+        }
+
+        if(bowCord.y-75<=0)
+        {
+            nextPoint=prevBow.center;
+            translatePoint(nextPoint, 0, 75);
+			bowCord = getTranslatedPoint(bow.center, 0, 75);
+			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
+            return true;
+        }
+        return false;
+    }
 }

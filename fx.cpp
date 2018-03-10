@@ -90,4 +90,4 @@ void boxBlur(const int &xpx, const int &ypx, const int &xMax, const int &yMax, c
 		return;
 }
 
-void ramp() //
+// void ramp() //
