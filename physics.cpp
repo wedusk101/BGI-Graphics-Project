@@ -236,7 +236,6 @@ namespace primitives
 		}
 		return false;
 	}
-<<<<<<< HEAD
 
 	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
@@ -260,6 +259,4 @@ namespace primitives
         }
         return false;
     }
-=======
->>>>>>> origin/master
 }
