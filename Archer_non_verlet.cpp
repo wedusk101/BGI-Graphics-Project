@@ -12,21 +12,23 @@
 
 int main()                    //Test Arrow and Bow
 {
-    initwindow(1366,700);
+	initwindow(1366,700);
 	int xmax = getmaxx();
-    int ymax = getmaxy();
+    	int ymax = getmaxy();
 	int y_inc = 1;
-	primitives::Bow bow;
-	primitives::Arrow arrow;
-	primitives::Target target;
+	int score = 0 , addScore = 0;		//Variable for scoring
+	int divison = 0;					//Variable to divide the target into fixed no. of zones.
+	std::string points;					// for displaying the score
+	std::string earnedPoint;			// for displaying the current earned point
+	primitives::Point arrowHitPos;		//Point Variable to store the arrow position.
 
 	/**Init calls objects are initialised in accordance to the resolution**/
-	bow = primitives::genInitBow();                             //By default a stretched bow.
-	arrow = primitives::genArrow(bow.radius,bow.center);        //scaled in accordance to bow radius origin at bow.center
-    target = primitives::genInitTarget(bow.center);
+	primitives::Bow bow = primitives::genInitBow();                             //By default a stretched bow.
+	primitives::Arrow arrow = primitives::genArrow(bow.radius,bow.center);        //scaled in accordance to bow radius origin at bow.center
+	primitives::Target target = primitives::genInitTarget(bow.center);
 
 	/**initial draw calls**/
-    drawBow(bow,TRUE);
+    	drawBow(bow,TRUE);
 	drawArrow(arrow.size, bow.center);
 	drawTarget(target);
 
@@ -43,35 +45,72 @@ int main()                    //Test Arrow and Bow
 		drawBow(bow, TRUE); 
 		drawArrow(arrow.size, bow.center);
 		drawTarget(target);
-		swapbuffers();
 
+		/**Score Display**/
+		points = std::to_string(score);                                                   
+		const char *pstr = points.c_str();
+		outtextxy(xmax - 170, 50, "Points: ");
+		outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score 
+
+		earnedPoint = std::to_string(addScore);
+		const char *pstrAdd = earnedPoint.c_str();
+		outtextxy(xmax - 250, 70, "Last Point Earned :");
+		outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
+		
 		arrow.arrowLocus.x = bow.center.x;
 		arrow.arrowLocus.y = bow.center.y;
-
+		
+		
 
 		if(ismouseclick(WM_LBUTTONDOWN) == true)                    //occurence of event is checked
 		{
-				
-			
 			while (arrow.arrowLocus.x + (8*arrow.size) <= target.vert.src.x)
 			{
-				delay(5);
 				cleardevice();
-	
-				arrow.arrowLocus.x = arrow.arrowLocus.x + 4;
+				arrow.arrowLocus.x = arrow.arrowLocus.x + 5;
 				genBow(bow);
 				drawBow(bow, FALSE);
 				drawArrow(arrow.size, arrow.arrowLocus);
 				drawTarget(target);
+				points = std::to_string(score);
+				const char *pstr = points.c_str();
+				outtextxy(xmax - 170, 50, "Points: ");
+				outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score 
+
+				earnedPoint = std::to_string(addScore);
+				const char *pstrAdd = earnedPoint.c_str();
+				outtextxy(xmax - 250, 70, "Last Point Earned :");
+				outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
 				swapbuffers();
 			}
-
-
 			clearmouseclick(WM_LBUTTONDOWN);    //event is released
-			Sleep(1000);
-			printf("\nExited");
+			
+			arrowHitPos = arrow.arrowLocus;		//Stores the final position of the array
+			divison = (target.horiz.src.y - target.vert.src.y) / 4;  //Divide the target into 4 zones for scoring
+			
+			if (arrowHitPos.y < target.vert.src.y || arrowHitPos.y > target.vert.dst.y)		//If arrow dosen't hit the target
+				addScore = 0;
+			else
+			{
+				if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + divison))			//If the arrow hits the upper first divided zone of the target
+					addScore = 1;
+				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - divison))		//If the arrow hits the lower first divided zone of the target
+					addScore = 1;
+				else if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + 2 * divison))//If the arrow hits the upper second divided zone of the target
+					addScore = 3;
+				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - 2 * divison))	//If the arrow hits the lower second divided zone of the target
+					addScore = 3;
+				else if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + 3 * divison))//If the arrow hits the upper third divided zone of the target
+					addScore = 5;
+				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - 3 * divison))	//If the arrow hits the lower third divided zone of the target
+					addScore = 5;
+				else																							//If the arrow hits the center
+					addScore = 7;
+			}
+			score += addScore;
+			delay(700);
 		}	
-	
+		swapbuffers();
 	}
 	system("pause"); // windows only feature
 }
