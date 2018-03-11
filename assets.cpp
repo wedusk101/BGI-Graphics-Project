@@ -249,7 +249,7 @@ namespace primitives
 	void drawBow(Bow &bow , const int &flag)						// Draw bow according to the coordinates generated
 	{
 
-        	setcolor(BLUE);
+        	setcolor(12);
         	setlinestyle(0 , 0 , 8);
         	arc(bow.center.x , bow.center.y , 350 , 10 , bow.radius - 1);
         	arc(bow.center.x , bow.center.y , 350 , 10 , bow.radius - 2);
