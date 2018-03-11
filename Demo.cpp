@@ -6,6 +6,7 @@
 #include "assets.h"
 #include "physics.h"
 #include "fx.h"
+#include "Mmsystem.h"
 
 
 int main()
@@ -32,7 +33,7 @@ int main()
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 	
 
-	initwindow(600, 600, "First Sample");
+	initwindow(800, 600, "First Sample");
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
@@ -89,14 +90,14 @@ int main()
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 
-		if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
+		/*if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
 			pointerStep *= -1; // changes the direction of rotation
 
 		pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(theta));
 		pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
 		line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 		pointerTheta += pointerStep;
-		std::cout << "DST x y : " << pointer.dst.x << " " << pointer.dst.y << " SRC x y : " << pointer.src.x << " " << pointer.src.y << " Radius: " << std::endl;
+		std::cout << "DST x y : " << pointer.dst.x << " " << pointer.dst.y << " SRC x y : " << pointer.src.x << " " << pointer.src.y << " Radius: " << std::endl;*/
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 
@@ -121,6 +122,7 @@ int main()
 			circle(locus.x, locus.y, ball.radius);
 			//system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
+			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 
 		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
@@ -128,6 +130,7 @@ int main()
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
+			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
