@@ -21,23 +21,27 @@ In progress
 # Up for grab(to be made)
 
 Archery Project
-1.target wall
-2.bow (Arihant)(object completed)(initial testing done)
-3.arrow(Arihant)(object completed)
-
-
-Basketball Project
-1.hoop
-2.basketball
+---------------
+score management
+leaderboard objects
 
 
 Football Project
-1.football(gagan)(object completed)
-2.obstacle(gagan)(oject completed)
-3.Goal net
+----------------
+
+Arrow movement with double buffering
+gameplay prototype
+score management
+leaderboard
+cross bar collision detection
+resolution scaling of objects
+collision bug (IMPORTANT!)
 
 Advice:
 to get the look and feel download the following games from playstore
 football black
 basketball black
 archery black 
+
+
+
