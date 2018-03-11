@@ -7,13 +7,12 @@
 
 int main()
 {
-	double theta = -0.78539, step = 0.001, radius = 0.0;
+	double theta = -0.78539, step = 0.001, radius = 0.0; // theta = -pi / 4 radians
 	primitives::Line l;
 	std::cout << "Please enter the coordinates for the end points of a line (x,y)." << std::endl;
 	std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
 	initwindow(600, 600, "First Sample");
 	setcolor(12);
-	line(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	radius = getEuclideanDistance(l.src.x, l.src.y, l.dst.x, l.dst.y);
 	// std::cout << "Please enter the rotation angle in radians." << std::endl;
 	// std::cin >> theta;
@@ -24,7 +23,7 @@ int main()
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
 
-		if (theta <= -1.57079 || theta >= 0) // pi / 2 radians
+		if (theta <= -1.57079 || theta >= 0) // -pi / 2 radians
 			step *= -1; // changes the direction of rotation
 
 		l.dst.x = l.src.x + static_cast<int>(radius * cos(theta));
