@@ -3,8 +3,6 @@
 #include <string>
 #include "graphics.h"
 #include "primitives.h"
-#include "physics.h"
-#include "matrix.h"
 #include "assets.h"
 #include "fx.h"
 
@@ -16,7 +14,7 @@ int main()                    //Test Arrow and Bow
 	initwindow(800, 800, "Archery");
 	int xmax = getmaxx();
     int ymax = getmaxy();
-	int y_inc = 1, lives = 7;
+	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int divison = 0;					// Variable to divide the target into fixed no. of zones.
 	std::string points;					// for displaying the score
