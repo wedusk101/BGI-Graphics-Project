@@ -24,6 +24,7 @@ Archery Project
 ---------------
 score management
 leaderboard objects
+Randomizing target
 
 
 Football Project
@@ -36,6 +37,9 @@ leaderboard
 cross bar collision detection
 resolution scaling of objects
 collision bug (IMPORTANT!)
+
+
+Misc: Reset game state for BOTH projects, Audio, Special Effects, Credits
 
 Advice:
 to get the look and feel download the following games from playstore
