@@ -5,13 +5,14 @@
 #include "primitives.h"
 #include "assets.h"
 #include "fx.h"
+#include "Mmsystem.h"
 
 #define TRUE 1
 #define FALSE 0
 
 int main()                    //Test Arrow and Bow
 {
-	initwindow(800, 800, "Archery");
+	initwindow(1280, 720, "Archery");
 	int xmax = getmaxx();
     int ymax = getmaxy();
 	int y_inc = 1, lives = 3;
@@ -72,6 +73,7 @@ int main()                    //Test Arrow and Bow
 
 		if(ismouseclick(WM_LBUTTONDOWN))                    //occurrence of event is checked
 		{
+			PlaySound(TEXT("arrow_release.wav"), NULL, SND_ASYNC);
 			while (arrow.arrowLocus.x + (8*arrow.size) <= target.vert.src.x)
 			{
 				cleardevice();
@@ -96,6 +98,7 @@ int main()                    //Test Arrow and Bow
 			}
 			clearmouseclick(WM_LBUTTONDOWN);    //event is released
 			
+			PlaySound(TEXT("target_hit.wav"), NULL, SND_ASYNC);
 			arrowHitPos = arrow.arrowLocus;		//Stores the final position of the array
 			divison = (target.horiz.src.y - target.vert.src.y) / 4;  //Divide the target into 4 zones for scoring
 			
