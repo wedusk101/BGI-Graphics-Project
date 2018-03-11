@@ -12,9 +12,13 @@
 
 int main()                    //Test Arrow and Bow
 {
-	initwindow(1280, 720, "Archery");
-	int xmax = getmaxx();
-    int ymax = getmaxy();
+	int xmax = 0, ymax = 0;
+	std::cout << "Please enter the desired resolution." << std::endl;
+	std::cout << "Please enter the width, followed by the height in pixels." << std::endl;
+	std::cin >> xmax >> ymax;
+	initwindow(xmax, ymax, "Archery");
+	xmax = getmaxx();
+    ymax = getmaxy();
 	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int divison = 0;					// Variable to divide the target into fixed no. of zones.
