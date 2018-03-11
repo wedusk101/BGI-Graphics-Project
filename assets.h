@@ -34,31 +34,35 @@ namespace primitives
     
     typedef struct
     {
-       	Point p;
+       	Point arrowLocus;
        	int size;
     } Arrow;
     
     typedef struct
-	{
-	    	Line vert;
-	    	Line horiz;
-	} Target;		
+    {
+	   Line vert;
+	   Line horiz;
+    } Target;		
     
 	
 	
-    Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
-	Rectangle getRectangle(const int &, const int &, const int &, const int &);
-	Bow genBow(const Point &);            //Function to generate coordinates for the Bow
-	Arrow genArrow(const Point&, int &);   //Function to generate coordinates for the Arrow
-	Target genTarget(const Point &);      //Function to generate coordinates for the Target
+     Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
+     Rectangle getRectangle(const int &, const int &, const int &, const int &);
+	
+     Bow genInitBow();                           //Function to generate coordinates for the Bow
+     void genBow(Bow &);
+     Arrow genArrow(const int &,Point &);    //Function to generate coordinates for the Arrow
+     Target genInitTarget(const Point &);
+     Target genTarget(const Point &);        //Function to generate coordinates for the Target
 
 
-    void genFootball(const Circle &);
-    void genRods(const int &, const int &);
-	void genGoalPost();
-	void drawBow(Bow);                    //Function to draw the Bow - please pass by reference, const or otherwise - this is quite slow as it copies the object
-	void drawArrow(Arrow);                //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
-	void drawTarget(Target);              //Function to draw the Target - please pass by reference, const or otherwise - this is quite slow as it copies the object
+     void genFootball(const Circle &);
+     void genRods(const int &, const int &);
+     void genGoalPost();
+	
+     void drawBow(Bow & , const int &);                    //Function to draw the Bow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+     void drawArrow(const int &, Point );                //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+     void drawTarget(Target&);              //Function to draw the Target - please pass by reference, const or otherwise - this is quite slow as it copies the object
 }
 
 #endif
