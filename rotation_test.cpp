@@ -8,6 +8,7 @@
 int main()
 {
 	double theta = -0.78539, step = 0.001, radius = 0.0; // theta = -pi / 4 radians
+	bool flag = true;
 	primitives::Line l;
 	std::cout << "Please enter the coordinates for the end points of a line (x,y)." << std::endl;
 	std::cin >> l.src.x >> l.src.y >> l.dst.x >> l.dst.y;
@@ -22,15 +23,18 @@ int main()
 
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
+		while (flag)
+		{
+			if (ismouseclick(WM_LBUTTONDOWN))
+				break;
+			if (theta <= -1.57079 || theta >= 0) // -pi / 2 radians
+				step *= -1; // changes the direction of rotation
 
-		if (theta <= -1.57079 || theta >= 0) // -pi / 2 radians
-			step *= -1; // changes the direction of rotation
-
-		l.dst.x = l.src.x + static_cast<int>(radius * cos(theta));
-		l.dst.y = l.src.y + static_cast<int>(radius * sin(theta));
-		line(l.src.x, l.src.y, l.dst.x, l.dst.y);
-		theta += step;
-		
+			l.dst.x = l.src.x + static_cast<int>(radius * cos(theta));
+			l.dst.y = l.src.y + static_cast<int>(radius * sin(theta));
+			line(l.src.x, l.src.y, l.dst.x, l.dst.y);
+			theta += step;
+		}		
 		swapbuffers();
 	}
 

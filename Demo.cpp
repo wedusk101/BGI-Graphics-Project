@@ -14,8 +14,8 @@ int main()
 	std::string points; // for displaying the score
 	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0, pointerTheta = -0.78539, pointerStep = 0.001, pointerLen = 0.0;
-
-	
+	bool flag = true;
+		
 
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
@@ -30,7 +30,7 @@ int main()
 	std::cin >> ball.radius;
 	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
-		
+	
 
 	initwindow(600, 600, "First Sample");
 	setcolor(12); // Light Red 
@@ -46,11 +46,9 @@ int main()
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 	boxBB = updateAABB(box.center, box.width, box.height);
 	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
-	
-	while (1) // check this
+	while (1) // main game loop
 	{
 		cleardevice();
-		// line(l.src.x, l.src.y, l.dst.x, l.dst.y); // direction arrow testing for football
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
 		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
@@ -67,7 +65,30 @@ int main()
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
 
-		// direction arrow for football game
+
+		/*while (flag) // loop for the direction arrow in football game
+		{
+			cleardevice();
+			if (ismouseclick(WM_LBUTTONDOWN))
+			{
+				flag = false;
+				break;
+			}
+			if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
+			pointerStep *= -1; // changes the direction of rotation
+
+			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(theta));
+			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
+			line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
+			pointerTheta += pointerStep;
+			circle(locus.x, locus.y, ball.radius);
+			rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+			swapbuffers();
+		}*/
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////
+
 		if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
 			pointerStep *= -1; // changes the direction of rotation
 
@@ -75,6 +96,10 @@ int main()
 		pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
 		line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 		pointerTheta += pointerStep;
+		std::cout << "DST x y : " << pointer.dst.x << " " << pointer.dst.y << " SRC x y : " << pointer.src.x << " " << pointer.src.y << " Radius: " << std::endl;
+
+		//////////////////////////////////////////////////////////////////////////////////////////
+
 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
@@ -85,11 +110,11 @@ int main()
 				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
-				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
+							 // primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
 			}
 		}
-		
-		
+
+
 		// a posteriori collision detection
 		if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
@@ -98,14 +123,15 @@ int main()
 			shockWave(locus, ball.radius, ball.radius + 40);
 		}
 
-		/*if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
-		}*/
+		}
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
+
 		swapbuffers(); // double buffering to reduce flicker		
 	}
 	//system("pause"); // windows only feature

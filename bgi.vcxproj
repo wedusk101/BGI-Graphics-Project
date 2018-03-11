@@ -64,9 +64,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archer_non_verlet.cpp" />
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="bgiout.cxx" />
-    <ClCompile Include="Demo.cpp" />
     <ClCompile Include="dibutil.cxx" />
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
