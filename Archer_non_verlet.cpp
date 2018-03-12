@@ -19,7 +19,7 @@ int main()                    //Test Arrow and Bow
 	initwindow(xmax, ymax, "Archery");
 	xmax = getmaxx();
     ymax = getmaxy();
-	int y_inc = 1, lives = 3;
+	int y_inc = 1, lives = 1;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int divison = 0;					// Variable to divide the target into fixed no. of zones.
 	std::string points;					// for displaying the score
@@ -116,48 +116,55 @@ int main()                    //Test Arrow and Bow
 				if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + divison))		//If the arrow hits the upper first divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+1");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x+= 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 1;
 				}
 				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - divison))		//If the arrow hits the lower first divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+1");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x += 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 				    swapbuffers();
 					lastScore = addScore = 1;
 				}				
 				else if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + 2 * divison))//If the arrow hits the upper second divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+3");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x += 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 3;
 				}
 				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - 2 * divison))	//If the arrow hits the lower second divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+3");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x += 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 3;
 				}
 				else if (arrowHitPos.y > target.vert.src.y && arrowHitPos.y < (target.vert.src.y + 3 * divison))//If the arrow hits the upper third divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+5");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x += 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 5;
 				}
 				else if (arrowHitPos.y < target.vert.dst.y && arrowHitPos.y >(target.vert.dst.y - 3 * divison))	//If the arrow hits the lower third divided zone of the target
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+5");
-					shockWave(target.horiz.src, 20, 50);
+					arrowHitPos.x += 9 * arrow.size;
+					shockWave(arrowHitPos, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 5;
 				}
 				else //If the arrow hits the center
 				{
 					outtextxy(arrowHitPos.x, arrowHitPos.y + 20, "+7");
+					outtextxy(arrowHitPos.x-50,arrowHitPos.y, "BULLSEYE !!");
 					shockWave(target.horiz.src, 20, 50);
 					swapbuffers();
 					lastScore = addScore = 7;
