@@ -45,7 +45,9 @@ namespace primitives
     } Target;		
     
 	
-	
+	Circle genBall();
+	Rectangle genUpRod();
+	Rectangle genDownRod(Rectangle);
      Humanoid genHumanoid(const Point &); //center of the circle constituting the head is passed as argument
      Rectangle getRectangle(const int &, const int &, const int &, const int &);
 	
@@ -72,3 +74,5 @@ namespace primitives
 }
 
 #endif
+assets.h
+Displaying assets.cpp.
