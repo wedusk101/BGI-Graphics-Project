@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bgi", "bgi.vcxproj", "{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "bgi.vcxproj", "{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,7 @@ Global
 		{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}.Debug|Win32.Build.0 = Debug|Win32
 		{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}.Release|Win32.ActiveCfg = Release|Win32
 		{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}.Release|Win32.Build.0 = Release|Win32
+		{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}.Release|Win32.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

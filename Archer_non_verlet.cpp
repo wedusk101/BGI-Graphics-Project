@@ -48,8 +48,8 @@ int main()                    //Test Arrow and Bow
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
 		drawTarget(target);
-		outtextxy(xmax / 2, ymax / 2, "Press Space to Play!");
-		//swapbuffers();
+		outtextxy(xmax / 2 - 75, ymax / 2, "Press Space to Play!");
+		outtextxy(xmax / 2 - 75, ymax / 2 + 25, "Left click mouse to shoot arrows.");
 		if (GetAsyncKeyState(VK_SPACE))
 		{
 			PlaySound(TEXT("whistle.wav"), NULL, SND_ASYNC);
@@ -188,7 +188,7 @@ int main()                    //Test Arrow and Bow
 				}
 				score += addScore;
 				addScore = 0;
-				target.horiz.src.y = rand() % (ymax - 50 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
+				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
 				target = primitives::genInitTarget(target.horiz.src);
 				delay(700);
 			}
@@ -196,7 +196,7 @@ int main()                    //Test Arrow and Bow
 		}
 		if (lives == 0)
 		{
-			outtextxy(xmax / 2, ymax / 2, "Game Over!");
+			outtextxy(xmax / 2 - 75, ymax / 2, "Game Over!");
 			swapbuffers();
 			delay(3000);
 		}

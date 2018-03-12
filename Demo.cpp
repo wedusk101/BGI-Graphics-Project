@@ -40,6 +40,7 @@ int main()
 	// pointer.src.x = xMax / 2, pointer.src.y = yMax, pointer.dst.x = xMax / 2, pointer.dst.y = yMax - 50; // hardcoded values for the direction arrow 
 	pointer.src.x = 300, pointer.src.y = 300, pointer.dst.x = 350, pointer.dst.y = 300;
 	pointerLen = getEuclideanDistance(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
+	std::cout << pointerLen << std::endl;
 	box = primitives::getRectangle(xMax / 4, yMax / 4, xMax - 150, yMax - 150);
 
 	circle(ball.center.x, ball.center.y, ball.radius);
@@ -67,7 +68,7 @@ int main()
 			system("pause");
 
 
-		/*while (flag) // loop for the direction arrow in football game
+		while (flag) // loop for the direction arrow in football game
 		{
 			cleardevice();
 			if (ismouseclick(WM_LBUTTONDOWN))
@@ -76,31 +77,16 @@ int main()
 				break;
 			}
 			if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
-			pointerStep *= -1; // changes the direction of rotation
+				pointerStep *= -1; // changes the direction of rotation
 
+			circle(locus.x, locus.y, ball.radius);
+			rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(theta));
 			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
 			line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 			pointerTheta += pointerStep;
-			circle(locus.x, locus.y, ball.radius);
-			rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 			swapbuffers();
-		}*/
-
-
-		//////////////////////////////////////////////////////////////////////////////////////////
-
-		/*if (pointerTheta <= -1.57079 || pointerTheta >= 0) // pi / 2 radians
-			pointerStep *= -1; // changes the direction of rotation
-
-		pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(theta));
-		pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
-		line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
-		pointerTheta += pointerStep;
-		std::cout << "DST x y : " << pointer.dst.x << " " << pointer.dst.y << " SRC x y : " << pointer.src.x << " " << pointer.src.y << " Radius: " << std::endl;*/
-
-		//////////////////////////////////////////////////////////////////////////////////////////
-
+		}
 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
@@ -114,9 +100,8 @@ int main()
 							 // primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
 			}
 		}
-
-
-		// a posteriori collision detection
+		
+		// a-posteriori collision detection
 		if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
