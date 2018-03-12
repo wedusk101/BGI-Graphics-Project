@@ -61,6 +61,7 @@ namespace primitives
      void genGoalPost();
 	    void drawRods(Rectangle,Rectangle);
 		    void genFootball(Point &,int &);
+	Point midPoint(const Point &,const Point &);
 
 
 
