@@ -74,5 +74,3 @@ namespace primitives
 }
 
 #endif
-assets.h
-Displaying assets.cpp.
