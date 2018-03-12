@@ -30,8 +30,9 @@ Randomizing target
 Football Project
 ----------------
 
-Arrow movement with double buffering
-gameplay prototype
+Arrow movement with double buffering(Done)
+Ball speed Movement using vectors
+gameplay prototype(Done  but scoring left)
 score management
 leaderboard
 cross bar collision detection
