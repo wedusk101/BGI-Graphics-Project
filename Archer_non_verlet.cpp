@@ -22,6 +22,7 @@ int main()                    //Test Arrow and Bow
 	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
+	bool flag = false;
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
 	std::string livesStr;
@@ -38,6 +39,7 @@ int main()                    //Test Arrow and Bow
 	{
 		cleardevice();
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3;
+		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
         arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
@@ -48,8 +50,9 @@ int main()                    //Test Arrow and Bow
 		drawTarget(target);
 		outtextxy(xmax / 2, ymax / 2, "Press Space to Play!");
 		//swapbuffers();
-		if(GetAsyncKeyState(VK_SPACE))
-		while (lives != 0)                 //main game loop
+		if (GetAsyncKeyState(VK_SPACE))
+			flag = true;
+		while (flag && lives != 0)                 //main game loop
 		{
 			cleardevice();
 			if ((bow.center.y - (bow.radius + 10)) <= 5)                  //bound checking for bow  (upper screen) 
@@ -61,9 +64,6 @@ int main()                    //Test Arrow and Bow
 			genBow(bow);                      // regenerating the co-ordinates in response to modified Bow center
 			drawBow(bow, TRUE);
 			drawArrow(arrow.size, bow.center);
-			//target.horiz.src.y = rand() % ymax;
-			//target.horiz.dst.y = target.horiz.src.y;
-			//genInitTarget(target.horiz.src);
 			drawTarget(target);
 
 			/**Score Display**/
@@ -184,15 +184,20 @@ int main()                    //Test Arrow and Bow
 				}
 				score += addScore;
 				addScore = 0;
-				target.horiz.src.y = rand() % (ymax - static_cast<int>(ymax / 8)) - static_cast<int>(ymax / 8) + 1;
+				target.horiz.src.y = rand() % (ymax - 50 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
 				target = primitives::genInitTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();
 		}
-		outtextxy(xmax / 2, ymax / 2, "Game Over!");
+		if (lives == 0)
+		{
+			outtextxy(xmax / 2, ymax / 2, "Game Over!");
+			swapbuffers();
+			delay(3000);
+		}
 		swapbuffers();
 	}
-	// system("pause"); // windows only feature
+	system("pause"); // windows only feature
 	closegraph();
 }
