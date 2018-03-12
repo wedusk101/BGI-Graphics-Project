@@ -33,6 +33,10 @@ int main()
     downRod.tL.x = upRod.tL.x;downRod.bR.x = upRod.bR.x;downRod.bR.y = getmaxy();downRod.tL.y = upRod.bR.y+100;//LOWER ROD POSITIONING
     upRod.width=30;downRod.width=30;upRod.height = upRod.bR.y-upRod.tL.y;downRod.height=downRod.bR.y-downRod.tL.y;//WIDTH AND HEIGHT OF RODS
     upRod.center = midPoint(upRod.bR,upRod.tL);downRod.center = midPoint(downRod.bR,upRod.tL);//MIDPOINT OF RODS
+	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
+	upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
+	downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
+
     prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
 	primitives :: genFootball(ball.center,ball.radius);
 	primitives :: drawRods(upRod,downRod);
