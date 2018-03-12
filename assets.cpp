@@ -1,36 +1,3 @@
-
-Conversation opened. 1 unread message.
-
-Skip to content
-Using Gmail with screen readers
-
-  More 
-1 of 5,305
- 
-(no subject) 
-Inbox
-x 
-
-Vishal Agarwal
-Attachments10:07 PM (18 minutes ago)
-to me 
- 
-
- 
-
-Sent from Mail for Windows 10
-
- 
-
-4 Attachments
-	
-Click here to Reply or Forward
-2.57 GB (17%) of 15 GB used
-Manage
-Terms - Privacy
-Last account activity: 2 hours ago
-Details
-
 #include "assets.h"
 #include "graphics.h"
 #include <cstdio>
