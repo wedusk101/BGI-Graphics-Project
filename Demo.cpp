@@ -37,8 +37,12 @@ int main()
 	setcolor(12); // Light Red 
 	int xMax = getmaxx(), yMax = getmaxy();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
-	// pointer.src.x = xMax / 2, pointer.src.y = yMax, pointer.dst.x = xMax / 2, pointer.dst.y = yMax - 50; // hardcoded values for the direction arrow 
-	pointer.src.x = 300, pointer.src.y = 300, pointer.dst.x = 350, pointer.dst.y = 300;
+
+	pointer.src.x = 400, pointer.src.y = 580, pointer.dst.x = 475, pointer.dst.y = 580; // arrow position
+
+	// ball.center = pointer.src;
+	// ball.radius = 20;
+
 	pointerLen = getEuclideanDistance(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 	std::cout << pointerLen << std::endl;
 	box = primitives::getRectangle(xMax / 4, yMax / 4, xMax - 150, yMax - 150);
@@ -66,11 +70,14 @@ int main()
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
-
-
+		
 		while (flag) // loop for the direction arrow in football game
 		{
+			
 			cleardevice();
+			outtextxy(xMax - 170, 50, "SCORE: ");
+			outtextxy(xMax - 100, 50, (char*)pstr);
+
 			if (ismouseclick(WM_LBUTTONDOWN))
 			{
 				flag = false;
@@ -81,11 +88,14 @@ int main()
 
 			circle(locus.x, locus.y, ball.radius);
 			rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
-			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(theta));
-			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(theta));
+
+			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(pointerTheta));
+			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(pointerTheta));
 			line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
-			pointerTheta += pointerStep;
-			swapbuffers();
+			
+			pointerTheta += pointerStep;	
+
+			swapbuffers();			
 		}
 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
@@ -97,7 +107,7 @@ int main()
 				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
-							 // primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
+				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
 			}
 		}
 		
