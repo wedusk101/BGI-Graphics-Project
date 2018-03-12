@@ -32,7 +32,7 @@ namespace primitives
 		upRod.center = midPoint(upRod.bR, upRod.tL);
 		return upRod;
 	}
-	primitives::Rectangle genDownRod(primitives::Rectangle upRod)
+	Rectangle genDownRod(primitives::Rectangle upRod)
 	{
 		primitives::Rectangle downRod;
 		int xMax, yMax;
