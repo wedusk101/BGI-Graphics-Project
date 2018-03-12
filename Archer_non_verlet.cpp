@@ -172,6 +172,8 @@ int main()                    //Test Arrow and Bow
 			}
 			score += addScore;
 			addScore = 0;
+			target.horiz.src.y = rand() % (ymax - static_cast<int>(ymax / 8)) - static_cast<int>(ymax/8)+1;
+			target = primitives::genInitTarget(target.horiz.src);
 			delay(700);
 		}
 		swapbuffers();
