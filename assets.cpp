@@ -446,6 +446,3 @@ void drawRods(Rectangle upRod,Rectangle downRod)
     getch();
 }
 */
-
-assets.cpp
-Displaying assets.cpp.
