@@ -1,3 +1,36 @@
+
+Conversation opened. 1 unread message.
+
+Skip to content
+Using Gmail with screen readers
+
+  More 
+1 of 5,305
+ 
+(no subject) 
+Inbox
+x 
+
+Vishal Agarwal
+Attachments10:07 PM (18 minutes ago)
+to me 
+ 
+
+ 
+
+Sent from Mail for Windows 10
+
+ 
+
+4 Attachments
+	
+Click here to Reply or Forward
+2.57 GB (17%) of 15 GB used
+Manage
+Terms - Privacy
+Last account activity: 2 hours ago
+Details
+
 #include "assets.h"
 #include "graphics.h"
 #include <cstdio>
@@ -6,6 +39,47 @@ namespace primitives
 {
 
 /**********************************************ASSETS FOR FOOTBALL PROJECT***************************************************/	
+	Circle genBall()
+	{
+		Circle ball;
+		int xMax, yMax;
+		xMax = getmaxx();
+		yMax = getmaxy();
+		ball.center.x = xMax / 8;
+		ball.center.y = (yMax - 40);
+		ball.radius = 30;
+		return ball;
+	}
+	Rectangle genUpRod()
+	{
+		Rectangle upRod;
+		int xMax, yMax;
+		xMax = getmaxx();
+		yMax = getmaxy();
+		upRod.tL.x = xMax/2;
+		upRod.tL.y = 0;
+		upRod.bR.y = yMax * 5/16;
+		upRod.bR.x = upRod.tL.x + (xMax * 3 / 80);//UPPER ROD POSITIONING
+		upRod.width = xMax * 3 / 80;
+		upRod.height = upRod.bR.y - upRod.tL.y;
+		upRod.center = midPoint(upRod.bR, upRod.tL);
+		return upRod;
+	}
+	primitives::Rectangle genDownRod(primitives::Rectangle upRod)
+	{
+		primitives::Rectangle downRod;
+		int xMax, yMax;
+		xMax = getmaxx();
+		yMax = getmaxy();
+		downRod.tL.x = upRod.tL.x;
+		downRod.bR.x = upRod.bR.x;
+		downRod.bR.y = yMax;
+		downRod.tL.y = upRod.bR.y + (yMax * 5 / 24);//LOWER ROD POSITIONING
+		downRod.width = xMax * 3 / 80;
+		downRod.height = downRod.bR.y - downRod.tL.y;//WIDTH AND HEIGHT OF RODS
+		downRod.center = midPoint(downRod.bR, upRod.tL);//MIDPOINT OF RODS
+		return downRod;
+	}
 	Point midPoint(const Point &start,const Point &end)
 		{
 		    Point mid;
@@ -406,3 +480,5 @@ void drawRods(Rectangle upRod,Rectangle downRod)
 }
 */
 
+assets.cpp
+Displaying assets.cpp.
