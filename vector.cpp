@@ -1,4 +1,5 @@
 //vector.cpp
+#include "primitives.h"
 #include "vector.h"
 
 namespace primitives
@@ -14,10 +15,12 @@ namespace primitives
 
 	Vec2 point2Vec(const Point &src, const Point &dst) // returns a vector from a source point towards a destination point
 	{
-		Vec2 vec;
-		vec.x = dst.x - src.x;
-		vec.y = dst.y - src.y;
-		return vec;
+		return Vec2(dst.x - src.x, dst.y - src.y);
+	}
+
+	Point vec2Point(const Vec2 &v)
+	{
+		return Point(v.x, v.y);
 	}
 
 	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the normal vector to a circle at a given point on its circumference

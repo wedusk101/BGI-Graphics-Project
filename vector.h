@@ -69,6 +69,7 @@ namespace primitives
 
 	Vec2 getNormalized(const Vec2 &);
 	Vec2 point2Vec(const Point &, const Point &);
+	Point vec2Point(const Vec2 &v);
 	Vec2 getNormaltoCircle(const Point &, const Circle &);
 }
 
