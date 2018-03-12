@@ -6,7 +6,13 @@ namespace primitives
 {
 
 /**********************************************ASSETS FOR FOOTBALL PROJECT***************************************************/	
-	
+	Point midPoint(const Point &start,const Point &end)
+		{
+		    Point mid;
+		    mid.x = (start.x + end.x)/2;
+		    mid.y = (start.y + end.y)/2;
+		    return mid;
+		}
 	Humanoid genHumanoid(const Point &p)
 	{
 		//restraints to be included to make sure the object is within the window limits
