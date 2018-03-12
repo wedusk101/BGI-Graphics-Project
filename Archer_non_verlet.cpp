@@ -51,7 +51,11 @@ int main()                    //Test Arrow and Bow
 		outtextxy(xmax / 2, ymax / 2, "Press Space to Play!");
 		//swapbuffers();
 		if (GetAsyncKeyState(VK_SPACE))
+		{
+			PlaySound(TEXT("whistle.wav"), NULL, SND_ASYNC);
+			delay(1000);
 			flag = true;
+		}
 		while (flag && lives != 0)                 //main game loop
 		{
 			cleardevice();
