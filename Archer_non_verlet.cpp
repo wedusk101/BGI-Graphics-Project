@@ -10,7 +10,7 @@
 #define TRUE 1
 #define FALSE 0
 
-int main()                    //Test Arrow and Bow
+int main()                    
 {
 	int xmax = 0, ymax = 0;
 	std::cout << "Please enter the desired resolution." << std::endl;
@@ -33,9 +33,9 @@ int main()                    //Test Arrow and Bow
 	primitives::Arrow arrow;       
 	primitives::Target target;
 
-	/**initial draw calls**/
+	
     
-	while (1)
+	while (1) // Main game loop
 	{
 		cleardevice();
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3;
@@ -43,7 +43,7 @@ int main()                    //Test Arrow and Bow
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
         arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
-		target = primitives::genInitTarget(bow.center);
+		target = primitives::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
@@ -56,7 +56,7 @@ int main()                    //Test Arrow and Bow
 			delay(1000);
 			flag = true;
 		}
-		while (flag && lives != 0)                 //main game loop
+		while (flag && lives != 0)                 // gameplay loop
 		{
 			cleardevice();
 			if ((bow.center.y - (bow.radius + 10)) <= 5)                  //bound checking for bow  (upper screen) 
@@ -189,7 +189,7 @@ int main()                    //Test Arrow and Bow
 				score += addScore;
 				addScore = 0;
 				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
-				target = primitives::genInitTarget(target.horiz.src);
+				target = primitives::genTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();
@@ -202,6 +202,6 @@ int main()                    //Test Arrow and Bow
 		}
 		swapbuffers();
 	}
-	system("pause"); // windows only feature
 	closegraph();
+	return 0;
 }
