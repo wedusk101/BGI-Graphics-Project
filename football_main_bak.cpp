@@ -38,27 +38,12 @@ int main()
 		arrowHead.x=arrowTail.x+70;
 		arrowHead.y=arrowTail.y;		//ARROW POSITIONING
 
-		/*upRod.tL.x = 400;
-		upRod.tL.y = 0;
-		upRod.bR.y = 150;
-		upRod.bR.x = upRod.tL.x+30;//UPPER ROD POSITIONING*/
-		/*downRod.tL.x = upRod.tL.x;
-		downRod.bR.x = upRod.bR.x;
-		downRod.bR.y = getmaxy();
-		downRod.tL.y = upRod.bR.y+100;//LOWER ROD POSITIONING
-		upRod.width=30;
-		downRod.width=30;
-		upRod.height = upRod.bR.y-upRod.tL.y;
-		downRod.height=downRod.bR.y-downRod.tL.y;//WIDTH AND HEIGHT OF RODS
-		upRod.center = midPoint(upRod.bR,upRod.tL);
-		downRod.center = midPoint(downRod.bR,upRod.tL);//MIDPOINT OF RODS*/
-		upRod = primitives::genUpRod();
-		downRod = primitives::genDownRod(upRod);
+		primitives::genRods(upRod,downRod);
 		ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 		upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
 		downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 
-	    prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
+	    	prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
 
 		
 		primitives::genRods(upRod,downRod);
