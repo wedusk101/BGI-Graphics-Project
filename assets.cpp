@@ -17,12 +17,13 @@ namespace primitives
 		ball.radius = 30;
 		return ball;
 	}
-	Rectangle genUpRod()
+	void genRods(Rectangle &upRod , Rectangle &downRod)
 	{
-		Rectangle upRod;
 		int xMax, yMax;
 		xMax = getmaxx();
 		yMax = getmaxy();
+
+		/*Coordinates for Up Rod*/
 		upRod.tL.x = xMax/2;
 		upRod.tL.y = 0;
 		upRod.bR.y = yMax * 5/16;
@@ -30,14 +31,8 @@ namespace primitives
 		upRod.width = xMax * 3 / 80;
 		upRod.height = upRod.bR.y - upRod.tL.y;
 		upRod.center = midPoint(upRod.bR, upRod.tL);
-		return upRod;
-	}
-	Rectangle genDownRod(Rectangle upRod)
-	{
-		primitives::Rectangle downRod;
-		int xMax, yMax;
-		xMax = getmaxx();
-		yMax = getmaxy();
+
+		/*Coordiantes for Down rod*/
 		downRod.tL.x = upRod.tL.x;
 		downRod.bR.x = upRod.bR.x;
 		downRod.bR.y = yMax;
@@ -45,15 +40,14 @@ namespace primitives
 		downRod.width = xMax * 3 / 80;
 		downRod.height = downRod.bR.y - downRod.tL.y;//WIDTH AND HEIGHT OF RODS
 		downRod.center = midPoint(downRod.bR, upRod.tL);//MIDPOINT OF RODS
-		return downRod;
 	}
 	Point midPoint(const Point &start,const Point &end)
-		{
-		    Point mid;
-		    mid.x = (start.x + end.x)/2;
-		    mid.y = (start.y + end.y)/2;
-		    return mid;
-		}
+	{
+		Point mid;
+		mid.x = (start.x + end.x)/2;
+		mid.y = (start.y + end.y)/2;
+		return mid;
+	}
 	Humanoid genHumanoid(const Point &p)
 	{
 		//restraints to be included to make sure the object is within the window limits
@@ -93,9 +87,9 @@ namespace primitives
 	}
 	
 	void genFootball(Point &center,int &radius)
-    {
+    	{
 
-    Point poly1,poly2,poly3,poly4,poly5,poly6;
+    	Point poly1,poly2,poly3,poly4,poly5,poly6;
         setcolor(15); // Light Red
 	circle(center.x, center.y,radius); //Circle drawn
 
@@ -123,7 +117,7 @@ namespace primitives
 	drawpoly(4,polygon3);
 
 
-    poly1.x=center.x-(radius-1);
+    	poly1.x=center.x-(radius-1);
 	poly1.y=center.y-8;
 	poly2.x=center.x-(radius-8);
 	poly2.y=center.y-4;
@@ -135,7 +129,7 @@ namespace primitives
 	int polygon4[8]={poly1.x,poly1.y,poly2.x,poly2.y,poly3.x,poly3.y,poly4.x,poly4.y};
 	drawpoly(4,polygon4);
 
-    poly1.x=center.x-8;
+    	poly1.x=center.x-8;
 	poly1.y=center.y+(radius-1);
 	poly2.x=center.x-4;
 	poly2.y=center.y+(radius-8);
@@ -146,10 +140,10 @@ namespace primitives
 	int polygon5[8]={poly1.x,poly1.y,poly2.x,poly2.y,poly3.x,poly3.y,poly4.x,poly4.y};
 	drawpoly(4,polygon5);
 
-    setfillstyle(SOLID_FILL,LIGHTGRAY);
+    	setfillstyle(SOLID_FILL,LIGHTGRAY);
 	floodfill(center.x, center.y,15);
 
-    poly1.x=center.x-4;
+    	poly1.x=center.x-4;
 	poly1.y=center.y-8;
 	poly2.x=center.x+4;
 	poly2.y=center.y-8;
@@ -164,16 +158,16 @@ namespace primitives
 	int polygon[14]={poly1.x,poly1.y,poly2.x,poly2.y,poly3.x,poly3.y,poly4.x,poly4.y,poly5.x,poly5.y,poly6.x,poly6.y,poly1.x,poly1.y};
 	drawpoly(7,polygon);
 
-	 setfillstyle(SOLID_FILL,RED);
+	setfillstyle(SOLID_FILL,RED);
 	floodfill(center.x, center.y,15);
 	setlinestyle(0,0,1);
 
     }
 
-void drawRods(Rectangle upRod,Rectangle downRod)
+	void drawRods(Rectangle upRod,Rectangle downRod)
 	{
-        rectangle(upRod.tL.x,upRod.tL.y,upRod.bR.x,upRod.bR.y);
-        rectangle(downRod.tL.x,downRod.tL.y,downRod.bR.x,downRod.bR.y);
+        	rectangle(upRod.tL.x,upRod.tL.y,upRod.bR.x,upRod.bR.y);
+        	rectangle(downRod.tL.x,downRod.tL.y,downRod.bR.x,downRod.bR.y);
 	}
 	void genRods(const int &X, const int &Y)
 	{
@@ -248,18 +242,18 @@ void drawRods(Rectangle upRod,Rectangle downRod)
 	
 	Bow genInitBow()							//Generates coordinates for bow before the gameplay
 	{
-			Bow bow;
-			int xmax = getmaxx();
-			int ymax = getmaxy();
+		Bow bow;
+		int xmax = getmaxx();
+		int ymax = getmaxy();
 
-			bow.radius = xmax / 16;
-			bow.center.x = bow.radius / 3;
-	 		bow.center.y = ymax / 2;
+		bow.radius = xmax / 16;
+		bow.center.x = bow.radius / 3;
+	 	bow.center.y = ymax / 2;
         	setcolor(WHITE);
         	setlinestyle(0 , 0 , 7);             //set line style function is not for arcs but the thickness parameter works successfully
         	struct arccoordstype arcinfo;
-			arc(bow.center.x , bow.center.y , 290 , 70 , bow.radius);
-	 		getarccoords(&arcinfo);              //fetching the endpoints of the last drawn arc
+		arc(bow.center.x , bow.center.y , 290 , 70 , bow.radius);
+	 	getarccoords(&arcinfo);              //fetching the endpoints of the last drawn arc
         	bow.midy = ( arcinfo.ystart + 5 + arcinfo.yend - 5 ) / 2;
 
        	 	/*co-ordinates for upper part of the string*/
@@ -274,9 +268,9 @@ void drawRods(Rectangle upRod,Rectangle downRod)
         	bow.lString.src.y = bow.midy+1;
         	bow.lString.dst.x = arcinfo.xend;
        		bow.lString.dst.y = arcinfo.yend-4;
-			return bow;
+		return bow;
 	}
-
+	
 	void genBow(Bow &bow)							//Generates the coordinates for the bow during the gameplay
 	{
 
@@ -314,26 +308,26 @@ void drawRods(Rectangle upRod,Rectangle downRod)
 
         	setlinestyle(0 , 0 , 3);
 
-			if (flag == 1)    //if a bow is stretched
-			{	/*Function call for a stretched bow.*/
-				int trans = (bow.radius / 3) * (-1);
-				translatePoint(bow.uString.dst, trans, 0);
-				translatePoint(bow.lString.src, trans, 0);
-			}
+		if (flag == 1)    //if a bow is stretched
+		{	/*Function call for a stretched bow.*/
+			int trans = (bow.radius / 3) * (-1);
+			translatePoint(bow.uString.dst, trans, 0);
+			translatePoint(bow.lString.src, trans, 0);
+		}
         	line(bow.uString.src.x , bow.uString.src.y , bow.uString.dst.x , bow.uString.dst.y);
         	line(bow.lString.src.x , bow.lString.src.y , bow.lString.dst.x , bow.lString.dst.y);
 	}
 	Arrow genArrow(const int &bowRadius,Point &origin)  //if arrow is to be aligned with the bow send origin = bow center
 	{
         	Arrow arrow;
-			arrow.arrowLocus = origin;
+		arrow.arrowLocus = origin;
         	arrow.size = bowRadius * 3 / 20;
         	return arrow;                 //returning reference to the Arrow type object generated by the function
 	}
 	
 	void drawArrow(const int &size, Point origin)
 	{
-		    int tail_size;
+		int tail_size;
         	setlinestyle(0 , 0 , 3);
        		setcolor(WHITE);
        		moveto(origin.x , origin.y);                                   //https://www.cs.colorado.edu/~main/bgi/doc/moveto.html
@@ -355,12 +349,12 @@ void drawRods(Rectangle upRod,Rectangle downRod)
        		linerel(2 * tail_size, -1 * tail_size);
     	}
 	
-	Target genInitTarget(const Point &targetCenter)
+	Target genTarget(const Point &targetCenter)
 	{
 	    	Target targ;
 	    	int xmax = getmaxx();
 	    	int ymax = getmaxy();
-	   	    targ.horiz.src.x = xmax - xmax/30;
+	   	targ.horiz.src.x = xmax - xmax/30;
         	targ.horiz.src.y = targetCenter.y;
         	targ.horiz.dst.x = targ.horiz.src.x + xmax / 30;
         	targ.horiz.dst.y = targ.horiz.src.y;
@@ -371,17 +365,7 @@ void drawRods(Rectangle upRod,Rectangle downRod)
         	targ.vert.dst.y = targ.horiz.src.y + ymax / 8;
         	return targ;
 	}
-	/*void genTarget(Target targ)
-    	{
-        	targ.vert.src.x = p.x;
-        	targ.vert.src.y = p.y;
-        	targ.vert.dst.x = p.x;
-        	targ.vert.dst.y = p.y + getmaxx()/7;
-        	targ.horiz.src.x = (targ.vert.src.x + targ.vert.dst.x)/2;
-        	targ.horiz.src.y = (targ.vert.src.y + targ.vert.dst.y)/2;
-        	targ.horiz.dst.x = targ.horiz.src.x + 80;
-        	targ.horiz.dst.y = targ.horiz.src.y;
-    	}*/
+	
     	void drawTarget(Target &targ) // consider sending as const reference if this function isn't a mutator
     	{
         	setlinestyle(0,0,6);
@@ -425,24 +409,5 @@ void drawRods(Rectangle upRod,Rectangle downRod)
     tar.y = 40;
     targ1 = genTarget(tar);
     drawTarget(targ1);
-}
-*/
-
-/*int main()                    //Test Arrow and Bow
-{
-    initwindow(800,480);
-    primitives::Point p , bowPoint;
-    primitives::Arrow aro1;
-    primitives::Bow bow;
-    p.x = 24;
-    p.y = 100;
-    int size = 15;
-    bowPoint.x = 15;
-    bowPoint.y = p.y;
-    aro1 = genArrow(p,size);
-    drawArrow(aro1);
-    bow = genBow(bowPoint);        //By default a stretched bow.
-    drawBow(bow);
-    getch();
 }
 */
