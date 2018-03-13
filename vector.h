@@ -11,8 +11,8 @@ namespace primitives
 {
 	struct Vec2
 	{
-		int x;
-		int y;
+		double x;
+		double y;
 
 		Vec2() : x(0), y(0) {}		
 		Vec2(int x_, int y_) : x(x_), y(y_) {} // member initialization list
@@ -36,16 +36,16 @@ namespace primitives
 		Vec2 operator* (const double &c) const // scalar multiplication
 		{
 			Vec2 result;
-			result.x = static_cast<int>(x * c);
-			result.y = static_cast<int>(y * c);
+			result.x = x * c;
+			result.y = y * c;
 			return result;
 		}
 
 		Vec2 operator/ (const double &c) const // scalar division
 		{
 			Vec2 result;
-			result.x = static_cast<int>(x / c);
-			result.y = static_cast<int>(y / c);
+			result.x = x / c;
+			result.y = y / c;
 			return result;
 		}
 

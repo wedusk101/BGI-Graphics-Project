@@ -18,7 +18,7 @@ int main()                    //Test Arrow and Bow
 	std::cin >> xmax >> ymax;
 	initwindow(xmax, ymax, "Archery");
 	xmax = getmaxx();
-    	ymax = getmaxy();
+    ymax = getmaxy();
 	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -42,8 +42,8 @@ int main()                    //Test Arrow and Bow
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        	arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
-		target = primitives::genTarget(bow.center);
+        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+		target = primitives::genInitTarget(bow.center);
 
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
@@ -119,7 +119,7 @@ int main()                    //Test Arrow and Bow
 				clearmouseclick(WM_LBUTTONDOWN);    //event is released
 
 				PlaySound(TEXT("target_hit.wav"), NULL, SND_ASYNC);
-				arrowHitPos = arrow.arrowLocus;		//Stores the final position of the arrow
+				arrowHitPos = arrow.arrowLocus;		//Stores the final position of the array
 				division = (target.horiz.src.y - target.vert.src.y) / 4;  //Divide the target into 4 zones for scoring
 
 				if (arrowHitPos.y < target.vert.src.y || arrowHitPos.y > target.vert.dst.y)		//If arrow doesn't hit the target
@@ -189,7 +189,7 @@ int main()                    //Test Arrow and Bow
 				score += addScore;
 				addScore = 0;
 				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
-				target = primitives::genTarget(target.horiz.src);
+				target = primitives::genInitTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();
