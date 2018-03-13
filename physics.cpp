@@ -236,24 +236,23 @@ namespace primitives
 		}
 		return false;
 	}
-
-	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
+bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
 
-        if(bowCord.y+75>=yMax)
+        if(bowCord.y+bow.radius>=yMax)
         {
             nextPoint=prevBow.center;
-            translatePoint(nextPoint, 0, -75);
-			bowCord = getTranslatedPoint(bow.center, 0, -75);
+            translatePoint(nextPoint, 0, -bow.radius);
+			bowCord = getTranslatedPoint(bow.center, 0, -bow.radius);
 			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
             return true;
         }
 
-        if(bowCord.y-75<=0)
+        if(bowCord.y-bow.radius<=0)
         {
             nextPoint=prevBow.center;
-            translatePoint(nextPoint, 0, 75);
-			bowCord = getTranslatedPoint(bow.center, 0, 75);
+            translatePoint(nextPoint, 0, bow.radius);
+			bowCord = getTranslatedPoint(bow.center, 0, bow.radius);
 			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
             return true;
         }
