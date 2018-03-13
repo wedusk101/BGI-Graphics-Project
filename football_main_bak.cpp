@@ -18,7 +18,7 @@ int main()
 	
 	primitives::Point locus, nextPoint, arrowHead, arrowTail, origin;
 	primitives :: Circle ball;
-	primitives :: AABB ballBB, prevBB, upRodBB, downRodBB,prevupRodBB,prevdownRodBB;
+	primitives :: AABB ballBB, prevBB, upRodBB, downRodBB,prevUpRodBB,prevDownRodBB;
 	primitives :: Rectangle upRod, downRod;
 	//std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	//std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
@@ -27,13 +27,13 @@ int main()
 	setcolor(12); // Light Red
 
 	int xMax = getmaxx(), yMax = getmaxy();
-	while(1)
+	while(1) // main game loop
     {
 		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS
-		arrowTail.x=ball.center.x;
-		arrowTail.y=ball.center.y;
-		arrowHead.x=arrowTail.x+70;
-		arrowHead.y=arrowTail.y;		// ARROW POSITIONING
+		arrowTail.x = ball.center.x;
+		arrowTail.y = ball.center.y;
+		arrowHead.x = arrowTail.x + 70;
+		arrowHead.y = arrowTail.y;		// ARROW POSITIONING
 
 		primitives::genRods(upRod, downRod);
 
@@ -41,8 +41,8 @@ int main()
 		upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
 		downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 
-	    prevupRodBB = upRodBB;
-		prevdownRodBB = downRodBB;
+	    prevUpRodBB = upRodBB;
+		prevDownRodBB = downRodBB;
 
 		primitives :: genFootball(ball.center,ball.radius);
 		primitives :: drawRods(upRod,downRod);
@@ -56,18 +56,18 @@ int main()
 		double radius = getEuclideanDistance(arrowTail.x, arrowTail.y, arrowHead.x, arrowHead.y);
 
                              
-		while(!ismouseclick(WM_LBUTTONDOWN))
+		while(!ismouseclick(WM_LBUTTONDOWN)) // pointer arrow movement
 		{
 			delay(33);
 			cleardevice();
 			if(deg<=-1.57079 || deg>=0)
 				state*=-1;
-			// primitives :: genFootball(ball.center,ball.radius);  // commented out for debugging
+			primitives :: genFootball(ball.center,ball.radius);  // commented out for debugging
 			primitives :: drawRods(upRod,downRod);
 			primitives :: genGoalPost();
 			setlinestyle(0,0,1);
-			arrowHead.x=arrowTail.x+ static_cast<int>(radius*cos(deg));
-			arrowHead.y=arrowTail.y+ static_cast<int>(radius*sin(deg));
+			arrowHead.x=arrowTail.x + static_cast<int>(radius*cos(deg));
+			arrowHead.y=arrowTail.y + static_cast<int>(radius*sin(deg));
 			line(arrowHead.x,arrowHead.y,arrowTail.x,arrowTail.y);
 			deg += state;
 			swapbuffers();
@@ -81,7 +81,7 @@ int main()
 		nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * 50)); // r = o + tD ----> t controls the speed of the ball; here t = 50
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ----- debugging
-		
+		/*
 		primitives::Vec2 test = getNormalized(arrowRay.d);
 
 		std::cout << "Arrow Tail x y " << arrowTail.x << " " << arrowTail.y << std::endl;
@@ -94,27 +94,27 @@ int main()
 		circle(nextPoint.x, nextPoint.y, 5); 
 		swapbuffers(); 
 		system("pause"); 
-
+		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging
 
 	    //primitives :: drawArrowFootball(arrowHead,arrowTail);
 		ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
-		upRodBB = updateAABB(upRod.center,upRod.width,upRod.height);
-		downRodBB = updateAABB(downRod.center,downRod.width,downRod.height);
+		upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
+		downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 
-		while (!ismouseclick(WM_LBUTTONDOWN)) // check this
+		while (!ismouseclick(WM_LBUTTONDOWN)) // ball movement Loop
 		{
 			//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 			outtextxy(100,200,"Ghus Gya");
 			cleardevice();
 			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 			genFootball(locus, ball.radius); // primary draw call for the ball
-			primitives :: drawRods(upRod,downRod);;
+			primitives :: drawRods(upRod, downRod);
 			primitives :: genGoalPost();
 
 
 			prevBB = ballBB; // backs up the ball's bounding box
-			prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
+			prevUpRodBB = upRodBB; prevDownRodBB = downRodBB;
 
 			ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 
@@ -123,20 +123,23 @@ int main()
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 			    primitives :: genGoalPost();
+				system("pause");
 			}
 
-			if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevupRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+			if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevUpRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 			{
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 				primitives :: genGoalPost();
+				system("pause");
 			}
 
-			if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevdownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+			if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevDownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 			{
 			    genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 		        primitives :: genGoalPost();
+				system("pause");
 			}
 			swapbuffers();
 	}
@@ -146,7 +149,6 @@ int main()
 
  //   genGoalPost();
 	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
-
 
     system("pause");
     closegraph();
