@@ -108,7 +108,7 @@ int main()
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
 				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
-				particleWave(locus, 50, 10, ball.radius, ball.radius + 300);
+				// particleWave(locus, 50, 10, ball.radius, ball.radius + 300);
 			}
 		}
 		
