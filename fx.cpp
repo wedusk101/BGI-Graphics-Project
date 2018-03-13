@@ -21,8 +21,8 @@ namespace primitives
 			{
 				theta = (rand() % 360 + 1) / 57.3; // generates a random angle between 0 and 2 * pi radians
 
-				x  = radius * cos(theta) + center.x;
-				y  = radius * sin(theta) + center.y;
+				x = radius * cos(theta) + center.x;
+				y = radius * sin(theta) + center.y;
 
 				putpixel(x, y, 12);
 				//delay(10);
@@ -63,8 +63,8 @@ namespace primitives
 
 			locus[i] = getNextPositionVerlet(confetti[i].bR, currentPosition[i], acceleration, stepSize, dummy);
 		}
-		
-		
+
+
 		// for(i = 0; locus[i].y <= yMax; i++) // creates the shower of particles
 		while (locus[j].y <= yMax)
 		{
@@ -76,7 +76,31 @@ namespace primitives
 			}
 		}
 
-		delete [] locus, currentPosition, confetti; // cleanup
+		delete[] locus, currentPosition, confetti; // cleanup
+	}
+
+
+	void particleWave(const Point &position, const int &particleCount, const int &instanceSize, const int &minRadius, const int &maxRadius)
+	{
+		srand(time(NULL));
+		double theta = 0.0;
+		int x = 0, y = 0, radius = 0;
+		for (radius = minRadius; radius != maxRadius; radius += 5)
+		{
+			for (int i = 0; i != 50; i++)
+			{
+				theta = (rand() % 360 + 1) / 57.3; // generates a random angle between 0 and 2 * pi radians
+
+				x = radius * cos(theta) + position.x;
+				y = radius * sin(theta) + position.y;
+
+				circle(position.x, position.y, instanceSize);
+
+				putpixel(x, y, 12);
+				//delay(10);
+			}
+		}
+
 	}
 }
 
