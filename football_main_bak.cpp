@@ -29,17 +29,14 @@ int main()
 
 	int xMax = getmaxx(), yMax = getmaxy();
 	while(1)
-<<<<<<< HEAD
     {
-=======
-    	{
->>>>>>> origin/master
+		{
+		origin/master
 		ball = primitives::genBall();//BALL POSITIONING AND RADIUS
 		arrowTail.x=ball.center.x;
 		arrowTail.y=ball.center.y;
 		arrowHead.x=arrowTail.x+70;
 		arrowHead.y=arrowTail.y;		//ARROW POSITIONING
-<<<<<<< HEAD
 
 		/*upRod.tL.x = 400;
 		upRod.tL.y = 0;
@@ -62,7 +59,7 @@ int main()
 		downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 
 	    prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
-=======
+
 		
 		primitives::genRods(upRod,downRod);
 
@@ -70,15 +67,15 @@ int main()
 		upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
 		downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 
-    		prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
->>>>>>> origin/master
+    	prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
+		origin/master
 		primitives :: genFootball(ball.center,ball.radius);
 		primitives :: drawRods(upRod,downRod);
 		primitives :: genGoalPost();
 		//primitives :: drawArrowFootball(arrowHead,arrowTail);
 		//primitives :: arrowMovement(arrowHead,arrowTail);
 		//arrowHead.x=300;arrowHead.y=300;arrowTail.x=350;arrowTail.y=300;
-<<<<<<< HEAD
+		
 		double deg = -0.78539;
 	    double state = 0.01;
 		double radius = getEuclideanDistance(arrowTail.x, arrowTail.y, arrowHead.x, arrowHead.y);
@@ -131,7 +128,7 @@ int main()
 		{
 			//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
 			outtextxy(100,200,"Ghus Gya");
-=======
+
 		double deg=-0.78539;
     		double state=0.01;
 	    	double radius=sqrt(pow((arrowHead.x-arrowTail.x),2)+pow((arrowHead.y-arrowTail.y),2));
@@ -163,24 +160,24 @@ int main()
 		{
 			//line(l.src.x, l.src.y, l.dst.x, l.dst.y); for testing collisions
                         outtextxy(100,200,"Ghus Gya");
->>>>>>> origin/master
+
 			cleardevice();
 			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 			genFootball(locus, ball.radius); // primary draw call for the ball
 			primitives :: drawRods(upRod,downRod);;
-<<<<<<< HEAD
+
 			primitives :: genGoalPost();
 
 
-=======
+
         		primitives :: genGoalPost();
 			
->>>>>>> origin/master
+
 			prevBB = ballBB; // backs up the ball's bounding box
 			prevupRodBB=upRodBB; prevdownRodBB=downRodBB;
 
 			ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
-<<<<<<< HEAD
+
 
 	        if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 			{
@@ -203,7 +200,7 @@ int main()
 		        primitives :: genGoalPost();
 			}
 			swapbuffers();
-=======
+
         		if (primitives :: collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 			{
 				genFootball(locus, ball.radius);
@@ -226,7 +223,7 @@ int main()
 		}
 		clearmouseclick(WM_LBUTTONDOWN);
 		swapbuffers();
->>>>>>> origin/master
+
 	}
 
  	//   genGoalPost();
