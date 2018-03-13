@@ -1,7 +1,6 @@
 //fx.h
 #pragma once
 
-#include "graphics.h"
 #include "primitives.h"
 
 #ifndef FX__H_

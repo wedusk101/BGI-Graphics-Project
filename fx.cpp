@@ -80,7 +80,7 @@ namespace primitives
 	}
 
 
-	void particleWave(const Point &position, const int &particleCount, const int &instanceSize, const int &minRadius, const int &maxRadius)
+	void particleWave(const Point &position, const int &particleCount, const int &instanceRadius, const int &minRadius, const int &maxRadius) // instanceRadius = particle size
 	{
 		srand(time(NULL));
 		double theta = 0.0;
@@ -89,20 +89,25 @@ namespace primitives
 		{
 			for (int i = 0; i != 50; i++)
 			{
+				cleardevice();
 				theta = (rand() % 360 + 1) / 57.3; // generates a random angle between 0 and 2 * pi radians
 
-				x = radius * cos(theta) + position.x;
+				x = radius * cos(theta) + position.x; // generates a position for the particle on the wavefront
 				y = radius * sin(theta) + position.y;
 
-				circle(position.x, position.y, instanceSize);
+				circle(x, y, instanceRadius); // draws the particle
 
 				putpixel(x, y, 12);
+				swapbuffers();
 				//delay(10);
 			}
 		}
 
 	}
 }
+
+
+/*These features ideally need 24-bit color to work well.*/
 
 void boxBlur(const int &xpx, const int &ypx, const int &xMax, const int &yMax, const int &radius) // WIP
 {
