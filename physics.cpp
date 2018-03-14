@@ -293,7 +293,8 @@ namespace primitives
 		*/
 		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
 
-		det = lineRay.d.x * (1 - lineRay.d.y);
+		det = circleRay.d.x * lineRay.d.y - lineRay.d.x * circleRay.d.y;
+		std::cout << "Determinant " << det << std::endl;
 
 		// ray marching steps 
 		if (fabs(det) <= epsilon) // doesn't collide ----> fast reject
@@ -304,12 +305,20 @@ namespace primitives
 
 		else // collides somewhere ----> now we check for the actual point of collision
 		{
-			circleRayParameter = (lineRay.o.x + lineRay.d.x * circleRay.o.y - (circleRay.o.x + lineRay.d.x * lineRay.o.y)) / det;
-			lineRayParameter = (lineRay.d.x * (circleRay.o.y - lineRay.o.y) + lineRay.d.y * (lineRay.o.x - circleRay.o.x)) / det;
+			circleRayParameter = (lineRay.o.x * lineRay.d.y + circleRay.o.y * lineRay.d.x - (lineRay.o.y * lineRay.d.x + circleRay.o.x * lineRay.d.y)) / det;
+			lineRayParameter = (lineRay.o.x * circleRay.d.y + circleRay.o.y * lineRay.d.x - (circleRay.o.x * circleRay.d.y + lineRay.o.y * circleRay.d.x)) / det;
 
-			// collisionPoint = vec2Point(lineRay.o + (lineRay.d * collisionParameter));
+			std::cout << "circleRayParameter " << circleRayParameter << " lineRayParameter " << lineRayParameter << std::endl; // debugging
 
-			if (getEuclideanDistance(circle.center.x, circle.center.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't phsically accurate as of now
+			if (circleRayParameter < 0 || lineRayParameter < 0 || lineRayParameter > 1)
+			{
+				std::cout << "COLLISION OUTSIDE RANGE" << std::endl;
+				return false;
+			}
+
+			collisionPoint = vec2Point(lineRay.o + (lineRay.d * lineRayParameter)); // could also be done using circleRayParamter
+
+			if (getEuclideanDistance(locus.x, locus.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't phsically accurate as of now
 			{
 				std::cout << "RAY MARCHED COLLISION" << std::endl;
 				collisionTheta = acos(dotProduct(lineRay.d, circleRay.d));
