@@ -41,20 +41,6 @@ namespace primitives
 	{
 		return Point((start.x + end.x) / 2, (start.y + end.y) / 2);
 	}
-
-	Rectangle getRectangle(const int &topLeftX, const int &topLeftY, const int &bottomRightX, const int &bottomRightY)
-	{
-		Rectangle rect;
-		rect.tL.x = topLeftX;
-		rect.tL.y = topLeftY;
-		rect.bR.x = bottomRightX;
-		rect.bR.y = bottomRightY;
-		rect.center.x = (topLeftX + bottomRightX) / 2; // potential overflow bug
-		rect.center.y = (topLeftY + bottomRightY) / 2;
-		rect.width = bottomRightX - topLeftX;
-		rect.height = bottomRightY - topLeftY;
-		return rect;
-	}
 }
 
 #endif

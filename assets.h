@@ -55,7 +55,7 @@ namespace primitives
      	void genGoalPost();
 	void drawRods(Rectangle,Rectangle);
 	void genFootball(Point &,int &);
-	Point midPoint(const Point &,const Point &);
+	
 
 	Bow genInitBow();                           	//Function to generate coordinates for the Bow
      	void genBow(Bow &);

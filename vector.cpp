@@ -20,10 +20,10 @@ namespace primitives
 
 	Point vec2Point(const Vec2 &v)
 	{
-		return Point(v.x, v.y);
+		return Point(static_cast<int>(v.x), static_cast<int>(v.y));
 	}
 
-	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the normal vector to a circle at a given point on its circumference
+	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the normal vector at a given point on circumference of a circle
 	{
 		return point2Vec(p, circle.center) / circle.radius;
 	}

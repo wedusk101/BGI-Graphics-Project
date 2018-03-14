@@ -49,7 +49,7 @@ namespace primitives
 
 	Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax, const int &faceID)
 	{
-		// returns a point along the direction of the particle's motion vector after collision
+		// returns a point along the direction of the particle's motion vector after collision for AABB collisions
 		double dy = 0.0, dx = 0.0;
 		Point nextPosition;
 		dy = prevPosition.y - collisionPosition.y;
@@ -262,10 +262,38 @@ namespace primitives
         return false;
     }
 
-	// this routine utilizes a-priori collision detection unlike the previous cases
+	// this routine utilizes a-priori collision detection unlike the previous cases and uses ray marching
 	bool collideCircleLine(Circle &circle, Line &line, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
 	{
-		Point circlePrevCenter = midPoint(circlePrevBB.topLeft, circlePrevBB.bottomRight);
+		Point origin, collisionPoint;
+		double collisionParameter = 0.0, collisionTheta = 0.0, pi = 3.14159265;
+		const double epsilon = 0.0002; // needed for dealing with floating point errors during comparison
+		Ray circleRay, lineRay;
+
+		Point circlePrevCenter = midPoint(circlePrevBB.topLeft, circlePrevBB.bottomRight); 
+
+		circleRay.o = point2Vec(origin, circlePrevCenter); // constructs a ray along the circle's current path
+		circleRay.d = getNormalized(point2Vec(circlePrevCenter, circle.center)); // unit direction vector for circleRay
+
+		lineRay.o = point2Vec(origin, line.src); // constructs a ray along the line
+		lineRay.d = getNormalized(point2Vec(line.src, line.dst)); // unit direction vector for lineRay
+
+		// ray marching steps 
+		if (fabs(lineRay.d.x - circleRay.d.x) <= epsilon) // doesn't collide
+			return false;
+
+		else // collides
+		{
+			collisionParameter = (circleRay.o.x - lineRay.o.x) / (lineRay.d.x - circleRay.d.x); // parameter that satisfies the conditions for successful collision
+			collisionPoint = vec2Point(lineRay.o + (lineRay.d * collisionParameter));
+
+			if (getEuclideanDistance(circle.center.x, circle.center.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't phsically accurate as of now
+			{
+				collisionTheta = acos(dotProduct(lineRay.d, circleRay.d));
+				circleLocus = getRotatedPoint(circle.center, pi - collisionTheta, collisionPoint.x, collisionPoint.y);
+				return true;
+			}
+		}
 		return false;
 	}
 }
