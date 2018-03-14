@@ -49,10 +49,10 @@ namespace primitives
 		downRod.tL.x = upRod.tL.x;
 		downRod.bR.x = upRod.bR.x;
 		downRod.bR.y = yMax;
-		downRod.tL.y = upRod.bR.y + (yMax * 5 / 24);//LOWER ROD POSITIONING
+		downRod.tL.y = upRod.bR.y + 300;//LOWER ROD POSITIONING
 		downRod.width = downRod.bR.x - downRod.tL.x;
 		downRod.height = downRod.bR.y - downRod.tL.y;//WIDTH AND HEIGHT OF RODS
-		downRod.center = midPoint(downRod.bR, upRod.tL);//MIDPOINT OF RODS
+		downRod.center = midPoint(downRod.bR, downRod.tL);//MIDPOINT OF RODS
 	}
 
 	Humanoid genHumanoid(const Point &p)
