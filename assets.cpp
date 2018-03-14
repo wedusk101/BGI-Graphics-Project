@@ -42,7 +42,7 @@ namespace primitives
 		downRod.center = midPoint(downRod.bR, upRod.tL);//MIDPOINT OF RODS
 	}
 
-	inline Point midPoint(const Point &start, const Point &end)
+	Point midPoint(const Point &start, const Point &end)
 	{
 		return Point((start.x + end.x) / 2, (start.y + end.y) / 2);
 	}
