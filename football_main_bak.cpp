@@ -11,7 +11,7 @@
 int main()
 {
 
-    const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
+	const double acceleration = 0.0, stepSize = 0.5, footBallSpeed = 2.25; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
 
 	primitives::Ray arrowRay;
@@ -62,7 +62,7 @@ int main()
 			cleardevice();
 			if(deg<=-1.57079 || deg>=0)
 				state*=-1;
-			primitives :: genFootball(ball.center,ball.radius);  // commented out for debugging
+			primitives :: genFootball(ball.center,ball.radius);  // comment out for debugging the direction vector for the ball
 			primitives :: drawRods(upRod,downRod);
 			primitives :: genGoalPost();
 			setlinestyle(0,0,1);
@@ -76,11 +76,11 @@ int main()
 		clearmouseclick(WM_LBUTTONDOWN);
 
 		arrowRay.o = point2Vec(origin, arrowTail);		// this code could possibly be cleaner but this works for now
-		arrowRay.d = point2Vec(arrowTail, arrowHead);
+		arrowRay.d = point2Vec(arrowTail, arrowHead);	// direction vector for the ball
 
-		nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * 50)); // r = o + tD ----> t controls the speed of the ball; here t = 50
+		nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed)); // r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ----- debugging
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ----- debugging the direction vector for the ball
 		/*
 		primitives::Vec2 test = getNormalized(arrowRay.d);
 
@@ -95,7 +95,7 @@ int main()
 		swapbuffers(); 
 		system("pause"); 
 		*/
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging the direction vector for the ball
 
 	    //primitives :: drawArrowFootball(arrowHead,arrowTail);
 		ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
@@ -123,7 +123,7 @@ int main()
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 			    primitives :: genGoalPost();
-				system("pause");
+				// system("pause");
 			}
 
 			if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevUpRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
@@ -131,7 +131,7 @@ int main()
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 				primitives :: genGoalPost();
-				system("pause");
+				// system("pause");
 			}
 
 			if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevDownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
@@ -139,7 +139,7 @@ int main()
 			    genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
 		        primitives :: genGoalPost();
-				system("pause");
+				// system("pause");
 			}
 			swapbuffers();
 	}
