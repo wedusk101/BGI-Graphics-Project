@@ -29,7 +29,10 @@ namespace primitives
 
 	bool collideCircleScreen(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleLine(Circle &, Line &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+
 	bool collideBowScreen(Bow &, Bow &, Point &, Point &, Point &, int &, const int &, const int &, const double &, const double &, double &);
+	
 }
 
 inline double getEuclideanDistance(const int &x1, const int &y1, const int &x2, const int &y2)

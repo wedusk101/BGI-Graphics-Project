@@ -21,8 +21,8 @@ int main()
 	primitives::Point locus, nextPoint, mouse;
 	primitives::Circle ball;
 	primitives::Rectangle box;
-	primitives::AABB ballBB, prevBB, boxBB, prevBoxBB;
-	primitives::Line pointer; // direction arrow testing for football
+	primitives::AABB ballBB, prevBallBB, boxBB, prevBoxBB;
+	primitives::Line pointer, testLine; // direction arrow testing for football
 
 	
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
@@ -40,6 +40,8 @@ int main()
 
 	pointer.src.x = 400, pointer.src.y = 580, pointer.dst.x = 475, pointer.dst.y = 580; // arrow position
 
+	testLine.src.x = 100, testLine.src.y = 100, testLine.dst.x = 500, testLine.dst.y = 500;
+
 	// ball.center = pointer.src;
 	// ball.radius = 20;
 
@@ -48,20 +50,21 @@ int main()
 	box = primitives::getRectangle(xMax / 4, yMax / 4, xMax - 150, yMax - 150);
 
 	circle(ball.center.x, ball.center.y, ball.radius);
-	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+	// rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
-	boxBB = updateAABB(box.center, box.width, box.height);
+	// boxBB = updateAABB(box.center, box.width, box.height);
 	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
 	while (1) // main game loop
 	{
 		cleardevice();
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
-		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
-		prevBB = ballBB; // backs up the ball's bounding box
+		line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
+		// rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+		prevBallBB = ballBB; // backs up the ball's bounding box
 		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
-		prevBoxBB = boxBB;
-		boxBB = updateAABB(box.center, box.width, box.height);
+		// prevBoxBB = boxBB;
+		// boxBB = updateAABB(box.center, box.width, box.height);
 		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
 		std::cout << "Box AABB topleft: " << boxBB.topLeft.x << "," << boxBB.topLeft.y << " bottomRight: " << boxBB.bottomRight.x << "," << boxBB.bottomRight.y << std::endl; // debugging
 		points = std::to_string(score);
@@ -71,7 +74,7 @@ int main()
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
 		
-		while (flag) // loop for the direction arrow in football game
+		/*while (flag) // loop for the direction arrow in football game
 		{
 			
 			cleardevice();
@@ -96,7 +99,7 @@ int main()
 			pointerTheta += pointerStep;	
 
 			swapbuffers();			
-		}
+		}*/
 
 		if (ismouseclick(WM_LBUTTONDOWN)) // checks if a mouse click event has occurred
 		{
@@ -113,7 +116,7 @@ int main()
 		}
 		
 		// a-posteriori collision detection
-		if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleScreen(ball, ballBB, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			//system("pause"); // for debugging
@@ -121,13 +124,19 @@ int main()
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 
-		if (collideCircleRectangle(ball, box, ballBB, prevBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		/*if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
-		}
+		}*/
+
+		/*if (collideCircleLine(ball, testLine, ballBB, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		{
+			// do something
+		}*/
+
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
 

@@ -1,7 +1,9 @@
 //physics.cpp
 #include "physics.h"
 #include "matrix.h"
+#include "vector.h"
 #include <iostream> // debugging
+
 
 namespace primitives
 {
@@ -191,7 +193,7 @@ namespace primitives
 		{	// left side of the circle AABB collides with the right side of the rectangle AABB
 			circleBB.faceID = 4;
 			rectangleBB.faceID = 2;
-			std::cout << "\nCASE 1" << std::endl; // debugging
+			// std::cout << "\nCASE 1" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
@@ -203,7 +205,7 @@ namespace primitives
 		{	// top side of the circle AABB collides with the bottom side of the rectangle AABB
 			circleBB.faceID = 3;
 			rectangleBB.faceID = 1;
-			std::cout << "\nCASE 2" << std::endl; // debugging
+			// std::cout << "\nCASE 2" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, circle.radius);
 			circle.center = getTranslatedPoint(circleBB.topMid, 0, circle.radius);
@@ -215,7 +217,7 @@ namespace primitives
 		{	// right side of the circle AABB collides with the left side of the rectangle AABB
 			circleBB.faceID = 2;
 			rectangleBB.faceID = 4;
-			std::cout << "\nCASE 3" << std::endl; // debugging
+			// std::cout << "\nCASE 3" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
@@ -227,7 +229,7 @@ namespace primitives
 		{	// bottom side of the circle AABB collides with the top side of the rectangle AABB
 			circleBB.faceID = 1;
 			rectangleBB.faceID = 3;
-			std::cout << "\nCASE 4" << std::endl; // debugging
+			// std::cout << "\nCASE 4" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
@@ -236,10 +238,11 @@ namespace primitives
 		}
 		return false;
 	}
-bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
+
+	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
 
-        if(bowCord.y+bow.radius>=yMax)
+        if(bowCord.y + bow.radius >= yMax)
         {
             nextPoint=prevBow.center;
             translatePoint(nextPoint, 0, -bow.radius);
@@ -248,7 +251,7 @@ bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, 
             return true;
         }
 
-        if(bowCord.y-bow.radius<=0)
+        if(bowCord.y - bow.radius <= 0)
         {
             nextPoint=prevBow.center;
             translatePoint(nextPoint, 0, bow.radius);
@@ -258,4 +261,11 @@ bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, 
         }
         return false;
     }
+
+	// this routine utilizes a-priori collision detection unlike the previous cases
+	bool collideCircleLine(Circle &circle, Line &line, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	{
+		Point circlePrevCenter = midPoint(circlePrevBB.topLeft, circlePrevBB.bottomRight);
+		return false;
+	}
 }

@@ -42,11 +42,6 @@ namespace primitives
 		downRod.center = midPoint(downRod.bR, upRod.tL);//MIDPOINT OF RODS
 	}
 
-	Point midPoint(const Point &start, const Point &end)
-	{
-		return Point((start.x + end.x) / 2, (start.y + end.y) / 2);
-	}
-
 	Humanoid genHumanoid(const Point &p)
 	{
 		//restraints to be included to make sure the object is within the window limits
@@ -184,20 +179,6 @@ namespace primitives
         	rectangle(rod2.tL.x,rod2.tL.y,rod2.bR.x,rod2.bR.y);
 	}
 
-	Rectangle getRectangle(const int &topLeftX, const int &topLeftY, const int &bottomRightX, const int &bottomRightY)
-	{
-		Rectangle rect;
-		rect.tL.x = topLeftX;
-		rect.tL.y = topLeftY;
-		rect.bR.x = bottomRightX;
-		rect.bR.y = bottomRightY;
-		rect.center.x = (topLeftX + bottomRightX) / 2; // potential overflow bug
-		rect.center.y = (topLeftY + bottomRightY) / 2;
-		rect.width = bottomRightX - topLeftX;
-		rect.height = bottomRightY - topLeftY;
-		return rect;
-	}
-	
 	void genGoalPost()
 	{
 
