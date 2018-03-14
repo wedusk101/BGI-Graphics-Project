@@ -11,7 +11,7 @@
 int main()
 {
 
-	const double acceleration = 0.0, stepSize = 0.5, footBallSpeed = 2.25; // arbitrary acceleration value - for g take 9.8
+	const double acceleration = 0.0, stepSize = 0.5, footBallSpeed = 3; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
 
 	primitives::Ray arrowRay;
@@ -23,13 +23,13 @@ int main()
 	//std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	//std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 
-	initwindow(800, 450, "First Sample");
+	initwindow(1280, 720, "First Sample");
 	setcolor(12); // Light Red
 
 	int xMax = getmaxx(), yMax = getmaxy();
 	while(1) // main game loop
     {
-		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS
+		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
 		arrowTail.x = ball.center.x;
 		arrowTail.y = ball.center.y;
 		arrowHead.x = arrowTail.x + 70;
@@ -44,9 +44,9 @@ int main()
 	    prevUpRodBB = upRodBB;
 		prevDownRodBB = downRodBB;
 
-		primitives :: genFootball(ball.center,ball.radius);
-		primitives :: drawRods(upRod,downRod);
-		primitives :: genGoalPost();
+		primitives :: genFootball(ball.center,ball.radius); //BALL DRAWING FUNCTION
+		primitives :: drawRods(upRod,downRod);	//ROD DRAWING FUNCTION
+		primitives :: genGoalPost();	//GOALPOST DRAWING FUNCTION
 
 		//primitives :: drawArrowFootball(arrowHead,arrowTail);
 		//primitives :: arrowMovement(arrowHead,arrowTail);
@@ -66,9 +66,17 @@ int main()
 			primitives :: drawRods(upRod,downRod);
 			primitives :: genGoalPost();
 			setlinestyle(0,0,1);
-			arrowHead.x=arrowTail.x + static_cast<int>(radius*cos(deg));
-			arrowHead.y=arrowTail.y + static_cast<int>(radius*sin(deg));
-			line(arrowHead.x,arrowHead.y,arrowTail.x,arrowTail.y);
+			arrowHead.x = arrowTail.x + static_cast<int>(radius*cos(deg));
+			arrowHead.y = arrowTail.y + static_cast<int>(radius*sin(deg));
+			line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y);
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+			/*
+			setcolor(12);
+			rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
+			rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
+			rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
+			*/
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
 			deg += state;
 			swapbuffers();
 		}
@@ -80,7 +88,7 @@ int main()
 
 		nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed)); // r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ----- debugging the direction vector for the ball
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging the direction vector for the ball
 		/*
 		primitives::Vec2 test = getNormalized(arrowRay.d);
 
@@ -92,6 +100,10 @@ int main()
 		cleardevice();
 		line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y); 
 		circle(nextPoint.x, nextPoint.y, 5); 
+		setcolor(12);
+		rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
+		rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
+		rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
 		swapbuffers(); 
 		system("pause"); 
 		*/
@@ -112,7 +124,16 @@ int main()
 			primitives :: drawRods(upRod, downRod);
 			primitives :: genGoalPost();
 
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+			/*
+			setcolor(12);
+			rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
+			rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
+			rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
 
+			circle(downRod.center.x, downRod.center.y, 5);
+			*/
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
 			prevBB = ballBB; // backs up the ball's bounding box
 			prevUpRodBB = upRodBB; prevDownRodBB = downRodBB;
 

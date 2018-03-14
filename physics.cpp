@@ -27,6 +27,8 @@ namespace primitives
 		bbox.leftMid.y = (bbox.topLeft.y + bbox.bottomleft.y) / 2;
 		bbox.rightMid.x = bbox.bottomRight.x;
 		bbox.rightMid.y = (bbox.topRight.y + bbox.bottomRight.y) / 2;
+		bbox.center.x = (bbox.topLeft.x + bbox.bottomRight.x) / 2;
+		bbox.center.y = (bbox.topLeft.y + bbox.bottomRight.y) / 2;
 		return bbox;
 	}
 
@@ -263,37 +265,59 @@ namespace primitives
     }
 
 	// this routine utilizes a-priori collision detection unlike the previous cases and uses ray marching
-	bool collideCircleLine(Circle &circle, Line &line, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	bool collideCircleLine(Point &locus, Circle &circle, Line &line, AABB &circleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
 	{
 		Point origin, collisionPoint;
-		double collisionParameter = 0.0, collisionTheta = 0.0, pi = 3.14159265;
+		double circleRayParameter = 0.0, lineRayParameter = 0.0, collisionTheta = 0.0, pi = 3.14159265, det = 0.0;
 		const double epsilon = 0.0002; // needed for dealing with floating point errors during comparison
 		Ray circleRay, lineRay;
 
-		Point circlePrevCenter = midPoint(circlePrevBB.topLeft, circlePrevBB.bottomRight); 
-
-		circleRay.o = point2Vec(origin, circlePrevCenter); // constructs a ray along the circle's current path
-		circleRay.d = getNormalized(point2Vec(circlePrevCenter, circle.center)); // unit direction vector for circleRay
+		circleRay.o = point2Vec(origin, circle.center); // constructs a ray along the circle's current path
+		circleRay.d = getNormalized(point2Vec(circle.center, locus)); // unit direction vector for circleRay
 
 		lineRay.o = point2Vec(origin, line.src); // constructs a ray along the line
 		lineRay.d = getNormalized(point2Vec(line.src, line.dst)); // unit direction vector for lineRay
 
-		// ray marching steps 
-		if (fabs(lineRay.d.x - circleRay.d.x) <= epsilon) // doesn't collide
-			return false;
+		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
+		/*
+		std::cout << "circleBB.topLeft x y " << circleBB.topLeft.x << " " << circleBB.topLeft.y << std::endl;
+		std::cout << "circleBB.bottomRight x y " << circleBB.bottomRight.x << " " << circleBB.bottomRight.y << std::endl;
 
-		else // collides
+		std::cout << "Circle prevCenter x y " << circle.center.x << " " << circle.center.y << std::endl;
+		std::cout << "Circle center x y " << locus.x << " " << locus.y << std::endl;
+		
+		std::cout << "Circle Ray O x y " << circleRay.o.x << " " << circleRay.o.y << std::endl;
+		std::cout << "Circle Ray D x y " << circleRay.d.x << " " << circleRay.d.y << std::endl;
+		std::cout << "Line Ray O x y " << lineRay.o.x << " " << lineRay.o.y << std::endl;
+		std::cout << "Line Ray D x y " << lineRay.d.x << " " << lineRay.d.y << "\n" << std::endl;
+		*/
+		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
+
+		det = lineRay.d.x * (1 - lineRay.d.y);
+
+		// ray marching steps 
+		if (fabs(det) <= epsilon) // doesn't collide ----> fast reject
 		{
-			collisionParameter = (circleRay.o.x - lineRay.o.x) / (lineRay.d.x - circleRay.d.x); // parameter that satisfies the conditions for successful collision
-			collisionPoint = vec2Point(lineRay.o + (lineRay.d * collisionParameter));
+			std::cout << "NO RAY MARCHED COLLISION" << std::endl;
+			return false;
+		}
+
+		else // collides somewhere ----> now we check for the actual point of collision
+		{
+			circleRayParameter = (lineRay.o.x + lineRay.d.x * circleRay.o.y - (circleRay.o.x + lineRay.d.x * lineRay.o.y)) / det;
+			lineRayParameter = (lineRay.d.x * (circleRay.o.y - lineRay.o.y) + lineRay.d.y * (lineRay.o.x - circleRay.o.x)) / det;
+
+			// collisionPoint = vec2Point(lineRay.o + (lineRay.d * collisionParameter));
 
 			if (getEuclideanDistance(circle.center.x, circle.center.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't phsically accurate as of now
 			{
+				std::cout << "RAY MARCHED COLLISION" << std::endl;
 				collisionTheta = acos(dotProduct(lineRay.d, circleRay.d));
 				circleLocus = getRotatedPoint(circle.center, pi - collisionTheta, collisionPoint.x, collisionPoint.y);
 				return true;
 			}
-		}
-		return false;
+			else
+				return false;
+		}		
 	}
 }

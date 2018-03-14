@@ -20,6 +20,7 @@ namespace primitives
 		Point bottomMid;
 		Point leftMid;
 		Point rightMid;
+		Point center;
 		int faceID;	// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
@@ -29,7 +30,7 @@ namespace primitives
 
 	bool collideCircleScreen(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
-	bool collideCircleLine(Circle &, Line &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleLine(Point &, Circle &, Line &, AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 
 	bool collideBowScreen(Bow &, Bow &, Point &, Point &, Point &, int &, const int &, const int &, const double &, const double &, double &);
 	

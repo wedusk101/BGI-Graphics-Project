@@ -57,15 +57,21 @@ int main()
 	while (1) // main game loop
 	{
 		cleardevice();
+
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
+
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
 		line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
 		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+
 		prevBallBB = ballBB; // backs up the ball's bounding box
-		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 		prevBoxBB = boxBB;
+		
+		ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 		boxBB = updateAABB(box.center, box.width, box.height);
-		std::cout << "AABB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
+
+		std::cout << "ballBB topleft: " << ballBB.topLeft.x << "," << ballBB.topLeft.y << " bottomRight: " << ballBB.bottomRight.x << "," << ballBB.bottomRight.y << std::endl; // debugging
+		std::cout << "prevBallBB topleft: " << prevBallBB.topLeft.x << "," << prevBallBB.topLeft.y << " bottomRight: " << prevBallBB.bottomRight.x << "," << prevBallBB.bottomRight.y << std::endl; // debugging
 		std::cout << "Box AABB topleft: " << boxBB.topLeft.x << "," << boxBB.topLeft.y << " bottomRight: " << boxBB.bottomRight.x << "," << boxBB.bottomRight.y << std::endl; // debugging
 		points = std::to_string(score);
 		const char *pstr = points.c_str();
@@ -124,22 +130,25 @@ int main()
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 
-		/*if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
-		{
-			circle(locus.x, locus.y, ball.radius);
-			// system("pause"); // for debugging
-			shockWave(locus, ball.radius, ball.radius + 40);
-			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
-		}*/
-
-		// a-priori collision detection
-		if (collideCircleLine(ball, testLine, ballBB, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
+
+		std::cout << "\nCIRCLE CENTER x y " << ball.center.x << " " << ball.center.y << std::endl; // debugging
+		std::cout << "CIRCLE PREVIOUS CENTER x y " << prevBallBB.center.x << " " << prevBallBB.center.y << "\n" << std::endl; // debugging
+
+		// a-priori collision detection
+		/*if (collideCircleLine(locus, ball, testLine, ballBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		{
+			circle(locus.x, locus.y, ball.radius);
+			// system("pause"); // for debugging
+			shockWave(locus, ball.radius, ball.radius + 40);
+			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
+		}*/
 
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging
