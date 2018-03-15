@@ -23,13 +23,13 @@ int main()
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
 
-		/*if (theta <= -1.57079 || theta >= 0) // -pi / 2 radians
+		if (theta <= -1.57079 || theta >= 0) // -pi / 2 radians
 			step *= -1; // changes the direction of rotation*/
 		
 		std::cout << "DST x y : " << l.dst.x << " " << l.dst.y << " SRC x y : " << l.src.x << " " << l.src.y << " Radius: " << getEuclideanDistance(l.src.x, l.src.y, l.dst.x, l.dst.y) << std::endl;
 		rotateRay(l.dst, step, l.src.x, l.src.y);
 		line(l.src.x, l.src.y, l.dst.x, l.dst.y);
-		// theta += step;
+		theta += step;
 
 		// alternative method
 

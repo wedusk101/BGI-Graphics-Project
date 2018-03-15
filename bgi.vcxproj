@@ -70,13 +70,13 @@
   <ItemGroup>
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="bgiout.cxx" />
-    <ClCompile Include="Demo.cpp" />
     <ClCompile Include="dibutil.cxx" />
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
     <ClCompile Include="fx.cpp" />
     <ClCompile Include="leaderboard.cpp" />
     <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="matrix_test.cpp" />
     <ClCompile Include="misc.cxx" />
     <ClCompile Include="mouse.cxx" />
     <ClCompile Include="palette.cxx" />

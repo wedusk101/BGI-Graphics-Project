@@ -142,7 +142,7 @@ int main()
 		//std::cout << "\nCIRCLE CENTER x y " << ball.center.x << " " << ball.center.y << std::endl; // debugging
 		//std::cout << "CIRCLE PREVIOUS CENTER x y " << prevBallBB.center.x << " " << prevBallBB.center.y << "\n" << std::endl; // debugging
 
-		if (fastCollideCircleLine(locus, ball, testLine, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (naiveCollideCircleLine(locus, ball, testLine, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging

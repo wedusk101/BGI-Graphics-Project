@@ -264,14 +264,22 @@ namespace primitives
         return false;
     }
 
-	bool fastCollideCircleLine(Point &locus, Circle &circle, Line &line, const AABB &prevCircleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
-	{	// src(x1,y1), dst(x2,y2), A = dy, B = -dx, C = x2*y1 - x1*y2, for Ax + By + C = 0
-		double dx = line.src.x - line.dst.x, dy = line.dst.y - line.src.y, c = line.dst.x * line.src.y - line.src.x * line.dst.y; // here dx = -dx
-		double straightLineDist = fabs((dy * circle.center.x + dx * circle.center.y + c) / sqrt(pow(dy, 2) + pow(dx, 2))); // D = |(A * x1 + B * y1 + C) / sqrt(A^2 + B^2)| -----> perpendicular distance from a point to a line
-
-
+	bool naiveCollideCircleLine(Point &locus, Circle &circle, Line &line, const AABB &prevCircleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	{	// src(x1,y1), dst(x2,y2), A = dy, B = -dx, C = x2*y1 - x1*y2, for Ax + By + C = 0 ---------- WIP
+		double dx = line.dst.x - line.src.x, dy = line.dst.y - line.src.y, c = line.dst.x * line.src.y - line.src.x * line.dst.y; // here dx = -dx
+		double straightLineDist = fabs((dy * circle.center.x + (-dx * circle.center.y) + c) / sqrt(pow(dy, 2) + pow(dx, 2))); // D = |(A * x1 + B * y1 + C) / sqrt(A^2 + B^2)| -----> perpendicular distance from a point to a line
+		
+		Point collisionPoint;
+		
 		if (straightLineDist <= circle.radius)
 		{
+			double lineSlope = dy / dx, inverseLineSlope = dx / dy, lineIntercept = c / dx, perpendicularIntercept = circle.center.y + circle.center.x * inverseLineSlope;
+
+			collisionPoint.x = round((lineIntercept - perpendicularIntercept) / (inverseLineSlope - lineSlope));
+			collisionPoint.y = round(lineSlope * collisionPoint.x + lineIntercept);
+
+
+
 			// std::cout << "FAST COLLISION " << std::endl; // debugging
 			// std::cout << straightLineDist << std::endl; // debugging
 
@@ -294,6 +302,8 @@ namespace primitives
 
 		lineRay.o = point2Vec(origin, line.src); // constructs a ray along the line
 		lineRay.d = getNormalized(point2Vec(line.src, line.dst)); // unit direction vector for lineRay
+
+		Vec2 lineNormal = getNormal(point2Vec(line.src, line.dst));
 
 		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
 		/*
