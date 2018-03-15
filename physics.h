@@ -32,7 +32,7 @@ namespace primitives
 	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 	bool collideCircleLine(Point &, Circle &, Line &, AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 
-	bool naiveCollideCircleLine(Point &, Circle &, Line &, AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool naiveCollideCircleLine(Point &, Circle &, Line &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
 
 	bool collideBowScreen(const Bow &, const Bow &, Point &, Point &, Point &, const int &, const int &, const double &, const double &, double &);
 	
