@@ -17,9 +17,9 @@ int main()
 	primitives::Ray arrowRay;
 	
 	primitives::Point locus, nextPoint, arrowHead, arrowTail, origin;
-	primitives :: Circle ball;
-	primitives :: AABB ballBB, prevBB, upRodBB, downRodBB,prevUpRodBB,prevDownRodBB;
-	primitives :: Rectangle upRod, downRod;
+	primitives::Circle ball;
+	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
+	primitives::Rectangle upRod, downRod;
 	//std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	//std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 
@@ -60,15 +60,16 @@ int main()
 		{
 			delay(33);
 			cleardevice();
-			if(deg<=-1.57079 || deg>=0)
-				state*=-1;
+			if(deg <= -1.57079 || deg >= 0)
+				state *= -1;
 			primitives :: genFootball(ball.center,ball.radius);  // comment out for debugging the direction vector for the ball
 			primitives :: drawRods(upRod,downRod);
 			primitives :: genGoalPost();
-			setlinestyle(0,0,1);
+			setlinestyle(0, 0, 1);
 			arrowHead.x = arrowTail.x + static_cast<int>(radius*cos(deg));
 			arrowHead.y = arrowTail.y + static_cast<int>(radius*sin(deg));
 			line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y);
+
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
 			/*
 			setcolor(12);
@@ -77,6 +78,7 @@ int main()
 			rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
 			*/
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+
 			deg += state;
 			swapbuffers();
 		}
@@ -88,7 +90,7 @@ int main()
 
 		nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed)); // r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging the direction vector for the ball
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------> debugging the direction vector for the ball
 		/*
 		primitives::Vec2 test = getNormalized(arrowRay.d);
 
@@ -107,7 +109,7 @@ int main()
 		swapbuffers(); 
 		system("pause"); 
 		*/
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------ debugging the direction vector for the ball
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------> debugging the direction vector for the ball
 
 	    //primitives :: drawArrowFootball(arrowHead,arrowTail);
 		ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
@@ -134,8 +136,10 @@ int main()
 			circle(downRod.center.x, downRod.center.y, 5);
 			*/
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+
 			prevBB = ballBB; // backs up the ball's bounding box
-			prevUpRodBB = upRodBB; prevDownRodBB = downRodBB;
+			prevUpRodBB = upRodBB;
+			prevDownRodBB = downRodBB;
 
 			ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
 
@@ -168,8 +172,7 @@ int main()
 	swapbuffers();
 }
 
- //   genGoalPost();
-	std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
+ 	// std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
 
     system("pause");
     closegraph();

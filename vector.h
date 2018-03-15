@@ -71,6 +71,11 @@ namespace primitives
 	Vec2 point2Vec(const Point &, const Point &);
 	Point vec2Point(const Vec2 &v);
 	Vec2 getNormaltoCircle(const Point &, const Circle &);
+	
+	inline Vec2 getNormal(const Vec2 &v) // returns the outward unit normal vector to a given vector following the left to right convention (counter-clockwise rotation)
+	{
+		return getNormalized(Vec2(-v.y, v.x));
+	}
 }
 
 #endif

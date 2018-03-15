@@ -23,7 +23,7 @@ namespace primitives
 		return Point(round(v.x), round(v.y));
 	}
 
-	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the normal vector at a given point on circumference of a circle
+	Vec2 getNormaltoCircle(const Point &p, const Circle &circle) // returns the outward unit normal vector at a given point on circumference of a circle
 	{
 		return point2Vec(p, circle.center) / circle.radius;
 	}
