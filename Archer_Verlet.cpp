@@ -46,10 +46,10 @@ int main()                    //Test Arrow and Bow
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
         arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
-		target = primitives::genInitTarget(bow.center);
+		target = primitives::genTarget(bow.center);
 		bowCord=bow.center;
 		nextPoint.x=bow.center.x;
-		nextPoint.y=bow.center.y+2;
+		nextPoint.y=bow.center.y+1;
 		nextPointArrow.x= arrow.arrowLocus.x + 4;
 		nextPointArrow.y = arrow.arrowLocus.y;
 
@@ -81,14 +81,15 @@ int main()                    //Test Arrow and Bow
 			drawBow(bow, TRUE);
 			drawArrow(arrow.size, bow.center);
 			drawTarget(target);
-			if(collideBowScreen(bow,prevBow,nextPoint,bowCord,nextPosition,arrow.size,xmax,ymax,acceleration,stepSize,theta))
-        {
-            bow.center=nextPosition;
-            genBow(bow);
-            drawBow(bow,TRUE);
-            drawTarget(target);
-            drawArrow(arrow.size,bow.center);
-        }
+
+			if(collideBowScreen(bow,prevBow,nextPoint,bowCord,nextPosition,xmax,ymax,acceleration,stepSize,theta))
+			{
+				bow.center=nextPosition;
+				genBow(bow);
+				drawBow(bow,TRUE);
+				drawTarget(target);
+				drawArrow(arrow.size,bow.center);
+			}
 
 			/**Score Display**/
 			points = std::to_string(score);
@@ -218,7 +219,7 @@ int main()                    //Test Arrow and Bow
 				score += addScore;
 				addScore = 0;
 				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
-				target = primitives::genInitTarget(target.horiz.src);
+				target = primitives::genTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();

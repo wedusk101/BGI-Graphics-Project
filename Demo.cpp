@@ -142,14 +142,22 @@ int main()
 		//std::cout << "\nCIRCLE CENTER x y " << ball.center.x << " " << ball.center.y << std::endl; // debugging
 		//std::cout << "CIRCLE PREVIOUS CENTER x y " << prevBallBB.center.x << " " << prevBallBB.center.y << "\n" << std::endl; // debugging
 
-		// a-priori collision detection
-		if (collideCircleLine(locus, ball, testLine, ballBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (fastCollideCircleLine(locus, ball, testLine, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
+
+		// a-priori collision detection
+		/*if (collideCircleLine(locus, ball, testLine, ballBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		{
+			circle(locus.x, locus.y, ball.radius);
+			// system("pause"); // for debugging
+			shockWave(locus, ball.radius, ball.radius + 40);
+			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
+		}*/
 
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

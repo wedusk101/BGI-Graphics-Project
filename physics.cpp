@@ -51,7 +51,7 @@ namespace primitives
 
 	Point getCollisionVector(const Point &collisionPosition, const Point &prevPosition, const double &stepSize, const int &xMax, const int &yMax, const int &faceID)
 	{
-		// returns a point along the direction of the particle's motion vector after collision for AABB collisions
+		// returns a point along the direction of the particle's motion vector after collision with an AABB object
 		double dy = 0.0, dx = 0.0;
 		Point nextPosition;
 		dy = prevPosition.y - collisionPosition.y;
@@ -241,12 +241,12 @@ namespace primitives
 		return false;
 	}
 
-	bool collideBowScreen(Bow &bow, Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, int &size, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
+	bool collideBowScreen(const Bow &bow, const Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
 
         if(bowCord.y + bow.radius >= yMax)
         {
-            nextPoint=prevBow.center;
+            nextPoint = prevBow.center;
             translatePoint(nextPoint, 0, -bow.radius);
 			bowCord = getTranslatedPoint(bow.center, 0, -bow.radius);
 			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
@@ -255,7 +255,7 @@ namespace primitives
 
         if(bowCord.y - bow.radius <= 0)
         {
-            nextPoint=prevBow.center;
+            nextPoint = prevBow.center;
             translatePoint(nextPoint, 0, bow.radius);
 			bowCord = getTranslatedPoint(bow.center, 0, bow.radius);
 			nextPosition = getNextPositionVerlet(bowCord, nextPoint, acceleration, stepSize, theta);
@@ -264,7 +264,24 @@ namespace primitives
         return false;
     }
 
-	// this routine utilizes a-priori collision detection unlike the previous cases and uses ray marching
+	bool fastCollideCircleLine(Point &locus, Circle &circle, Line &line, const AABB &prevCircleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	{	// src(x1,y1), dst(x2,y2), A = dy, B = -dx, C = x2*y1 - x1*y2, for Ax + By + C = 0
+		double dx = line.src.x - line.dst.x, dy = line.dst.y - line.src.y, c = line.dst.x * line.src.y - line.src.x * line.dst.y; // here dx = -dx
+		double straightLineDist = fabs((dy * circle.center.x + dx * circle.center.y + c) / sqrt(pow(dy, 2) + pow(dx, 2))); // D = |(A * x1 + B * y1 + C) / sqrt(A^2 + B^2)| -----> perpendicular distance from a point to a line
+
+
+		if (straightLineDist <= circle.radius)
+		{
+			// std::cout << "FAST COLLISION " << std::endl; // debugging
+			// std::cout << straightLineDist << std::endl; // debugging
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	// this routine utilizes a-priori collision detection unlike the previous cases and uses ray marching - WIP
 	bool collideCircleLine(Point &locus, Circle &circle, Line &line, AABB &circleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
 	{
 		Point origin, collisionPoint;
