@@ -64,8 +64,8 @@ namespace primitives
 
 	
      	void drawBow(Bow & , const int &);              //Function to draw the Bow - please pass by reference, const or otherwise - this is quite slow as it copies the object
-     	void drawArrow(const int &, Point );            //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
-     	void drawTarget(Target&);              		//Function to draw the Target - please pass by reference, const or otherwise - this is quite slow as it copies the object
+     	void drawArrow(const int &,const Point & );            //Function to draw the Arrow - please pass by reference, const or otherwise - this is quite slow as it copies the object
+     	void drawTarget(const Target&);              		//Function to draw the Target - please pass by reference, const or otherwise - this is quite slow as it copies the object
 }
 
 #endif
