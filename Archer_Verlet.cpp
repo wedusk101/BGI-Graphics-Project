@@ -15,13 +15,13 @@ int main()                    //Test Arrow and Bow
 {
     const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
-	int xmax = 0, ymax = 0;
+	int xMax = 0, yMax = 0;
 	std::cout << "Please enter the desired resolution." << std::endl;
 	std::cout << "Please enter the width, followed by the height in pixels." << std::endl;
-	std::cin >> xmax >> ymax;
+	std::cin >> xMax >> yMax;
 	initwindow(xmax, ymax, "Archery");
-	xmax = getmaxx();
-    ymax = getmaxy();
+	xMax = getmaxx();
+        yMax = getmaxy();
 	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -45,7 +45,7 @@ int main()                    //Test Arrow and Bow
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+                arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
 		target = primitives::genTarget(bow.center);
 		bowCord=bow.center;
 		nextPoint.x=bow.center.x;
@@ -56,8 +56,8 @@ int main()                    //Test Arrow and Bow
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
 		drawTarget(target);
-		outtextxy(xmax / 2 - 75, ymax / 2, "Press Space to Play!");
-		outtextxy(xmax / 2 - 75, ymax / 2 + 25, "Left click mouse to shoot arrows.");
+		outtextxy(xMax / 2 - 75, yMax / 2, "Press Space to Play!");
+		outtextxy(xMax / 2 - 75, yMax / 2 + 25, "Left click mouse to shoot arrows.");
 		if (GetAsyncKeyState(VK_SPACE))
 		{
 			PlaySound(TEXT("whistle.wav"), NULL, SND_ASYNC);
@@ -82,7 +82,7 @@ int main()                    //Test Arrow and Bow
 			drawArrow(arrow.size, bow.center);
 			drawTarget(target);
 
-			if(collideBowScreen(bow,prevBow,nextPoint,bowCord,nextPosition,xmax,ymax,acceleration,stepSize,theta))
+			if(collideBowScreen(bow,prevBow,nextPoint,bowCord,nextPosition,xMax,yMax,acceleration,stepSize,theta))
 			{
 				bow.center=nextPosition;
 				genBow(bow);
@@ -96,16 +96,16 @@ int main()                    //Test Arrow and Bow
 			const char *pstr = points.c_str();
 			livesStr = std::to_string(lives);
 			const char *plives = livesStr.c_str();
-			outtextxy(xmax - 170, 50, "Points: ");
-			outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score
+			outtextxy(xMax - 170, 50, "Points: ");
+			outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score
 
 			earnedPoint = std::to_string(lastScore);
 			const char *pstrAdd = earnedPoint.c_str();
-			outtextxy(xmax - 248, 70, "Last Point Earned :");
-			outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
+			outtextxy(xMax - 248, 70, "Last Point Earned :");
+			outtextxy(xMax - 100, 70, (char*)pstrAdd); // displays the current earned score
 
-			outtextxy(xmax - 168, 90, "Lives :");
-			outtextxy(xmax - 100, 90, (char*)plives);
+			outtextxy(xMax - 168, 90, "Lives :");
+			outtextxy(xMax - 100, 90, (char*)plives);
 
 			arrow.arrowLocus.x = bow.center.x;
 			arrow.arrowLocus.y = bow.center.y;
@@ -131,16 +131,16 @@ int main()                    //Test Arrow and Bow
 					drawTarget(target);
 					points = std::to_string(score);
 					const char *pstr = points.c_str();
-					outtextxy(xmax - 170, 50, "Points: ");
-					outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score
+					outtextxy(xMax - 170, 50, "Points: ");
+					outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score
 
 					earnedPoint = std::to_string(lastScore);
 					const char *pstrAdd = earnedPoint.c_str();
-					outtextxy(xmax - 248, 70, "Last Point Earned :");
-					outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
+					outtextxy(xMax - 248, 70, "Last Point Earned :");
+					outtextxy(xMax - 100, 70, (char*)pstrAdd); // displays the current earned score
 
-					outtextxy(xmax - 168, 90, "Lives :");
-					outtextxy(xmax - 100, 90, (char*)plives); // displays the no. of lives left
+					outtextxy(xMax - 168, 90, "Lives :");
+					outtextxy(xMax - 100, 90, (char*)plives); // displays the no. of lives left
 					swapbuffers();
 				}
 				clearmouseclick(WM_LBUTTONDOWN);    //event is released
@@ -218,7 +218,7 @@ int main()                    //Test Arrow and Bow
 				nextPointArrow.x = arrow.arrowLocus.x + 4;
 				score += addScore;
 				addScore = 0;
-				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
+				target.horiz.src.y = rand() % (yMax - 75 - static_cast<int>(yMax / 8)) + static_cast<int>(yMax / 8);
 				target = primitives::genTarget(target.horiz.src);
 				delay(700);
 			}
@@ -226,7 +226,7 @@ int main()                    //Test Arrow and Bow
 		}
 		if (lives == 0)
 		{
-			outtextxy(xmax / 2 - 75, ymax / 2, "Game Over!");
+			outtextxy(xMax / 2 - 75, yMax / 2, "Game Over!");
 			swapbuffers();
 			delay(3000);
 		}
