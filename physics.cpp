@@ -240,6 +240,51 @@ namespace primitives
 		}
 		return false;
 	}
+	bool collideCircleScreenPong(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
+	{
+		// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
+		/*if (circleBB.topLeft.x <= 0) // left side of the AABB collides
+		{
+			circleBB.faceID = 4;
+			nextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, circleBB.faceID);
+			translatePoint(nextPoint, circle.radius, 0);
+			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}*/
+
+		if (circleBB.topLeft.y <= 0) // top side of the AABB collides
+		{
+			circleBB.faceID = 3;
+			nextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, circleBB.faceID);
+			translatePoint(nextPoint, 0, circle.radius);
+			circle.center = getTranslatedPoint(circleBB.topMid, 0, circle.radius);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+
+		/*if (circleBB.bottomRight.x >= xMax) // right side of the AABB collides
+		{
+			circleBB.faceID = 2;
+			nextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, circleBB.faceID);
+			translatePoint(nextPoint, -circle.radius, 0);
+			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}*/
+
+		if (circleBB.bottomRight.y >= yMax) // bottom side of the AABB collides
+		{
+			circleBB.faceID = 1;
+			nextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, circleBB.faceID);
+			translatePoint(nextPoint, 0, -circle.radius);
+			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
+			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
+			return true;
+		}
+		return false;
+	}
+
 
 	bool collideBowScreen(const Bow &bow, const Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
     {
