@@ -73,20 +73,23 @@ int main()
 			//primitives::genGoalPost();
 			//genFootball(locus, ball.radius); // primary draw call for the ball
 
-											 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
-											 /*
-											 setcolor(12);
-											 rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
-											 rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
-											 rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
 
-											 circle(downRod.center.x, downRod.center.y, 5);
-											 */
-											 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+			/*
+			setcolor(12);
+			rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
+			rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
+			rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
+			circle(downRod.center.x, downRod.center.y, 5);
+			*/
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
+
 			prevBB = ballBB; // backs up the ball's bounding box
 			prevUpRodBB = upRodBB; prevDownRodBB = downRodBB;
 
 			ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
+
 			if ((GetAsyncKeyState(VK_NUMPAD2)) && downRod.bR.y <= yMax)
 			{
 				downRod.tL.y += 2;
@@ -99,6 +102,7 @@ int main()
 
 
 			}
+
 			if ((GetAsyncKeyState(VK_NUMPAD8)) && downRod.tL.y >= 0)
 			{
 				downRod.tL.y -= 2;
@@ -109,6 +113,7 @@ int main()
 				downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
 				prevDownRodBB = downRodBB;
 			}
+
 			if ((GetAsyncKeyState(VK_UP)) && upRod.tL.y >= 0)
 			{
 				upRod.tL.y -= 2;
@@ -119,6 +124,7 @@ int main()
 				prevUpRodBB = upRodBB;
 				upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
 			}
+
 			if ((GetAsyncKeyState(VK_DOWN)) && upRod.bR.y <=yMax)
 			{
 				upRod.tL.y += 2;
@@ -129,10 +135,12 @@ int main()
 				prevUpRodBB = upRodBB;
 				upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
 			}
-				if (collideCircleScreenPong(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+
+			if (collideCircleScreenPong(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 			{
 				//genFootball(locus, ball.radius);
 				 // primary draw call for the ball
+				PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 				circle(ball.center.x, ball.center.y, ball.radius);
 				drawRods(upRod, downRod);		 // system("pause");
 			}
@@ -141,6 +149,7 @@ int main()
 			{
 				//genFootball(locus, ball.radius);
 				 // primary draw call for the ball
+				PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 				circle(ball.center.x, ball.center.y, ball.radius);
 				drawRods(upRod, downRod);					 // system("pause");
 			}
@@ -149,6 +158,7 @@ int main()
 			{
 				//genFootball(locus, ball.radius);
 				 // primary draw call for the ball
+				PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 				circle(ball.center.x, ball.center.y, ball.radius);
 				drawRods(upRod, downRod);							 // system("pause");
 			}
@@ -163,10 +173,8 @@ int main()
 		outtextxy(100, 200, "Ghus mmmmGya");
 
 	}
-
-
+	
 	system("pause");
 	closegraph();
 	return 0;
 }
-
