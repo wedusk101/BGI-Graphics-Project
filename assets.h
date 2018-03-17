@@ -52,7 +52,8 @@ namespace primitives
 	
      	void genFootball(const Circle &);
      	void genRods(const int &, const int &);
-     	void genGoalPost();
+     	//void genGoalPost();
+		void genGoalPost(Line &, Line &);
 	void drawRods(Rectangle,Rectangle);
 	void genFootball(Point &,int &);
 	

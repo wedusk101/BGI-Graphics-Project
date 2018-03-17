@@ -192,10 +192,11 @@ namespace primitives
         	rectangle(rod2.tL.x,rod2.tL.y,rod2.bR.x,rod2.bR.y);
 	}
 
-	void genGoalPost()
+	void genGoalPost(Line &top, Line &reaR)
 	{
 
-		primitives::Line top,reaR,bottom,front;
+		//primitives::Line top,reaR,bottom,front;
+		primitives::Line bottom, front;
 		int maxx=getmaxx();
 		int maxy=getmaxy();
 		top.src.x=maxx*2/3;
