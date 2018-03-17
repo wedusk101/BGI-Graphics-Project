@@ -15,7 +15,7 @@ int main()
 	double theta = 0.0;
 
 	primitives::Ray arrowRay;
-	
+	primitives::Line top, rear;
 	primitives::Point locus, nextPoint, arrowHead, arrowTail, origin;
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
@@ -46,7 +46,7 @@ int main()
 
 		primitives :: genFootball(ball.center,ball.radius); //BALL DRAWING FUNCTION
 		primitives :: drawRods(upRod,downRod);	//ROD DRAWING FUNCTION
-		primitives :: genGoalPost();	//GOALPOST DRAWING FUNCTION
+		primitives :: genGoalPost(top, rear);	//GOALPOST DRAWING FUNCTION
 
 		//primitives :: drawArrowFootball(arrowHead,arrowTail);
 		//primitives :: arrowMovement(arrowHead,arrowTail);
@@ -64,7 +64,7 @@ int main()
 				state *= -1;
 			primitives :: genFootball(ball.center,ball.radius);  // comment out for debugging the direction vector for the ball
 			primitives :: drawRods(upRod,downRod);
-			primitives :: genGoalPost();
+			primitives :: genGoalPost(top, rear);
 			setlinestyle(0, 0, 1);
 			arrowHead.x = arrowTail.x + static_cast<int>(radius*cos(deg));
 			arrowHead.y = arrowTail.y + static_cast<int>(radius*sin(deg));
@@ -124,7 +124,7 @@ int main()
 			locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 			genFootball(locus, ball.radius); // primary draw call for the ball
 			primitives :: drawRods(upRod, downRod);
-			primitives :: genGoalPost();
+			primitives :: genGoalPost(top, rear);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
 			/*
@@ -147,7 +147,8 @@ int main()
 			{
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
-			    primitives :: genGoalPost();
+			    primitives :: genGoalPost(top, rear);
+				PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				// system("pause");
 			}
 
@@ -155,7 +156,8 @@ int main()
 			{
 				genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
-				primitives :: genGoalPost();
+				primitives :: genGoalPost(top, rear);
+				PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				// system("pause");
 			}
 
@@ -163,7 +165,8 @@ int main()
 			{
 			    genFootball(locus, ball.radius);
 				primitives :: drawRods(upRod,downRod);
-		        primitives :: genGoalPost();
+		        primitives :: genGoalPost(top, rear);
+				PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				// system("pause");
 			}
 			swapbuffers();
