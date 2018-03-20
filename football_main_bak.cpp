@@ -80,7 +80,7 @@ int main()
 		while (ready && lives != 0) // main gameplay loop
 		{
 			double duration = 0.0; //For timer
-			bool flag = false;
+			bool flag = false, audio = false;
 			ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
 			arrowTail.x = ball.center.x;
 			arrowTail.y = ball.center.y;
@@ -111,7 +111,11 @@ int main()
 			//clock_t before = clock();
 			while (!ismouseclick(WM_LBUTTONDOWN)) // pointer arrow movement and checking for lives if positive it will continue
 			{
-				delay(33);
+				if (!audio)
+				{
+					PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC);
+					audio = true;
+				}
 				cleardevice();
 				if (deg <= -1.57079 || deg >= 0)
 					state *= -1;
@@ -148,7 +152,7 @@ int main()
 			}
 
 			clearmouseclick(WM_LBUTTONDOWN);
-
+			
 
 			arrowRay.o = point2Vec(origin, arrowTail);		// this code could possibly be cleaner but this works for now
 			arrowRay.d = point2Vec(arrowTail, arrowHead);	// direction vector for the ball
@@ -263,6 +267,8 @@ int main()
 				{
 					score += 1;
 					flag = true;
+					PlaySound(TEXT("goal.wav"), NULL, SND_ASYNC);
+					// PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC); // sound mixing won't work
 				}
 
 				clock_t difference = clock() - start;  // ends the timer
@@ -270,7 +276,7 @@ int main()
 
 				swapbuffers();
 			}
-			--lives;//decrementing the player life after every shot taken
+			--lives; //decrementing the player life after every shot taken
 
 			if (lives == 0)//if lives = 0 then game over
 			{
