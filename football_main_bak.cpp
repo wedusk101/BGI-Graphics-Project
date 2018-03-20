@@ -16,7 +16,7 @@ int main()
 	double theta = 0.0;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int lives = 3;//player lives
-	bool ready = false;
+	bool ready = false, mainMenu = false;
 
 	primitives::Ray arrowRay;
 	primitives::Line top, rear;
@@ -48,6 +48,11 @@ int main()
 	{
 		cleardevice();
 		loadLeaderBoard("DBF.DAT", best); // loads profile dat
+		if (!mainMenu)
+		{
+			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC);
+			mainMenu = true;
+		}
 	    // displayLeaderBoard(best); // debugging
 		lives = 3, score = 0, addScore = 0, lastScore = 0;
 		ready = false;
@@ -79,7 +84,7 @@ int main()
 		while (ready && lives != 0) // main gameplay loop
 		{
 			double duration = 0.0; //For timer
-			bool flag = false, audio = false;
+			bool flag = false, takeShot = false;
 			ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
 			arrowTail.x = ball.center.x;
 			arrowTail.y = ball.center.y;
@@ -106,14 +111,15 @@ int main()
 			double deg = -0.78539;
 			double state = 0.01;
 			double radius = getEuclideanDistance(arrowTail.x, arrowTail.y, arrowHead.x, arrowHead.y);
+					
 
 			//clock_t before = clock();
 			while (!ismouseclick(WM_LBUTTONDOWN)) // pointer arrow movement and checking for lives if positive it will continue
 			{
-				if (!audio)
+				if (!takeShot)
 				{
 					PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC);
-					audio = true;
+					takeShot = true;
 				}
 				cleardevice();
 				if (deg <= -1.57079 || deg >= 0)
@@ -271,7 +277,7 @@ int main()
 			}
 			--lives; //decrementing the player life after every shot taken
 
-			if (lives == 0)//if lives = 0 then game over
+			if (lives == 0) // if lives = 0 then game over
 			{
 				outtextxy(xMax / 2 - 75, yMax / 2, "Game Over!");
 				outtextxy(xMax / 2 - 75, yMax / 2 + 20, "Top Score is ");
@@ -284,6 +290,7 @@ int main()
 				leader = std::to_string(best.topScore);
 				const char *ptop = leader.c_str();
 				outtextxy(xMax / 2 + 25, yMax / 2 + 20, (char*)ptop); // displays top score
+				mainMenu = false;
 				swapbuffers();
 				delay(3000);
 			}

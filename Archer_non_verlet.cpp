@@ -23,7 +23,7 @@ int main()
 	int y_inc = 1, lives = 5;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
-	bool flag = false;
+	bool flag = false, mainMenu = false;
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
 	std::string livesStr;
@@ -44,6 +44,11 @@ int main()
 	{
 		cleardevice();
 		loadLeaderBoard("DBA.DAT", best); // loads profile data
+		if (!mainMenu)
+		{
+			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC);
+			mainMenu = true;
+		}
 		// displayLeaderBoard(best); // debugging
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
@@ -198,6 +203,7 @@ int main()
 						swapbuffers();
 						lastScore = addScore = 7;
 						++lives;
+						PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC);
 					}
 				}
 				score += addScore;
@@ -223,6 +229,7 @@ int main()
 			top = std::to_string(best.topScore);
 			const char *ptop = top.c_str();
 			outtextxy(xMax / 2 + 25, yMax / 2 + 20, (char*)ptop);
+			mainMenu = false;
 			swapbuffers();
 			delay(3000);
 		}
