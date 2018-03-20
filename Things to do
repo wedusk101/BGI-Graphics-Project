@@ -22,8 +22,9 @@ In progress
 
 Archery Project
 ---------------
+score management
 leaderboard objects
-
+Randomizing target
 
 
 Football Project
@@ -31,17 +32,15 @@ Football Project
 
 Arrow movement with double buffering(Done)
 Ball speed Movement using vectors
-gameplay prototype(Done scoring also Done)
-score management(Done)
+gameplay prototype(Done  but scoring left)
+score management
 leaderboard
 cross bar collision detection
-resolution scaling of objects(Done)
+resolution scaling of objects
 collision bug (IMPORTANT!)
-reset game state(in progress)
+
 
 Misc: Reset game state for BOTH projects, Audio, Special Effects, Credits
-
-Documentation(In progress)
 
 Advice:
 to get the look and feel download the following games from playstore

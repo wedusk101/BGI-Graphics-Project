@@ -24,18 +24,27 @@ namespace primitives
 		int faceID;	// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
 	} AABB; // Axis Aligned Bounding Box required for physics calculations
 
-	Point getNextPositionVerlet(Point &, Point &, const double &, const double &, double &);
+	struct Acceleration
+	{
+		double x;
+		double y;
+
+		Acceleration() : x(0), y(0) {}
+		Acceleration(const double &x_, const double &y_) : x(x_), y(y_) {}
+	};
+
+	Point getNextPositionVerlet(Point &, Point &, Acceleration &, const double &, double &);
 	Point getCollisionVector(const Point &, const Point &, const double &, const int &, const int &, const int &);
 	AABB updateAABB(const Point&, const int&, const int&);
 
-	bool collideCircleScreen(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
-	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
-	bool collideCircleLine(Point &, Circle &, Line &, AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	int sign(const double &);
 
-	bool naiveCollideCircleLine(Point &, Circle &, Line &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideCircleScreen(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, Acceleration &, double &);
+	bool collideCircleRectangle(Circle &, Rectangle &, AABB &, const AABB &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, Acceleration &, double &);
+	bool collideCircleLine(Point &, Point &, Circle &, Line &, AABB &, const double &, const int &, const int &, Acceleration &, double &);
 
-	bool collideBowScreen(const Bow &, const Bow &, Point &, Point &, Point &, const int &, const int &, const double &, const double &, double &);
-	bool collideCircleScreenPong(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, const double &, double &);
+	bool collideBowScreen(const Bow &, const Bow &, Point &, Point &, Point &, const int &, const int &, Acceleration &, const double &, double &);
+	bool collideCircleScreenPong(Circle &, AABB &, const AABB &, const double &, const int &, const int &, Point &, Point &, Acceleration &, double &);
 
 }
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <windows.h>
 #include <string>
 #include "graphics.h"
@@ -6,19 +7,20 @@
 #include "assets.h"
 #include "fx.h"
 #include "Mmsystem.h"
+#include "leaderboard.h"
 
 #define TRUE 1
 #define FALSE 0
 
 int main()                    
 {
-	int xmax = 0, ymax = 0;
+	int xMax = 0, yMax = 0;
 	std::cout << "Please enter the desired resolution." << std::endl;
 	std::cout << "Please enter the width, followed by the height in pixels." << std::endl;
-	std::cin >> xmax >> ymax;
-	initwindow(xmax, ymax, "Archery");
-	xmax = getmaxx();
-    ymax = getmaxy();
+	std::cin >> xMax >> yMax;
+	initwindow(xMax, yMax, "Archery");
+	xMax = getmaxx();
+    yMax = getmaxy();
 	int y_inc = 1, lives = 5;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -26,6 +28,7 @@ int main()
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
 	std::string livesStr;
+	std::string top;
 	primitives::Point arrowHitPos;		//Point Variable to store the arrow position.
 
 	/**object declarations**/
@@ -33,12 +36,17 @@ int main()
 	primitives::Arrow arrow;       
 	primitives::Target target;
 
+	Leaderboard profile, best;
+
+	// std::vector<Leaderboard> list;
 	
     
 	while (1) // Main game loop
 	{
 		cleardevice();
-		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3;
+		loadLeaderBoard("DB.DAT", best); // load profile data
+		// displayLeaderBoard(best); // debugging
+		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
@@ -48,8 +56,8 @@ int main()
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
 		drawTarget(target);
-		outtextxy(xmax / 2 - 75, ymax / 2, "Press Space to Play!");
-		outtextxy(xmax / 2 - 75, ymax / 2 + 25, "Left click mouse to shoot arrows.");
+		outtextxy(xMax / 2 - 75, yMax / 2, "Press Space to Play!");
+		outtextxy(xMax / 2 - 75, yMax / 2 + 25, "Left click mouse to shoot arrows.");
 		if (GetAsyncKeyState(VK_SPACE))
 		{
 			PlaySound(TEXT("whistle.wav"), NULL, SND_ASYNC);
@@ -61,7 +69,7 @@ int main()
 			cleardevice();
 			if ((bow.center.y - (bow.radius + 10)) <= 5)                  //bound checking for bow  (upper screen) 
 				y_inc = 1;
-			if ((bow.center.y + bow.radius + 10) >= (ymax - 5))           //bound checking for bow  (lower screen)
+			if ((bow.center.y + bow.radius + 10) >= (yMax - 5))           //bound checking for bow  (lower screen)
 				y_inc = -1;
 
 			bow.center.y += y_inc;            //bow translation by modifying bow center
@@ -75,16 +83,16 @@ int main()
 			const char *pstr = points.c_str();
 			livesStr = std::to_string(lives);
 			const char *plives = livesStr.c_str();
-			outtextxy(xmax - 170, 50, "Points: ");
-			outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score 
+			outtextxy(xMax - 170, 50, "Points: ");
+			outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 
 			earnedPoint = std::to_string(lastScore);
 			const char *pstrAdd = earnedPoint.c_str();
-			outtextxy(xmax - 248, 70, "Last Point Earned :");
-			outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
+			outtextxy(xMax - 248, 70, "Last Point Earned :");
+			outtextxy(xMax - 100, 70, (char*)pstrAdd); // displays the current earned score
 
-			outtextxy(xmax - 168, 90, "Lives :");
-			outtextxy(xmax - 100, 90, (char*)plives);
+			outtextxy(xMax - 168, 90, "Lives :");
+			outtextxy(xMax - 100, 90, (char*)plives);
 
 			arrow.arrowLocus.x = bow.center.x;
 			arrow.arrowLocus.y = bow.center.y;
@@ -104,16 +112,16 @@ int main()
 					drawTarget(target);
 					points = std::to_string(score);
 					const char *pstr = points.c_str();
-					outtextxy(xmax - 170, 50, "Points: ");
-					outtextxy(xmax - 100, 50, (char*)pstr); // displays the current score 
+					outtextxy(xMax - 170, 50, "Points: ");
+					outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
 
 					earnedPoint = std::to_string(lastScore);
 					const char *pstrAdd = earnedPoint.c_str();
-					outtextxy(xmax - 248, 70, "Last Point Earned :");
-					outtextxy(xmax - 100, 70, (char*)pstrAdd); // displays the current earned score
+					outtextxy(xMax - 248, 70, "Last Point Earned :");
+					outtextxy(xMax - 100, 70, (char*)pstrAdd); // displays the current earned score
 
-					outtextxy(xmax - 168, 90, "Lives :");
-					outtextxy(xmax - 100, 90, (char*)plives); // displays the no. of lives left
+					outtextxy(xMax - 168, 90, "Lives :");
+					outtextxy(xMax - 100, 90, (char*)plives); // displays the no. of lives left
 					swapbuffers();
 				}
 				clearmouseclick(WM_LBUTTONDOWN);    //event is released
@@ -195,15 +203,27 @@ int main()
 				}
 				score += addScore;
 				addScore = 0;
-				target.horiz.src.y = rand() % (ymax - 75 - static_cast<int>(ymax / 8)) + static_cast<int>(ymax / 8);
+				target.horiz.src.y = rand() % (yMax - 75 - static_cast<int>(yMax / 8)) + static_cast<int>(yMax / 8);
 				target = primitives::genTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();
 		}
-		if (lives == 0)
+
+		if (lives == 0) // scoring and leader board - WIP
 		{
-			outtextxy(xmax / 2 - 75, ymax / 2, "Game Over!");
+			outtextxy(xMax / 2 - 75, yMax / 2, "Game Over!");
+			outtextxy(xMax / 2 - 75, yMax / 2 + 20, "Top Score is ");
+			profile.topScore = score;
+			// list.push_back(profile);
+			if (profile.topScore > best.topScore)
+			{
+				best = profile;
+				saveLeaderBoard("DB.DAT", best); // save profile data
+			}
+			top = std::to_string(best.topScore);
+			const char *ptop = top.c_str();
+			outtextxy(xMax / 2 + 25, yMax / 2 + 20, (char*)ptop);
 			swapbuffers();
 			delay(3000);
 		}

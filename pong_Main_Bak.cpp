@@ -14,14 +14,14 @@
 int main()
 {
 	int flag = 0;
-	const double acceleration = 0.0, stepSize = 0.5, footBallSpeed = 3; // arbitrary acceleration value - for g take 9.8
+	const double stepSize = 0.5, footBallSpeed = 3; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
 	initwindow(1024,960, "Pong");
 	int xMax = getmaxx();
 	int yMax = getmaxy();
-	primitives :: Circle ball;
-	primitives ::Rectangle upRod, downRod;
-	primitives ::Point nextPoint,locus;
+	primitives::Circle ball;
+	primitives::Rectangle upRod, downRod;
+	primitives::Point nextPoint,locus;
 	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
 
 
@@ -35,6 +35,8 @@ int main()
 	upRod.width = upRod.bR.x - upRod.tL.x;
 	upRod.height = upRod.bR.y - upRod.tL.y;
 	upRod.center = midPoint(upRod.bR, upRod.tL);
+	
+	primitives::Acceleration acceleration;
 
 	ball.center.x = 400;
 	ball.center.y = 400;

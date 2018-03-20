@@ -73,10 +73,10 @@
     <ClCompile Include="dibutil.cxx" />
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
+    <ClCompile Include="football_main_bak.cpp" />
     <ClCompile Include="fx.cpp" />
     <ClCompile Include="leaderboard.cpp" />
     <ClCompile Include="matrix.cpp" />
-    <ClCompile Include="matrix_test.cpp" />
     <ClCompile Include="misc.cxx" />
     <ClCompile Include="mouse.cxx" />
     <ClCompile Include="palette.cxx" />

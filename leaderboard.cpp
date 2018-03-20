@@ -1,11 +1,13 @@
 //leaderboards.cpp
 
 #include "leaderboard.h"
+#include <algorithm>
+#include <iostream> // debugging
 
 void saveLeaderBoard(const std::string &fileName, Leaderboard &playerData) // write leaderboard object player data to <filename> from object <playerData>
 {
 	std::ofstream out;
-	out.open(fileName, std::ofstream::binary);
+	out.open(fileName, std::ofstream::binary); // for appending ---->   out.open(fileName, std::ofstream::binary | std::ofstream::app); 
 	out.write(reinterpret_cast<char*>(&playerData), sizeof(Leaderboard));
 	out.close();
 }
@@ -25,5 +27,5 @@ bool updateLeaderBoard(const Leaderboard &a, const Leaderboard &b) // rank playe
 
 void displayLeaderBoard(const Leaderboard &playerData)
 {
-	// display data
+	std::cout << "\n Rank " << playerData.rank << " Top Score " << playerData.topScore << "\n" << std::endl; // display data on console for debugging purposes
 }

@@ -6,7 +6,7 @@
 #include "graphics.h"
 #include "fx.h"
 #include "matrix.h"
-#include "physics.h"
+
 
 namespace primitives
 {
@@ -30,7 +30,7 @@ namespace primitives
 		}
 	}
 
-	void showerConfetti(const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, const int &width, const int &height, const int &particleCount) // maybe this needs to be multithreaded - WIP
+	void showerConfetti(const int &xMax, const int &yMax, Acceleration &acceleration, const double &stepSize, const int &width, const int &height, const int &particleCount) // maybe this needs to be multithreaded - WIP
 	{
 		srand(time(NULL));
 		int x = 0, y = 0, tx = 0, ty = 0, i = 0, j = 0;

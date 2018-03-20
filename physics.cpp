@@ -32,7 +32,17 @@ namespace primitives
 		return bbox;
 	}
 
-	Point getNextPositionVerlet(Point &prevPosition, Point &currentPosition, const double &acceleration, const double &timeStep, double &theta)
+	int sign(const double &val)
+	{
+		if (val < 0)
+			return -1;
+		else if (val > 0)
+			return 1;
+		else
+			return 0;
+	}
+
+	Point getNextPositionVerlet(Point &prevPosition, Point &currentPosition, Acceleration &acceleration, const double &timeStep, double &theta)
 	{
 		// Verlet Integration code for calculating the next position of a particle in motion
 		// acceleration is constant as we are ignoring the third order derivative of position(jerk)
@@ -41,9 +51,9 @@ namespace primitives
 		Point finalPosition;
 		dy = prevPosition.y - currentPosition.y;
 		dx = prevPosition.x - currentPosition.x;
-		theta = atan2(dy, dx);                        //atan2() returns the principal value of the arc tangent of y/x , expressed in radians.
-		finalPosition.x = static_cast<int> (round(2 * currentPosition.x + acceleration *  pow(timeStep, 2) - prevPosition.x)); // cos(theta)
-		finalPosition.y = static_cast<int> (round(2 * currentPosition.y + acceleration * pow(timeStep, 2) - prevPosition.y)); //  sin(theta)
+		// theta = atan2(dy, dx);                        // atan2() returns the principal value of the arc tangent of y/x , expressed in radians.
+		finalPosition.x = static_cast<int> (round(2 * currentPosition.x + acceleration.x *  pow(timeStep, 2) - prevPosition.x)); // cos(theta)
+		finalPosition.y = static_cast<int> (round(2 * currentPosition.y + acceleration.y * pow(timeStep, 2) - prevPosition.y)); //  sin(theta) 
 		prevPosition = currentPosition;
 		currentPosition = finalPosition;
 		return finalPosition;
@@ -144,9 +154,14 @@ namespace primitives
 		}
 	}
 
-	bool collideCircleScreen(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
+	bool collideCircleScreen(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, Acceleration &acceleration, double &theta)
 	{
 		// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
+		/*if (circleBB.topLeft.x >= 0 && circleBB.topLeft.x <= 3)
+		{
+
+		}*/
+
 		if (circleBB.topLeft.x <= 0) // left side of the AABB collides
 		{
 			circleBB.faceID = 4;
@@ -186,11 +201,19 @@ namespace primitives
 			locus = getNextPositionVerlet(circle.center, nextPoint, acceleration, stepSize, theta);
 			return true;
 		}
+
+		
 		return false;
 	}
 
-	bool collideCircleRectangle(Circle &circle, Rectangle &rectangle, AABB &circleBB, const AABB &circlePrevBB, AABB &rectangleBB, const AABB &rectanglePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	bool collideCircleRectangle(Circle &circle, Rectangle &rectangle, AABB &circleBB, const AABB &circlePrevBB, AABB &rectangleBB, const AABB &rectanglePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, Acceleration &acceleration, double &theta)
 	{
+		/*if (abs(circleBB.)
+		{
+
+
+		}*/
+
 		if (circleBB.topLeft.x <= rectangleBB.bottomRight.x && circleBB.bottomRight.x >= rectangleBB.bottomRight.x && (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.bottomRight.y <= rectangleBB.bottomRight.y || circleBB.topLeft.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.bottomRight.y))
 		{	// left side of the circle AABB collides with the right side of the rectangle AABB
 			circleBB.faceID = 4;
@@ -240,7 +263,8 @@ namespace primitives
 		}
 		return false;
 	}
-	bool collideCircleScreenPong(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, const double &acceleration, double &theta)
+
+	bool collideCircleScreenPong(Circle &circle, AABB &circleBB, const AABB &circlePrevBB, const double & stepSize, const int &xMax, const int &yMax, Point &locus, Point &nextPoint, Acceleration &acceleration, double &theta)
 	{
 		// Object AABB collision faces -  1 = bottom face, 2 = right face, 3 = top face, 4 = left face
 		/*if (circleBB.topLeft.x <= 0) // left side of the AABB collides
@@ -284,9 +308,8 @@ namespace primitives
 		}
 		return false;
 	}
-
-
-	bool collideBowScreen(const Bow &bow, const Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, const int &xMax, const int &yMax, const double &acceleration, const double &stepSize, double &theta)
+	
+	bool collideBowScreen(const Bow &bow, const Bow &prevBow, Point &nextPoint, Point &bowCord, Point &nextPosition, const int &xMax, const int &yMax, Acceleration &acceleration, const double &stepSize, double &theta)
     {
 
         if(bowCord.y + bow.radius >= yMax)
@@ -309,38 +332,15 @@ namespace primitives
         return false;
     }
 
-	bool naiveCollideCircleLine(Point &locus, Circle &circle, Line &line, const AABB &prevCircleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
-	{	// src(x1,y1), dst(x2,y2), A = dy, B = -dx, C = x2*y1 - x1*y2, for Ax + By + C = 0 ---------- WIP
-		double dx = line.dst.x - line.src.x, dy = line.dst.y - line.src.y, c = line.dst.x * line.src.y - line.src.x * line.dst.y; // here dx = -dx
-		double straightLineDist = fabs((dy * circle.center.x + (-dx * circle.center.y) + c) / sqrt(pow(dy, 2) + pow(dx, 2))); // D = |(A * x1 + B * y1 + C) / sqrt(A^2 + B^2)| -----> perpendicular distance from a point to a line
-		
-		Point collisionPoint;
-		
-		if (straightLineDist <= circle.radius)
-		{
-			double lineSlope = dy / dx, inverseLineSlope = dx / dy, lineIntercept = c / dx, perpendicularIntercept = circle.center.y + circle.center.x * inverseLineSlope;
-
-			collisionPoint.x = round((lineIntercept - perpendicularIntercept) / (inverseLineSlope - lineSlope));
-			collisionPoint.y = round(lineSlope * collisionPoint.x + lineIntercept);
-
-
-
-			// std::cout << "FAST COLLISION " << std::endl; // debugging
-			// std::cout << straightLineDist << std::endl; // debugging
-
-			return true;
-		}
-		else
-			return false;
-	}
-
 	// this routine utilizes a-priori collision detection unlike the previous cases and uses ray marching - WIP
-	bool collideCircleLine(Point &locus, Circle &circle, Line &line, AABB &circleBB, const double & stepSize, const int &xMax, const int &yMax, Point &circleLocus, Point &circleNextPoint, const double &acceleration, double &theta)
+	bool collideCircleLine(Point &locus, Point &circleNextPoint, Circle &circle, Line &line, AABB &circleBB, const double & stepSize, const int &xMax, const int &yMax, Acceleration &acceleration, double &theta)
 	{
+		// double dx = locus.x - circle.center.x, dy = locus.y - circle.center.y, magnitude = sqrt(pow(dx, 2) + pow(dy, 2));  // magnitude = sqrt(dx ^ 2 + dy ^ 2)----> considers the magnitude of the velocity
+		double circleRayParameter = 0.0, lineRayParameter = 0.0, det = 0.0, collisionTestParameter = 0.0, lineLen = getEuclideanDistance(line.src.x, line.src.y, line.dst.x, line.dst.y);
+		const double epsilon = 0.02; // needed for dealing with floating point errors during comparison
+
 		Point origin, collisionPoint;
-		double circleRayParameter = 0.0, lineRayParameter = 0.0, collisionTheta = 0.0, pi = 3.14159265, det = 0.0;
-		const double epsilon = 0.0002; // needed for dealing with floating point errors during comparison
-		Ray circleRay, lineRay;
+		Ray circleRay, lineRay, reflectedRay;
 
 		circleRay.o = point2Vec(origin, circle.center); // constructs a ray along the circle's current path
 		circleRay.d = getNormalized(point2Vec(circle.center, locus)); // unit direction vector for circleRay
@@ -352,9 +352,6 @@ namespace primitives
 
 		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
 		/*
-		std::cout << "circleBB.topLeft x y " << circleBB.topLeft.x << " " << circleBB.topLeft.y << std::endl;
-		std::cout << "circleBB.bottomRight x y " << circleBB.bottomRight.x << " " << circleBB.bottomRight.y << std::endl;
-
 		std::cout << "Circle prevCenter x y " << circle.center.x << " " << circle.center.y << std::endl;
 		std::cout << "Circle center x y " << locus.x << " " << locus.y << std::endl;
 		
@@ -366,39 +363,51 @@ namespace primitives
 		//////////////////////////////////////////////////////////////////////////////////////////////// -------------> debugging
 
 		det = circleRay.d.x * lineRay.d.y - lineRay.d.x * circleRay.d.y;
-		std::cout << "Determinant " << det << std::endl;
+		// std::cout << "Determinant " << det << std::endl;
 
 		// ray marching steps 
-		if (fabs(det) <= epsilon) // doesn't collide ----> fast reject
+		if (fabs(det) <= epsilon) // doesn't collide ----> fast reject 
 		{
-			std::cout << "NO RAY MARCHED COLLISION" << std::endl;
+			// this part has bugs as it traces the ray from the center of the circle, meaning the edges of the circle could still collide
+			// std::cout << "NO RAY MARCHED COLLISION" << std::endl; // debugging
 			return false;
 		}
 
 		else // collides somewhere ----> now we check for the actual point of collision
 		{
 			circleRayParameter = (lineRay.o.x * lineRay.d.y + circleRay.o.y * lineRay.d.x - (lineRay.o.y * lineRay.d.x + circleRay.o.x * lineRay.d.y)) / det;
-			lineRayParameter = (lineRay.o.x * circleRay.d.y + circleRay.o.y * lineRay.d.x - (circleRay.o.x * circleRay.d.y + lineRay.o.y * circleRay.d.x)) / det;
+			// lineRayParameter = (lineRay.o.x * circleRay.d.y + circleRay.o.y * lineRay.d.x - (circleRay.o.x * circleRay.d.y + lineRay.o.y * circleRay.d.x)) / det; // buggy - this needs to be fixed
 
-			std::cout << "circleRayParameter " << circleRayParameter << " lineRayParameter " << lineRayParameter << std::endl; // debugging
+			collisionPoint = vec2Point(circleRay.o + (circleRay.d * circleRayParameter)); // could also be done using circleRayParamter
+			collisionTestParameter = lineLen - (getEuclideanDistance(line.src.x, line.src.y, collisionPoint.x, collisionPoint.y) + getEuclideanDistance(collisionPoint.x, collisionPoint.y, line.dst.x, line.dst.y));
 
-			if (circleRayParameter < 0 || lineRayParameter < 0 || lineRayParameter > 1)
+			// std::cout << "circleRayParameter " << circleRayParameter << " lineRayParameter " << lineRayParameter << std::endl; // debugging
+			// std::cout << "\ncollisionTestParameter " << collisionTestParameter << "\n" << std::endl; // debugging
+
+			if (fabs(collisionTestParameter) > epsilon)
 			{
-				std::cout << "COLLISION OUTSIDE RANGE" << std::endl;
+				// checks if the point of collision lies between the end points of the line - quite slow, 0 <= lineRayParamter <= 1 is a much better test
+				// std::cout << "COLLISION OUTSIDE RANGE" << std::endl; // debugging
 				return false;
 			}
+			
+			reflectedRay.o = point2Vec(origin, circle.center);
+			reflectedRay.d = circleRay.d - (lineNormal * (2 * dotProduct(lineNormal, circleRay.d))); // R = L - 2(N.L)N
 
-			collisionPoint = vec2Point(lineRay.o + (lineRay.d * lineRayParameter)); // could also be done using circleRayParamter
-
-			if (getEuclideanDistance(locus.x, locus.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't phsically accurate as of now
+			if (getEuclideanDistance(locus.x, locus.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't physically accurate as of now
 			{
-				std::cout << "RAY MARCHED COLLISION" << std::endl;
-				collisionTheta = acos(dotProduct(lineRay.d, circleRay.d));
-				circleLocus = getRotatedPoint(circle.center, pi - collisionTheta, collisionPoint.x, collisionPoint.y);
+				// std::cout << "\nRAY MARCHED COLLISION" << std::endl; // debugging
+				circleNextPoint = vec2Point(reflectedRay.o + reflectedRay.d * 0.5); // 0.5 works but feels like a hack
+				locus = getNextPositionVerlet(locus, circleNextPoint, acceleration, stepSize, theta);
+				// std::cout << "collisionPoint x y " << collisionPoint.x << " " << collisionPoint.y << std::endl; // debugging
+				// std::cout << "locus x y " << locus.x << " " << locus.y << " " << "nextPoint x y " << circleNextPoint.x << " " << circleNextPoint.y << "\n" << std::endl; // debugging
 				return true;
 			}
 			else
+			{
+				// std::cout << "HASN'T COLLIDED YET" << std::endl; // debugging
 				return false;
-		}		
+			}
+		}
 	}
 }

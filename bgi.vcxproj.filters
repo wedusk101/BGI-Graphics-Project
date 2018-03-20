@@ -66,7 +66,7 @@
     <ClCompile Include="leaderboard.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="matrix_test.cpp">
+    <ClCompile Include="football_main_bak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

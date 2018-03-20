@@ -6,7 +6,7 @@
 
 #include <string>
 #include <fstream>
-// #include <algorithm>
+#include <climits>
 #include "graphics.h"
 
 struct Leaderboard
@@ -15,7 +15,7 @@ struct Leaderboard
 	// std::string name; // object serialization fails for strings as of now
 	int topScore;
 
-	Leaderboard() : rank(1), /*name("player"),*/ topScore(0) {} // default constructor
+	Leaderboard() : rank(INT_MAX), /*name("player"),*/ topScore(INT_MIN) {} // default constructor
 };
 
 

@@ -1,19 +1,21 @@
 #include <iostream>
-#include <windows.h>
 #include <string>
+#include <vector>
+#include <windows.h>
 #include "graphics.h"
 #include "primitives.h"
 #include "assets.h"
 #include "physics.h"
 #include "fx.h"
 #include "Mmsystem.h"
+#include "leaderboard.h"
 
 
 int main()
 {
 	int score = 0;
 	std::string points; // for displaying the score
-	const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
+	const double stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0, pointerTheta = -0.78539, pointerStep = 0.001, pointerLen = 0.0;
 	bool flag = true;
 		
@@ -24,11 +26,17 @@ int main()
 	primitives::AABB ballBB, prevBallBB, boxBB, prevBoxBB;
 	primitives::Line pointer, testLine; // direction arrow testing for football
 
+	primitives::Acceleration acceleration;
+
+	Leaderboard profile;
+
+	std::vector<Leaderboard> list;
+
 	
 	std::cout << "Please enter the coordinates for the initial position of the ball (x,y)." << std::endl;
 	std::cin >> ball.center.x >> ball.center.y;
-	std::cout << "Please enter the radius of the ball." << std::endl;
-	std::cin >> ball.radius;
+	// std::cout << "Please enter the radius of the ball." << std::endl;
+	// std::cin >> ball.radius;
 	std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
 	std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
 	
@@ -40,17 +48,20 @@ int main()
 
 	pointer.src.x = 400, pointer.src.y = 580, pointer.dst.x = 475, pointer.dst.y = 580; // arrow position
 
-	testLine.src.x = 100, testLine.src.y = 100, testLine.dst.x = 500, testLine.dst.y = 500;
+	// testLine.src.x = 200, testLine.src.y = 200, testLine.dst.x = 575, testLine.dst.y = 550;
 
 	// ball.center = pointer.src;
-	// ball.radius = 20;
+	ball.radius = 15;
+
+	acceleration.x = 0; // change these values for parabolic motion and other cool stuff
+	acceleration.y = 0; // 9.8 for gravity
 
 	pointerLen = getEuclideanDistance(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 	std::cout << pointerLen << std::endl;
 	box = primitives::getRectangle(xMax / 4, yMax / 4, xMax - 150, yMax - 150);
 
 	circle(ball.center.x, ball.center.y, ball.radius);
-	rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+	// rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 	ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
 	boxBB = updateAABB(box.center, box.width, box.height);
 	std::cout << "Box Center : " << box.center.x << ", " << box.center.y << " Width : " << box.width << " Height : " << box.height << std::endl; // debugging
@@ -61,8 +72,8 @@ int main()
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
-		line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
-		// rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+		// line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
+		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 
 		prevBallBB = ballBB; // backs up the ball's bounding box
 		prevBoxBB = boxBB;
@@ -78,8 +89,15 @@ int main()
 		const char *pstr = points.c_str();
 		outtextxy(xMax - 170, 50, "SCORE: ");
 		outtextxy(xMax - 100, 50, (char*)pstr); // displays the current score 
+
 		if (GetAsyncKeyState(VK_SPACE)) //keyboard input
 			system("pause");
+
+		if (GetAsyncKeyState(VK_LSHIFT))
+		{
+			displayLeaderBoard(profile);
+			system("pause");
+		}
 		
 		while (flag) // loop for the direction arrow in football game
 		{
@@ -101,7 +119,7 @@ int main()
 
 			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(pointerTheta));
 			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(pointerTheta));
-			line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
+			// line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 			
 			pointerTheta += pointerStep;	
 
@@ -117,8 +135,9 @@ int main()
 				swapbuffers();
 				score += 10;
 				delay(1000); // pauses for a second after a successful hit
+				profile.topScore = score;
 				// primitives::showerConfetti(xMax, yMax, acceleration, stepSize, 6, 3, 25); // Work in progress - ignore this function call unless you're working on this
-				// particleWave(locus, 50, 10, ball.radius, ball.radius + 300);
+				// particleWave(locus, 500, 5, ball.radius, ball.radius + 300);
 			}
 		}
 		
@@ -131,18 +150,7 @@ int main()
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 
-		/*if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
-		{
-			circle(locus.x, locus.y, ball.radius);
-			// system("pause"); // for debugging
-			shockWave(locus, ball.radius, ball.radius + 40);
-			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
-		}*/
-
-		//std::cout << "\nCIRCLE CENTER x y " << ball.center.x << " " << ball.center.y << std::endl; // debugging
-		//std::cout << "CIRCLE PREVIOUS CENTER x y " << prevBallBB.center.x << " " << prevBallBB.center.y << "\n" << std::endl; // debugging
-
-		if (naiveCollideCircleLine(locus, ball, testLine, prevBallBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
@@ -151,13 +159,13 @@ int main()
 		}
 
 		// a-priori collision detection
-		/*if (collideCircleLine(locus, ball, testLine, ballBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		if (collideCircleLine(locus, nextPoint, ball, testLine, ballBB, stepSize, xMax, yMax, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
-		}*/
+		}
 
 		std::cout << "Current: " << ball.center.x << " " << ball.center.y << std::endl; // for debugging
 		std::cout << "Next: " << locus.x << " " << locus.y << std::endl; // for debugging

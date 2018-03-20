@@ -13,15 +13,15 @@
 
 int main()                    //Test Arrow and Bow
 {
-    const double acceleration = 0.0, stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
+    const double stepSize = 0.5; // arbitrary acceleration value - for g take 9.8
 	double theta = 0.0;
 	int xMax = 0, yMax = 0;
 	std::cout << "Please enter the desired resolution." << std::endl;
 	std::cout << "Please enter the width, followed by the height in pixels." << std::endl;
 	std::cin >> xMax >> yMax;
-	initwindow(xmax, ymax, "Archery");
+	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
-        yMax = getmaxy();
+    yMax = getmaxy();
 	int y_inc = 1, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -35,6 +35,8 @@ int main()                    //Test Arrow and Bow
 	primitives::Bow bow,prevBow;
 	primitives::Arrow arrow;
 	primitives::Target target;
+	
+	primitives::Acceleration acceleration;
 
 	/**initial draw calls**/
 

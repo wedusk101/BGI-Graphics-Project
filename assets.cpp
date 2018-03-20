@@ -27,7 +27,7 @@ namespace primitives
 		yMax = getmaxy();
 		ball.center.x = xMax / 8;
 		ball.center.y = (yMax - 40);
-		ball.radius = 30;
+		ball.radius = 25;
 		return ball;
 	}
 	void genRods(Rectangle &upRod , Rectangle &downRod)
@@ -197,26 +197,26 @@ namespace primitives
 
 		//primitives::Line top,reaR,bottom,front;
 		primitives::Line bottom, front;
-		int maxx=getmaxx();
-		int maxy=getmaxy();
-		top.src.x=maxx*2/3;
-		top.src.y=maxy*1/4;
-		top.dst.x=maxx*5/6;
-		top.dst.y=maxy*1/4;
-		front.src.x=maxx*2/3;
-		front.src.y=maxy*1/4;
-		front.dst.x=maxx*2/3;
-		front.dst.y=maxy;
-		reaR.src.x=maxx*5/6;
-		reaR.src.y=maxy*1/4;
-		reaR.dst.x=maxx;
-		reaR.dst.y=maxy*3/4;
-		bottom.src.x=maxx*2/3;
-		bottom.src.y=maxy;
-		bottom.dst.x=maxx;
-		bottom.dst.y=maxy;
+		int xMax=getmaxx();
+		int yMax=getmaxy();
+		top.src.x=xMax*2/3;
+		top.src.y=yMax*1/4;
+		top.dst.x=xMax*5/6;
+		top.dst.y=yMax*1/4;
+		front.src.x=xMax*2/3;
+		front.src.y=yMax*1/4;
+		front.dst.x=xMax*2/3;
+		front.dst.y=yMax;
+		reaR.src.x=xMax*5/6;
+		reaR.src.y=yMax*1/4;
+		reaR.dst.x=xMax;
+		reaR.dst.y=yMax*3/4;
+		bottom.src.x=xMax*2/3;
+		bottom.src.y=yMax;
+		bottom.dst.x=xMax;
+		bottom.dst.y=yMax;
 
-		setlinestyle(0,0,20);
+		setlinestyle(0,0,25);
 		line(top.src.x,top.src.y,top.dst.x,top.dst.y);//top bar//
 		setlinestyle(0,0,20);
 		line(reaR.src.x,reaR.src.y,reaR.dst.x,reaR.dst.y);//rear post//
@@ -225,7 +225,7 @@ namespace primitives
 		setlinestyle(0,0,20);
 		line(bottom.src.x,bottom.src.y,bottom.dst.x,bottom.dst.y);//bottom//
 		setfillstyle(HATCH_FILL,WHITE);
-		floodfill((maxx*2/3)+30,(maxy*1/4)+20,WHITE);
+		floodfill((xMax*2/3)+30,(yMax*1/4)+20,WHITE);
 		setlinestyle(0,0,1);
 	}
 	
@@ -237,12 +237,12 @@ namespace primitives
 	Bow genInitBow()							//Generates coordinates for bow before the gameplay
 	{
 		Bow bow;
-		int xmax = getmaxx();
-		int ymax = getmaxy();
+		int xMax = getmaxx();
+		int yMax = getmaxy();
 
-		bow.radius = xmax / 16;
+		bow.radius = xMax / 16;
 		bow.center.x = bow.radius / 3;
-	 	bow.center.y = ymax / 2;
+	 	bow.center.y = yMax / 2;
         	setcolor(WHITE);
         	setlinestyle(0 , 0 , 7);             //set line style function is not for arcs but the thickness parameter works successfully
         	struct arccoordstype arcinfo;
@@ -346,17 +346,17 @@ namespace primitives
 	Target genTarget(const Point &targetCenter)
 	{
 	    	Target targ;
-	    	int xmax = getmaxx();
-	    	int ymax = getmaxy();
-	   		targ.horiz.src.x = xmax - xmax/30;
+	    	int xMax = getmaxx();
+	    	int yMax = getmaxy();
+	   		targ.horiz.src.x = xMax - xMax/30;
         	targ.horiz.src.y = targetCenter.y;
-        	targ.horiz.dst.x = targ.horiz.src.x + xmax / 30;
+        	targ.horiz.dst.x = targ.horiz.src.x + xMax / 30;
         	targ.horiz.dst.y = targ.horiz.src.y;
 
 	    	targ.vert.src.x = targ.horiz.src.x;
-        	targ.vert.src.y = targ.horiz.src.y - ymax / 8;
+        	targ.vert.src.y = targ.horiz.src.y - yMax / 8;
         	targ.vert.dst.x = targ.horiz.src.x;
-        	targ.vert.dst.y = targ.horiz.src.y + ymax / 8;
+        	targ.vert.dst.y = targ.horiz.src.y + yMax / 8;
         	return targ;
 	}
 	
