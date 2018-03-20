@@ -50,7 +50,7 @@ int main()
 		loadLeaderBoard("DBF.DAT", best); // loads profile dat
 		if (!mainMenu)
 		{
-			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC|SND_LOOP);
 			mainMenu = true;
 		}
 	    // displayLeaderBoard(best); // debugging

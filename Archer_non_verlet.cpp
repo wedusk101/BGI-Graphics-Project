@@ -46,7 +46,7 @@ int main()
 		loadLeaderBoard("DBA.DAT", best); // loads profile data
 		if (!mainMenu)
 		{
-			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC);
+			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC|SND_LOOP);
 			mainMenu = true;
 		}
 		// displayLeaderBoard(best); // debugging
