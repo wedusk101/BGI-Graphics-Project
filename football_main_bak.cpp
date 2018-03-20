@@ -12,8 +12,7 @@
 
 int main()
 {
-
-	const double stepSize = 0.5, footBallSpeed = 3; 
+	const double stepSize = 0.5, footBallSpeed = 5; 
 	double theta = 0.0;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int lives = 3;//player lives
@@ -226,7 +225,6 @@ int main()
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
-					// system("pause");
 				}
 
 				if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevUpRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
@@ -235,7 +233,6 @@ int main()
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
-					// system("pause");
 				}
 
 				if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevDownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
@@ -244,14 +241,12 @@ int main()
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
-					// system("pause");
 				}
 
 				if (collideCircleLine(locus, nextPoint, ball, rear, ballBB, stepSize, xMax, yMax, acceleration, theta)) // rear of the goal
 				{
 					// handles collisions with the back of the goal post
 					circle(locus.x, locus.y, ball.radius);
-					// system("pause"); // for debugging
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				}
 
@@ -259,11 +254,10 @@ int main()
 				{
 					// handles collisions with the back of the goal post
 					circle(locus.x, locus.y, ball.radius);
-					// system("pause"); // for debugging
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				}
 
-				if (((ball.center.x > top.src.x) && (ball.center.x < xMax)) && ((ball.center.y > top.src.y) && (ball.center.y < yMax)) && !flag) //to check whether the ball has crossed the starting pole points(goal post) if yes then update the score
+				if (ball.center.x >= top.src.x && ball.center.x <= top.dst.x && ball.center.y > top.src.y && !flag) //to check whether the ball has crossed the starting pole points(goal post) if yes then update the score
 				{
 					score += 1;
 					flag = true;
@@ -273,7 +267,6 @@ int main()
 
 				clock_t difference = clock() - start;  // ends the timer
 				duration = difference / (double)CLOCKS_PER_SEC; // calculates the duration
-
 				swapbuffers();
 			}
 			--lives; //decrementing the player life after every shot taken
