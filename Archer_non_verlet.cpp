@@ -44,7 +44,7 @@ int main()
 	while (1) // Main game loop
 	{
 		cleardevice();
-		loadLeaderBoard("DB.DAT", best); // load profile data
+		loadLeaderBoard("DBA.DAT", best); // loads profile data
 		// displayLeaderBoard(best); // debugging
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
@@ -219,7 +219,7 @@ int main()
 			if (profile.topScore > best.topScore)
 			{
 				best = profile;
-				saveLeaderBoard("DB.DAT", best); // save profile data
+				saveLeaderBoard("DBA.DAT", best); // save profile data
 			}
 			top = std::to_string(best.topScore);
 			const char *ptop = top.c_str();
