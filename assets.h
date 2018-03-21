@@ -34,7 +34,7 @@ namespace primitives
     
     	typedef struct
     	{
-       		Point arrowLocus;
+       		Point locus;
        		int size;
     	} Arrow;
     
