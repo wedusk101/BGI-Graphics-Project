@@ -14,7 +14,7 @@ namespace primitives
 	{
 		Point topLeft;
 		Point topRight;
-		Point bottomleft;
+		Point bottomLeft;
 		Point bottomRight;
 		Point topMid;
 		Point bottomMid;
