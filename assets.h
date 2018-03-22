@@ -42,7 +42,15 @@ namespace primitives
     	{
 	   	Line vert;
 	   	Line horiz;
-    	} Target;		
+    	} Target;
+	
+	typedef struct
+	{
+		Point tail;
+		Point head;
+		Point uHead;
+		Point lHead;
+	}BallArrow;
     
 	
 	Circle genBall();				//Function to generate coordinates for ball
@@ -53,9 +61,11 @@ namespace primitives
      	void genFootball(const Circle &);
      	void genRods(const int &, const int &);
      	//void genGoalPost();
-		void genGoalPost(Line &, Line &);
+	void genGoalPost(Line &, Line &);
 	void drawRods(Rectangle,Rectangle);
 	void genFootball(Point &,int &);
+	BallArrow genBallArrow(const Point&);			//Function to generate Arrow for ball initially
+	void drawBallArrow(BallArrow&);				//Function to draw Arrow for ball
 	
 
 	Bow genInitBow();                           	//Function to generate coordinates for the Bow
