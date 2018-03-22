@@ -24,6 +24,7 @@ int main()
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
 	primitives::Rectangle upRod, downRod;
+	primitives::BallArrow b_arrow;
 	
 	primitives::Acceleration acceleration;
 
@@ -58,19 +59,14 @@ int main()
 		ready = false;
 
 		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
-		arrowTail.x = ball.center.x;
-		arrowTail.y = ball.center.y;
-		arrowHead.x = arrowTail.x + 70;
-		arrowHead.y = arrowTail.y;		// ARROW POSITIONING
+		b_arrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
+		primitives::drawBallArrow(b_arrow);					//Draw arrow on the ball
 
 		primitives::genRods(upRod, downRod);
 
 		primitives::genFootball(ball.center, ball.radius); //BALL DRAWING FUNCTION
 		primitives::drawRods(upRod, downRod);	//ROD DRAWING FUNCTION
 		primitives::genGoalPost(top, rear);	//GOALPOST DRAWING FUNCTION
-
-		line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y);
-
 
 		outtextxy(xMax / 2 - 75, yMax / 2, "Press Space to Play!");
 		outtextxy(xMax / 2 - 75, yMax / 2 + 25, "Left click to shoot the ball.");
@@ -86,10 +82,8 @@ int main()
 			double duration = 0.0; //For timer
 			bool flag = false, takeShot = false;
 			ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
-			arrowTail.x = ball.center.x;
-			arrowTail.y = ball.center.y;
-			arrowHead.x = arrowTail.x + 70;
-			arrowHead.y = arrowTail.y;		// ARROW POSITIONING
+			b_arrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
+			primitives::drawBallArrow(b_arrow);					//Draw arrow on ball
 
 			primitives::genRods(upRod, downRod);
 
@@ -104,13 +98,9 @@ int main()
 			primitives::drawRods(upRod, downRod);	//ROD DRAWING FUNCTION
 			primitives::genGoalPost(top, rear);	//GOALPOST DRAWING FUNCTION
 
-			//primitives :: drawArrowFootball(arrowHead,arrowTail);
-			//primitives :: arrowMovement(arrowHead,arrowTail);
-			//arrowHead.x=300;arrowHead.y=300;arrowTail.x=350;arrowTail.y=300;
-
 			double deg = -0.78539;
 			double state = 0.01;
-			double radius = getEuclideanDistance(arrowTail.x, arrowTail.y, arrowHead.x, arrowHead.y);
+			double radius = getEuclideanDistance(b_arrow.tail.x, b_arrow.tail.y, b_arrow.head.x, b_arrow.head.y);
 					
 
 			//clock_t before = clock();
@@ -127,10 +117,12 @@ int main()
 				primitives::genFootball(ball.center, ball.radius);  // comment out for debugging the direction vector for the ball
 				primitives::drawRods(upRod, downRod);
 				primitives::genGoalPost(top, rear);
-				setlinestyle(0, 0, 1);
-				arrowHead.x = arrowTail.x + static_cast<int>(radius*cos(deg));
-				arrowHead.y = arrowTail.y + static_cast<int>(radius*sin(deg));
-				line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y);
+				
+				b_arrow.head.x = b_arrow.tail.x + static_cast<int>(radius*cos(deg));
+				b_arrow.head.y = b_arrow.tail.y + static_cast<int>(radius*sin(deg));
+
+				primitives::drawBallArrow(b_arrow);				//Draw arrow on screen
+				
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
 				livesStr = std::to_string(lives);
@@ -159,8 +151,8 @@ int main()
 			clearmouseclick(WM_LBUTTONDOWN);
 			
 
-			arrowRay.o = point2Vec(origin, arrowTail);		// this code could possibly be cleaner but this works for now
-			arrowRay.d = point2Vec(arrowTail, arrowHead);	// direction vector for the ball
+			arrowRay.o = point2Vec(origin, b_arrow.tail);		// this code could possibly be cleaner but this works for now
+			arrowRay.d = point2Vec(b_arrow.tail, b_arrow.head);	// direction vector for the ball
 
 			nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed));
 			// r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
