@@ -1,5 +1,6 @@
 #include "assets.h"
 #include "graphics.h"
+#include "matrix.h"
 #include <cstdio>
 
 namespace primitives
@@ -227,6 +228,34 @@ namespace primitives
 		setfillstyle(HATCH_FILL,WHITE);
 		floodfill((xMax*2/3)+30,(yMax*1/4)+20,WHITE);
 		setlinestyle(0,0,1);
+	}
+	BallArrow genBallArrow(const Point &origin)				//Function to generate Arrow for ball initially
+	{
+		BallArrow b_arrow;
+		int xMax = getmaxx();
+		b_arrow.tail = origin;
+		b_arrow.head.x = b_arrow.tail.x + (xMax / 18);
+		b_arrow.head.y = b_arrow.tail.y;
+		return b_arrow;
+	}
+	void drawBallArrow(BallArrow &b_arrow)					//Function to draw Arrow for ball
+	{
+		Point p;							//Point which will be rotated to draw arrow head
+
+		/*Finding out the midpoint between the midpoint of tail and head and head */
+		p.x = (b_arrow.tail.x + b_arrow.head.x) / 2;
+		p.y = (b_arrow.tail.y + b_arrow.head.y) / 2;
+		p.x = (p.x + b_arrow.head.x) / 2;
+		p.y = (p.y + b_arrow.head.y) / 2;
+
+		b_arrow.uHead = getRotatedPoint(p, 0.785, b_arrow.head.x, b_arrow.head.y);
+		b_arrow.lHead = getRotatedPoint(p, -0.785, b_arrow.head.x, b_arrow.head.y);
+		
+		setlinestyle(0, 0, 2);
+		line(b_arrow.head.x, b_arrow.head.y, b_arrow.tail.x, b_arrow.tail.y);
+		line(b_arrow.uHead.x, b_arrow.uHead.y, b_arrow.head.x, b_arrow.head.y);
+		line(b_arrow.lHead.x, b_arrow.lHead.y, b_arrow.head.x, b_arrow.head.y);
+		line(b_arrow.lHead.x, b_arrow.lHead.y, b_arrow.uHead.x, b_arrow.uHead.y);
 	}
 	
 	
