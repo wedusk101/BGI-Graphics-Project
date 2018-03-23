@@ -14,7 +14,7 @@ int main()
 {
 	int score = 0;
 	std::string points; // for displaying the score
-	const double stepSize = 0.5; // tick rate for the physics simulations
+	const double stepSize = 0.5; // tick rate
 	double theta = 0.0, pointerTheta = -0.78539, pointerStep = 0.001, pointerLen = 0.0;
 	bool flag = true;
 		

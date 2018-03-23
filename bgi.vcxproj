@@ -69,9 +69,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Archer_non_verlet.cpp" />
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="bgiout.cxx" />
+    <ClCompile Include="Demo.cpp" />
     <ClCompile Include="dibutil.cxx" />
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
@@ -83,6 +83,7 @@
     <ClCompile Include="palette.cxx" />
     <ClCompile Include="main.cxx" />
     <ClCompile Include="physics.cpp" />
+    <ClCompile Include="quadtree.cpp" />
     <ClCompile Include="text.cxx" />
     <ClCompile Include="vector.cpp" />
     <ClCompile Include="winbgi.cxx" />
@@ -97,6 +98,7 @@
     <ClInclude Include="matrix.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="primitives.h" />
+    <ClInclude Include="quadtree.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="winbgi.h" />
     <ClInclude Include="winbgim.h" />

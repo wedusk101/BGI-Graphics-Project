@@ -6,7 +6,6 @@
 
 namespace primitives
 {
-
 	struct Point
 	{
 		int x;
