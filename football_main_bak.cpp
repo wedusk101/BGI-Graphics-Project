@@ -24,7 +24,7 @@ int main()
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
 	primitives::Rectangle upRod, downRod;
-	primitives::BallArrow b_arrow;
+	primitives::BallArrow ballArrow;
 	
 	primitives::Acceleration acceleration;
 
@@ -59,8 +59,8 @@ int main()
 		ready = false;
 
 		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
-		b_arrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
-		primitives::drawBallArrow(b_arrow);					//Draw arrow on the ball
+		ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
+		primitives::drawBallArrow(ballArrow);					//Draw arrow on the ball
 
 		primitives::genRods(upRod, downRod);
 
@@ -82,8 +82,8 @@ int main()
 			double duration = 0.0; //For timer
 			bool flag = false, takeShot = false;
 			ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
-			b_arrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
-			primitives::drawBallArrow(b_arrow);					//Draw arrow on ball
+			ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
+			primitives::drawBallArrow(ballArrow);					//Draw arrow on ball
 
 			primitives::genRods(upRod, downRod);
 
@@ -100,7 +100,7 @@ int main()
 
 			double deg = -0.78539;
 			double state = 0.01;
-			double radius = getEuclideanDistance(b_arrow.tail.x, b_arrow.tail.y, b_arrow.head.x, b_arrow.head.y);
+			double radius = getEuclideanDistance(ballArrow.tail.x, ballArrow.tail.y, ballArrow.head.x, ballArrow.head.y);
 					
 
 			//clock_t before = clock();
@@ -118,10 +118,10 @@ int main()
 				primitives::drawRods(upRod, downRod);
 				primitives::genGoalPost(top, rear);
 				
-				b_arrow.head.x = b_arrow.tail.x + static_cast<int>(radius*cos(deg));
-				b_arrow.head.y = b_arrow.tail.y + static_cast<int>(radius*sin(deg));
+				ballArrow.head.x = ballArrow.tail.x + static_cast<int>(radius*cos(deg));
+				ballArrow.head.y = ballArrow.tail.y + static_cast<int>(radius*sin(deg));
 
-				primitives::drawBallArrow(b_arrow);				//Draw arrow on screen
+				primitives::drawBallArrow(ballArrow);				//Draw arrow on screen
 				
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
@@ -151,8 +151,8 @@ int main()
 			clearmouseclick(WM_LBUTTONDOWN);
 			
 
-			arrowRay.o = point2Vec(origin, b_arrow.tail);		// this code could possibly be cleaner but this works for now
-			arrowRay.d = point2Vec(b_arrow.tail, b_arrow.head);	// direction vector for the ball
+			arrowRay.o = point2Vec(origin, ballArrow.tail);		// this code could possibly be cleaner but this works for now
+			arrowRay.d = point2Vec(ballArrow.tail, ballArrow.head);	// direction vector for the ball
 
 			nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed));
 			// r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
