@@ -394,13 +394,21 @@ namespace primitives
 			reflectedRay.o = point2Vec(origin, circle.center);
 			reflectedRay.d = circleRay.d - (lineNormal * (2 * dotProduct(lineNormal, circleRay.d))); // R = L - 2(N.L)N
 
+			// Vec2 test = lineNormal * (2 * dotProduct(lineNormal, circleRay.d));
+
+			// std::cout << "\nreflectedRay.d x y " << reflectedRay.d.x << " " << reflectedRay.d.y << std::endl; // debugging
+			// std::cout << "circleRay.d x y " << circleRay.d.x << " " << circleRay.d.y << "\n\n" << std::endl; // debugging
+			// std::cout << "lineNormal x y " << lineNormal.x << " " << lineNormal.y << "\n\n" << std::endl; // debugging
+			// std::cout << "test x y " << test.x << " " << test.y << "\n\n" << std::endl; // debugging
+			// std::cout << "\ninitial locus x y " << locus.x << " " << locus.y << " " << "initial nextPoint x y " << circleNextPoint.x << " " << circleNextPoint.y << "\n" << std::endl; // debugging
+
 			if (getEuclideanDistance(locus.x, locus.y, collisionPoint.x, collisionPoint.y) <= circle.radius) // collision has actually taken place ----> this part isn't physically accurate as of now
 			{
 				// std::cout << "\nRAY MARCHED COLLISION" << std::endl; // debugging
 				circleNextPoint = vec2Point(reflectedRay.o + reflectedRay.d * 0.5); // 0.5 works but feels like a hack
-				locus = getNextPositionVerlet(locus, circleNextPoint, acceleration, stepSize, theta);
+				locus = getNextPositionVerlet(locus, circleNextPoint, acceleration, stepSize, theta); // NOT physically acuurate ---> has a bug somewhere, reflection not working properly
 				// std::cout << "collisionPoint x y " << collisionPoint.x << " " << collisionPoint.y << std::endl; // debugging
-				// std::cout << "locus x y " << locus.x << " " << locus.y << " " << "nextPoint x y " << circleNextPoint.x << " " << circleNextPoint.y << "\n" << std::endl; // debugging
+				// std::cout << "\ncollision locus x y " << locus.x << " " << locus.y << " " << "collision nextPoint x y " << circleNextPoint.x << " " << circleNextPoint.y << "\n" << std::endl; // debugging
 				return true;
 			}
 			else

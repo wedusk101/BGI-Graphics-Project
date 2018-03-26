@@ -47,7 +47,7 @@ int main()
 
 	pointer.src.x = 400, pointer.src.y = 580, pointer.dst.x = 475, pointer.dst.y = 580; // arrow position
 
-	// testLine.src.x = 200, testLine.src.y = 200, testLine.dst.x = 575, testLine.dst.y = 550;
+	testLine.src.x = 200, testLine.src.y = 200, testLine.dst.x = 575, testLine.dst.y = 550;
 
 	// ball.center = pointer.src;
 	ball.radius = 15;
@@ -71,8 +71,8 @@ int main()
 		locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 
 		circle(locus.x, locus.y, ball.radius); // primary draw call for the ball
-		// line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
-		rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
+		line(testLine.src.x, testLine.src.y, testLine.dst.x, testLine.dst.y);
+		// rectangle(box.tL.x, box.tL.y, box.bR.x, box.bR.y);
 
 		prevBallBB = ballBB; // backs up the ball's bounding box
 		prevBoxBB = boxBB;
@@ -118,7 +118,7 @@ int main()
 
 			pointer.dst.x = pointer.src.x + static_cast<int>(pointerLen * cos(pointerTheta));
 			pointer.dst.y = pointer.src.y + static_cast<int>(pointerLen * sin(pointerTheta));
-			// line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
+			line(pointer.src.x, pointer.src.y, pointer.dst.x, pointer.dst.y);
 			
 			pointerTheta += pointerStep;	
 
@@ -149,13 +149,13 @@ int main()
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
 		}
 
-		if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
+		/*if (collideCircleRectangle(ball, box, ballBB, prevBallBB, boxBB, prevBoxBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 		{
 			circle(locus.x, locus.y, ball.radius);
 			// system("pause"); // for debugging
 			shockWave(locus, ball.radius, ball.radius + 40);
 			PlaySound(TEXT("ball.wav"), NULL, SND_ASYNC);
-		}
+		}*/
 
 		// a-priori collision detection
 		if (collideCircleLine(locus, nextPoint, ball, testLine, ballBB, stepSize, xMax, yMax, acceleration, theta))
