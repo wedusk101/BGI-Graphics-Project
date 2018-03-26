@@ -22,22 +22,18 @@ In progress
 
 Archery Project
 ---------------
-score management
-leaderboard objects
-Randomizing target
+Game Completed
 
 
 Football Project
 ----------------
+Game Completed
 
-Arrow movement with double buffering(Done)
-Ball speed Movement using vectors
-gameplay prototype(Done  but scoring left)
-score management
-leaderboard
-cross bar collision detection
-resolution scaling of objects
-collision bug (IMPORTANT!)
+Extra
+-----------------
+Screen Corner Collision
+collision of object inside another object
+QuadTree Porting
 
 
 Misc: Reset game state for BOTH projects, Audio, Special Effects, Credits
