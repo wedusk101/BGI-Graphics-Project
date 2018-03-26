@@ -12,40 +12,36 @@
 
 int main()
 {
-	const double stepSize = 0.5, footBallSpeed = 5; 
-	double theta = 0.0;
-	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
-	int lives = 3;//player lives
-	bool ready = false, mainMenu = false;
-
+	const double stepSize = 0.5, footBallSpeed = 5;			//footballSpeed for manipulating Speed of the ball
+	double theta = 0.0;										//theta
+	int score = 0, addScore = 0;							// Variable for scoring
+	int lives = 10;											//player lives
+	bool ready = false, mainMenu = false;					//ready for inner Game Loop and mainMenu for game restart 
+															//Initializing Assets and datatypes
 	primitives::Ray arrowRay;
-	primitives::Line top, rear;
+	primitives::Line top, rear;				
 	primitives::Point locus, nextPoint, arrowHead, arrowTail, origin;
 	primitives::Circle ball;
 	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
 	primitives::Rectangle upRod, downRod;
 	primitives::BallArrow ballArrow;
-	
 	primitives::Acceleration acceleration;
 
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
 	std::string livesStr;
-	std::string leader; // top score
-	//std::cout << "Please enter the coordinates for the next point along the path of the ball (x,y)." << std::endl;
-	//std::cin >> nextPoint.x >> nextPoint.y; // the closer this point is to the center of the ball, the lower the velocity and vice versa
-
+	std::string leader;					// top score
 	Leaderboard profile, best;
 
-	// x-y components for acceleration - useful for parabolic motion
+										// x-y components for acceleration - useful for parabolic motion
 	acceleration.x = 0;
-	acceleration.y = 0; // change this value for gravity - note that footBallSpeed also needs to be changed correspondingly
+	acceleration.y = 0;					// change this value for gravity - note that footBallSpeed also needs to be changed correspondingly
 	
-	initwindow(1280, 720, "Football");
-	setcolor(12); // Light Red
+	initwindow(1024, 600, "Football");	//Screen Resolution
+	setcolor(12);						// Light Red
 
 	int xMax = getmaxx(), yMax = getmaxy();
-	while (1) // game loop
+	while (1)							//Loop1-Outer game loop (Can be Removed)
 	{
 		cleardevice();
 		loadLeaderBoard("DBF.DAT", best); // loads profile dat
@@ -54,57 +50,50 @@ int main()
 			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC|SND_LOOP);
 			mainMenu = true;
 		}
-	    // displayLeaderBoard(best); // debugging
-		lives = 3, score = 0, addScore = 0, lastScore = 0;
+		lives = 10, score = 0;
 		ready = false;
 
-		ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
+		ball = primitives::genBall();								//Ball Positioning and ball generating function
 		ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
-		primitives::drawBallArrow(ballArrow);					//Draw arrow on the ball
+		primitives::drawBallArrow(ballArrow);						//Draw arrow on the ball
+		primitives::genRods(upRod, downRod);						//Generates Cordinates for the Rod
 
-		primitives::genRods(upRod, downRod);
-
-		primitives::genFootball(ball.center, ball.radius); //BALL DRAWING FUNCTION
-		primitives::drawRods(upRod, downRod);	//ROD DRAWING FUNCTION
-		primitives::genGoalPost(top, rear);	//GOALPOST DRAWING FUNCTION
+		primitives::genFootball(ball.center, ball.radius);			//Ball Draw Call
+		primitives::drawRods(upRod, downRod);						//Rod Draw Call
+		primitives::genGoalPost(top, rear);							//Goal Post draw Call
 
 		outtextxy(xMax / 2 - 75, yMax / 2, "Press Space to Play!");
 		outtextxy(xMax / 2 - 75, yMax / 2 + 25, "Left click to shoot the ball.");
-		if (GetAsyncKeyState(VK_SPACE))
+		if (GetAsyncKeyState(VK_SPACE))								//Space Key Starts the game with audio
 		{
 			PlaySound(TEXT("whistle.wav"), NULL, SND_ASYNC);
 			delay(1000);
 			ready = true;
 		}
 
-		while (ready && lives != 0) // main gameplay loop
+		while (ready && lives != 0)									//Nested Loop 2-Main gameplay loop
 		{
-			double duration = 0.0; //For timer
+			double duration = 0.0;													//For timer
 			bool flag = false, takeShot = false;
-			ball = primitives::genBall(); // BALL POSITIONING AND RADIUS ball generating function
-			ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
-			primitives::drawBallArrow(ballArrow);					//Draw arrow on ball
+			ball = primitives::genBall();											//Ball Positioning and ball generating function
+			ballArrow = primitives::genBallArrow(ball.center);						//Generates coordinates for arrow initially
+			primitives::drawBallArrow(ballArrow);									//Draw arrow on ball
+			ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius);		// binds the axis aligned bounding box to the ball for the first time
+			upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);			// binds the axis aligned bounding box to the upperRod for the first time
+			downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);	// binds the axis aligned bounding box to the lowerRod for the first time
 
-			primitives::genRods(upRod, downRod);
+			prevUpRodBB = upRodBB;													//Copying the position of the upperRod
+			prevDownRodBB = downRodBB;												//Copying the position of the lowerRod
 
-			ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
-			upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
-			downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
+			primitives::genFootball(ball.center, ball.radius);						//Ball Draw Call
+			primitives::drawRods(upRod, downRod);									//Rods Draw Call
+			primitives::genGoalPost(top, rear);										//GoalPost Draw Call
 
-			prevUpRodBB = upRodBB;
-			prevDownRodBB = downRodBB;
-
-			primitives::genFootball(ball.center, ball.radius); //BALL DRAWING FUNCTION
-			primitives::drawRods(upRod, downRod);	//ROD DRAWING FUNCTION
-			primitives::genGoalPost(top, rear);	//GOALPOST DRAWING FUNCTION
-
-			double deg = -0.78539;
+			double deg = -0.78539;													//Arrow Points to the x-axis
 			double state = 0.01;
 			double radius = getEuclideanDistance(ballArrow.tail.x, ballArrow.tail.y, ballArrow.head.x, ballArrow.head.y);
 					
-
-			//clock_t before = clock();
-			while (!ismouseclick(WM_LBUTTONDOWN)) // pointer arrow movement and checking for lives if positive it will continue
+			while (!ismouseclick(WM_LBUTTONDOWN))									// pointer arrow movement and checking for lives if positive it will continue
 			{
 				if (!takeShot)
 				{
@@ -114,111 +103,59 @@ int main()
 				cleardevice();
 				if (deg <= -1.57079 || deg >= 0)
 					state *= -1;
-				primitives::genFootball(ball.center, ball.radius);  // comment out for debugging the direction vector for the ball
+				primitives::genFootball(ball.center, ball.radius);  
 				primitives::drawRods(upRod, downRod);
 				primitives::genGoalPost(top, rear);
 				
 				ballArrow.head.x = ballArrow.tail.x + static_cast<int>(radius*cos(deg));
 				ballArrow.head.y = ballArrow.tail.y + static_cast<int>(radius*sin(deg));
-
-				primitives::drawBallArrow(ballArrow);				//Draw arrow on screen
+				primitives::drawBallArrow(ballArrow);								//Draw arrow on screen
 				
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
 				livesStr = std::to_string(lives);
 				const char *plives = livesStr.c_str();
 				outtextxy(70, 50, "Goal: ");
-				outtextxy(140, 50, (char*)pstr); // displays the current score 
-
-
+				outtextxy(140, 50, (char*)pstr);									// displays the current score 
 				outtextxy(70, 90, "Lives :");
-				outtextxy(140, 90, (char*)plives); // displays the lives left
-
-
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
-				/*
-				setcolor(12);
-				rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
-				rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
-				rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
-				*/
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
-
+				outtextxy(140, 90, (char*)plives);									// displays the lives left
 				deg += state;
 				swapbuffers();
 			}
-
 			clearmouseclick(WM_LBUTTONDOWN);
 			
-
-			arrowRay.o = point2Vec(origin, ballArrow.tail);		// this code could possibly be cleaner but this works for now
-			arrowRay.d = point2Vec(ballArrow.tail, ballArrow.head);	// direction vector for the ball
-
+			arrowRay.o = point2Vec(origin, ballArrow.tail);							// this code could possibly be cleaner but this works for now
+			arrowRay.d = point2Vec(ballArrow.tail, ballArrow.head);					// direction vector for the ball
 			nextPoint = vec2Point(arrowRay.o + (getNormalized(arrowRay.d) * footBallSpeed));
-			// r = o + tD ----> t controls the speed of the ball; here t = footballSpeed
-
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------> debugging the direction vector for the ball
-			/*
-			primitives::Vec2 test = getNormalized(arrowRay.d);
-
-			std::cout << "Arrow Tail x y " << arrowTail.x << " " << arrowTail.y << std::endl;
-			std::cout << "Arrow Head x y " << arrowHead.x << " " << arrowHead.y << std::endl;
-			std::cout << "Next Point x y " << nextPoint.x << " " << nextPoint.y << std::endl;
-			std::cout << "Normalized Direction Vector x y " << test.x << " " << test.y << std::endl;
-
-			cleardevice();
-			line(arrowHead.x, arrowHead.y, arrowTail.x, arrowTail.y);
-			circle(nextPoint.x, nextPoint.y, 5);
-			setcolor(12);
-			rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
-			rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
-			rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
-			swapbuffers();
-			system("pause");
-			*/
-			///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ------> debugging the direction vector for the ball
 			
-			ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius); // binds the axis aligned bounding box to the ball for the first time
-			upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);
-			downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);
-			clock_t start = clock(); // starts a timer
-			while (duration <= 2) // ball movement Loop ----> duration is the value returned the timer 
+			ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius);		// binds the axis aligned bounding box to the ball
+			upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);			// binds the axis aligned bounding box to the upperRod
+			downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);	// binds the axis aligned bounding box to the lowerRod
+			clock_t start = clock();												// starts a timer
+			while (duration <= 2)			// ball movement Loop ----> duration is the value returned the timer 
 			{
 				cleardevice();
 				locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
-				genFootball(locus, ball.radius); // primary draw call for the ball
-				primitives::drawRods(upRod, downRod);
-				primitives::genGoalPost(top, rear);
+				genFootball(locus, ball.radius);									// primary draw call for the ball
+				primitives::drawRods(upRod, downRod);								// primary draw call for the Rods
+				primitives::genGoalPost(top, rear);									// primary draw call for the goalPost
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
 				livesStr = std::to_string(lives);
 				const char *plives = livesStr.c_str();
 				outtextxy(70, 50, "Goal: ");
-				outtextxy(140, 50, (char*)pstr); // displays the current score 
-
-
+				outtextxy(140, 50, (char*)pstr);									// displays the current score 
 				outtextxy(70, 90, "Lives :");
-				outtextxy(140, 90, (char*)plives); // displays the lives left
+				outtextxy(140, 90, (char*)plives);									// displays the lives left
 
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
-				/*
-				setcolor(12);
-				rectangle(upRodBB.topLeft.x, upRodBB.topLeft.y, upRodBB.bottomRight.x, upRodBB.bottomRight.y);
-				rectangle(downRodBB.topLeft.x, downRodBB.topLeft.y, downRodBB.bottomRight.x, downRodBB.bottomRight.y);
-				rectangle(ballBB.topLeft.x, ballBB.topLeft.y, ballBB.bottomRight.x, ballBB.bottomRight.y);
+				prevBB = ballBB;													// backs up the ball's bounding box
+				prevUpRodBB = upRodBB;												// backs up the upperRod's bounding box
+				prevDownRodBB = downRodBB;											// backs up the lowerRod's bounding box
 
-				circle(downRod.center.x, downRod.center.y, 5);
-				*/
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////----------> debugging
-
-				prevBB = ballBB; // backs up the ball's bounding box
-				prevUpRodBB = upRodBB;
-				prevDownRodBB = downRodBB;
-
-				ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius); // updates the axis aligned bounding box for the ball with every iteration
+				ballBB = updateAABB(locus, 2 * ball.radius, 2 * ball.radius);		// updates the axis aligned bounding box for the ball with every iteration
 
 				if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
-				{
+				{																	//Checking Collision with Screen
 					genFootball(locus, ball.radius);
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
@@ -226,7 +163,7 @@ int main()
 				}
 
 				if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevUpRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
-				{
+				{																	//Checking ball's Collision with UpperRod using Bounding Box
 					genFootball(locus, ball.radius);
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
@@ -234,7 +171,7 @@ int main()
 				}
 
 				if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevDownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
-				{
+				{																	//Checking ball's Collision with lowerRod using Bounding Box
 					genFootball(locus, ball.radius);
 					primitives::drawRods(upRod, downRod);
 					primitives::genGoalPost(top, rear);
@@ -242,34 +179,31 @@ int main()
 				}
 
 				if (collideCircleLine(locus, nextPoint, ball, rear, ballBB, stepSize, xMax, yMax, acceleration, theta)) // rear of the goal
-				{
-					// handles collisions with the back of the goal post
+				{																	//Checking ball's Collision with back Post of the goalPost using Ray Marching
 					circle(locus.x, locus.y, ball.radius);
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				}
 
 				if (collideCircleLine(locus, nextPoint, ball, top, ballBB, stepSize, xMax, yMax, acceleration, theta)) // top of the goal post
-				{
-					// handles collisions with the back of the goal post
+				{																	//Checking ball's Collision with top Post of the goalPost using Ray Marching
 					circle(locus.x, locus.y, ball.radius);
 					PlaySound(TEXT("football.wav"), NULL, SND_ASYNC);
 				}
 
-				if (ball.center.x >= top.src.x && ball.center.x <= top.dst.x && ball.center.y > top.src.y && !flag) //to check whether the ball has crossed the starting pole points(goal post) if yes then update the score
-				{
+				if (ball.center.x >= top.src.x && ball.center.x <= top.dst.x && ball.center.y > top.src.y && !flag) 
+				{																	//to check whether the ball has crossed the starting pole points(goal post) if yes then update the score
 					score += 1;
 					flag = true;
 					PlaySound(TEXT("goal.wav"), NULL, SND_ASYNC);
 					// PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC); // sound mixing won't work
 				}
-
-				clock_t difference = clock() - start;  // ends the timer
-				duration = difference / (double)CLOCKS_PER_SEC; // calculates the duration
+				clock_t difference = clock() - start;								// ends the timer
+				duration = difference / (double)CLOCKS_PER_SEC;						// calculates the duration
 				swapbuffers();
 			}
-			--lives; //decrementing the player life after every shot taken
+			--lives;																//decrementing the player life after every shot taken
 
-			if (lives == 0) // if lives = 0 then game over
+			if (lives == 0)															// if lives = 0 then game over
 			{
 				outtextxy(xMax / 2 - 75, yMax / 2, "Game Over!");
 				outtextxy(xMax / 2 - 75, yMax / 2 + 20, "Top Score is ");
@@ -285,18 +219,16 @@ int main()
 				mainMenu = false;
 				swapbuffers();
 				delay(3000);
-			}
-			// std::cout << "X = " << duration ; // debugging - displays the timer output
-
+			}												//End ball Movement	
 			clearmouseclick(WM_LBUTTONDOWN);
+			upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position
+			upRod.bR.y = rand() % ((static_cast<int>(yMax - 100))-100) + 100;										//	Randomizing Rods Position
+			updateRods(upRod, downRod);																				//	Update Bounding Box for new Rod Position 
 			swapbuffers();
-		}
+		}													//End Inner Game Loop
 		swapbuffers();
-	}
-
- 	// std::cout << "X = " << xMax << " Y = " << yMax << std::endl; // for debugging
-
+	}														//End Outer Main Loop
     system("pause");
     closegraph();
 	return 0;
-}
+}															//End Main
