@@ -214,8 +214,10 @@ namespace primitives
 
 		}*/
 
-		if (circleBB.topLeft.x <= rectangleBB.bottomRight.x && circleBB.bottomRight.x >= rectangleBB.bottomRight.x && (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.bottomRight.y <= rectangleBB.bottomRight.y || circleBB.topLeft.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.bottomRight.y))
-		{	// left side of the circle AABB collides with the right side of the rectangle AABB
+if (((circleBB.topLeft.x <= rectangleBB.bottomRight.x + 2) && (circleBB.topLeft.x >= rectangleBB.bottomRight.x - 2)) &&
+			(((circleBB.topLeft.y <= rectangleBB.bottomRight.y) && (circleBB.topLeft.y >= rectangleBB.topLeft.y))
+				|| ((circleBB.bottomLeft.y <= rectangleBB.bottomRight.y) && (circleBB.bottomLeft.y >= rectangleBB.topLeft.y))))
+				{	// left side of the circle AABB collides with the right side of the rectangle AABB
 			circleBB.faceID = 4;
 			rectangleBB.faceID = 2;
 			std::cout << "\nCASE 1" << std::endl; // debugging
@@ -238,8 +240,10 @@ namespace primitives
 			return true;
 		}
 
-		if (circleBB.bottomRight.x >= rectangleBB.topLeft.x && circleBB.topLeft.x <= rectangleBB.topLeft.x && (circleBB.bottomRight.y >= rectangleBB.topLeft.y && circleBB.bottomRight.y <= rectangleBB.bottomRight.y || circleBB.topLeft.y >= rectangleBB.topLeft.y && circleBB.topLeft.y <= rectangleBB.bottomRight.y))
-		{	// right side of the circle AABB collides with the left side of the rectangle AABB
+if (((circleBB.topRight.x <= rectangleBB.bottomLeft.x + 2) && (circleBB.topRight.x >= rectangleBB.bottomLeft.x - 2)) &&
+			(((circleBB.topRight.y <= rectangleBB.bottomLeft.y) && (circleBB.topRight.y >= rectangleBB.topLeft.y))
+				|| ((circleBB.bottomRight.y <= rectangleBB.bottomLeft.y) && (circleBB.bottomRight.y >= rectangleBB.topLeft.y))))
+				{	// right side of the circle AABB collides with the left side of the rectangle AABB
 			circleBB.faceID = 2;
 			rectangleBB.faceID = 4;
 			std::cout << "\nCASE 3" << std::endl; // debugging
