@@ -20,10 +20,9 @@ int main()
 	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
     yMax = getmaxy();
-	int y_inc = 1, lives = 5, target_y_inc = 0;
+	int y_inc = 1, lives = 5;
 	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
-	int difficulty = 1;						//Variable to define difficulty of game;
 	bool flag = false, mainMenu = false;
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
@@ -51,11 +50,11 @@ int main()
 			mainMenu = true;
 		}
 		// displayLeaderBoard(best); // debugging
-		score = 0, addScore = 0, lastScore = 0, lives = 5, difficulty = 1, target_y_inc = 0, profile.topScore = 0;
+		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        	arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
 		target = primitives::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
@@ -76,27 +75,8 @@ int main()
 				y_inc = 1;
 			if ((bow.center.y + bow.radius + 10) >= (yMax - 5))           //bound checking for bow  (lower screen)
 				y_inc = -1;
-			if (score > 30)
-				difficulty = 2;
-			if (score > 50)
-			{
-				difficulty = 3;
-				//target_y_inc = 1;  			need changes
-			}
-			
-			/*Translation of target to increase difficulty.. Need changes*/
-			/*if (target.vert.src.y <= 5 && score > 20)
-				target_y_inc = 1;
-			if (target.vert.dst.y > (ymax + 5) && score > 20)
-				target_y_inc = -1;
-			if (target_y_inc == 1 && target.vert.dst.y < (ymax + 20) && target.vert.src.y > 5)
-					target_y_inc = -1;
-			if (target_y_inc == -1 && target.vert.src.y < 20 && target.vert.dst.y < (ymax + 5))
-					target_y_inc = 1;
-			*/
 
-			bow.center.y += (y_inc * difficulty);            //bow translation by modifying bow center
-			//target.horiz.src.y += target_y_inc;
+			bow.center.y += y_inc;            //bow translation by modifying bow center
 			genBow(bow);                      // regenerating the co-ordinates in response to modified Bow center
 			drawBow(bow, TRUE);
 			drawArrow(arrow.size, bow.center);
@@ -222,8 +202,7 @@ int main()
 						shockWave(target.horiz.src, 20, 50);
 						swapbuffers();
 						lastScore = addScore = 7;
-						if(lives < 5)
-							++lives;
+						++lives;
 						PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC);
 					}
 				}

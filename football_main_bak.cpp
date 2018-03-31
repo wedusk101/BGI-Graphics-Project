@@ -12,7 +12,7 @@
 
 int main()
 {
-	const double stepSize = 0.5, footBallSpeed = 5;			//footballSpeed for manipulating Speed of the ball
+	const double stepSize = 0.5, footBallSpeed = 3;			//footballSpeed for manipulating Speed of the ball
 	double theta = 0.0;										//theta
 	int score = 0, addScore = 0;							// Variable for scoring
 	int lives = 10;											//player lives
@@ -221,9 +221,9 @@ int main()
 				delay(3000);
 			}												//End ball Movement	
 			clearmouseclick(WM_LBUTTONDOWN);
-			upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position
-			upRod.bR.y = rand() % ((static_cast<int>(yMax - 100))-100) + 100;										//	Randomizing Rods Position
-			updateRods(upRod, downRod);																				//	Update Bounding Box for new Rod Position 
+			// upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position
+			// upRod.bR.y = rand() % ((static_cast<int>(yMax - 100))-100) + 100;										//	Randomizing Rods Position
+			// updateRods(upRod, downRod);																				//	Update Bounding Box for new Rod Position 
 			swapbuffers();
 		}													//End Inner Game Loop
 		swapbuffers();
