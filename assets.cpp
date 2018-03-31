@@ -192,6 +192,29 @@ namespace primitives
         	rectangle(rod1.tL.x,rod1.tL.y,rod1.bR.x,rod1.bR.y);
         	rectangle(rod2.tL.x,rod2.tL.y,rod2.bR.x,rod2.bR.y);
 	}
+	void updateRods(Rectangle &upRod, Rectangle &downRod)
+	{
+		int xMax, yMax;
+		xMax = getmaxx();
+		yMax = getmaxy();
+
+		/*Coordinates for Up Rod*/
+		upRod.tL.y = 0;
+		upRod.bR.x = upRod.tL.x + (xMax * 3 / 80);//UPPER ROD POSITIONING
+		upRod.width = upRod.bR.x - upRod.tL.x;
+		upRod.height = upRod.bR.y - upRod.tL.y;
+		upRod.center = midPoint(upRod.bR, upRod.tL);
+
+		/*Coordiantes for Down rod*/
+		downRod.tL.x = upRod.tL.x;
+		downRod.bR.x = upRod.bR.x;
+		downRod.bR.y = yMax;
+		downRod.tL.y = upRod.bR.y + 300;//LOWER ROD POSITIONING
+		downRod.width = downRod.bR.x - downRod.tL.x;
+		downRod.height = downRod.bR.y - downRod.tL.y;//WIDTH AND HEIGHT OF RODS
+		downRod.center = midPoint(downRod.bR, downRod.tL);//MIDPOINT OF RODS
+	}
+
 
 	void genGoalPost(Line &top, Line &reaR)
 	{
