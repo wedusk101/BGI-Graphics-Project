@@ -57,6 +57,8 @@ namespace primitives
 	void genRods(Rectangle & , Rectangle &);	//Function to generate coordinates for the Rods
      	Humanoid genHumanoid(const Point &); 		//center of the circle constituting the head is passed as argument
      	Rectangle getRectangle(const int &, const int &, const int &, const int &);
+	void updateRods(Rectangle &, Rectangle &);
+
 	
      	void genFootball(const Circle &);
      	void genRods(const int &, const int &);
