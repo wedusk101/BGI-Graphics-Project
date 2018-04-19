@@ -19,16 +19,17 @@ int main()
 	std::cin >> xMax >> yMax;
 	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
-    yMax = getmaxy();
-	int y_inc = 1, lives = 5;
-	int score = 0, addScore = 0, lastScore = 0;	// Variable for scoring
+    	yMax = getmaxy();
+	int y_inc = 1,target_inc = 1, lives = 3;
+	int score = 0, addScore = 0, lastScore = 0;		// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
+	int target_flag = FALSE;				//Variable to set flag true or false for its movement.
 	bool flag = false, mainMenu = false;
 	std::string points;					// for displaying the score
-	std::string earnedPoint;			// for displaying the current earned point
+	std::string earnedPoint;				// for displaying the current earned point
 	std::string livesStr;
 	std::string top;
-	primitives::Point arrowHitPos;		//Point Variable to store the arrow position.
+	primitives::Point arrowHitPos;				//Point Variable to store the arrow position.
 
 	/**object declarations**/
 	primitives::Bow bow;                             
@@ -54,7 +55,7 @@ int main()
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+        	arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
 		target = primitives::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
@@ -71,15 +72,29 @@ int main()
 		while (flag && lives != 0)                 // gameplay loop
 		{
 			cleardevice();
-			if ((bow.center.y - (bow.radius + 10)) <= 5)                  //bound checking for bow  (upper screen) 
+			if ((bow.center.y - (bow.radius + 10)) <= 5)             //bound checking for bow  (upper screen) 
 				y_inc = 1;
-			if ((bow.center.y + bow.radius + 10) >= (yMax - 5))           //bound checking for bow  (lower screen)
+			if ((bow.center.y + bow.radius + 10) >= (yMax - 5))     //bound checking for bow  (lower screen)
 				y_inc = -1;
 
-			bow.center.y += y_inc;            //bow translation by modifying bow center
-			genBow(bow);                      // regenerating the co-ordinates in response to modified Bow center
+			bow.center.y += y_inc;            			//bow translation by modifying bow center
+			genBow(bow);                      			// regenerating the co-ordinates in response to modified Bow center
 			drawBow(bow, TRUE);
 			drawArrow(arrow.size, bow.center);
+			
+			/*Target Traslation*/
+			if (score > 20 && target_flag == FALSE)
+			{
+				target_inc = 1;
+				target_flag = TRUE;
+			}
+			if (target.vert.dst.y + 10 > yMax)                  	//bound checking for target  (upper screen) 
+				target_inc = -1;
+			if (target.vert.src.y + 10 < 0)           		//bound checking for target  (lower screen)
+				target_inc = 1;
+			target.horiz.src.y += target_inc;
+			target = primitives::genTarget(target.horiz.src);
+			
 			drawTarget(target);
 
 			/**Score Display**/
@@ -202,7 +217,8 @@ int main()
 						shockWave(target.horiz.src, 20, 50);
 						swapbuffers();
 						lastScore = addScore = 7;
-						++lives;
+						if(lives<3)
+							++lives;
 						PlaySound(TEXT("crowd.wav"), NULL, SND_ASYNC);
 					}
 				}
