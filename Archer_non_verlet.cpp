@@ -20,7 +20,7 @@ int main()
 	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
     	yMax = getmaxy();
-	int y_inc = 1,target_inc = 1, lives = 3;
+	int y_inc = 1,target_inc = 0, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;		// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
 	int target_flag = FALSE;				//Variable to set flag true or false for its movement.
