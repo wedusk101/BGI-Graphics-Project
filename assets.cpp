@@ -1,3 +1,62 @@
+/**********************************************************************************************************************
+
+The following code define functions used to generate different assets (football,rod,bow,arrow etc.) for the Football 
+and the Archery game. The piece of code has following components and dependencies.
+
+                                            **********************************************
+For the Football Game:
+
+genRectangle()  - Returns coordinates of Rectangle - This function is  used to generate the coordinates of Rectangle.
+
+genBall() - Returns center and radius of Ball - This function is used to generate the coordinates of the circle 
+which will be used to draw a Ball. The coordinates are generated with respect to the resolution of the window.
+
+genRods() - Returns void - This function is used to generate the coordinates of the up and down Rods with respect
+to the resolution of the window.
+
+genFootball() - Returns void - This function is used to draw the Football on the screen.
+
+drawRods() - Returns void - This function is used to draw the 2 Rods.
+
+updateRods() - Returns void - This function is used to generated updated coordinates values of Rods.
+
+genGoalPost() - Returns void - This function is used to generate the coordinates of the Goal Post and draw it on the
+screen.
+
+genBallArrow() - Returns the coordinate of Arrow on ball used to aim. - This function is used to generate the
+initial coordinates of the Arrow on Ball which will be used for aiming.
+
+drawBallArrow() - Returns void - This function is used to draw the Arrow on screen from the points generated
+from "genBallArrow()".
+
+
+                                            **********************************************
+
+For the Archery Game:
+
+genInitBow() - Return the initial coordinates of Bow - This function is used to generate the coordinates for 
+the Bow at the start of game play.
+
+genBow() - Returns void - This function is used to generate new coordinates of the Bow during the game play.
+
+drawBow() - Returns void - This function is used to draw Bow on the screen.
+
+genArrow() - Returns Arrow size and its point of origin - This function is used to generate Arrow’s 
+size and its coordinate of origin.
+
+drawArrow() - Returns void - This function is used to draw the Arrow on the screen.
+
+genTarget() - Return the coordinate of the Target - This function is used to generate coordinates of Target.
+
+drawTarget() - Return void - This function is used to draw Target on screen.
+
+
+*************************************************************************************************************************************/
+
+
+
+
+
 #include "assets.h"
 #include "graphics.h"
 #include "matrix.h"
