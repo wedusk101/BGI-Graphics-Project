@@ -51,7 +51,7 @@ genTarget() - Return the coordinate of the Target - This function is used to gen
 drawTarget() - Return void - This function is used to draw Target on screen.
 
 
-*************************************************************************************************************************************/
+**********************************************************************************************************************/
 
 
 
