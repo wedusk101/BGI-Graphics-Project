@@ -1,3 +1,53 @@
+/*****************************************************************************************************************************
+The following code implements the Football game. The piece of code has following components and dependencies.
+
+loadLeaderBoard() - Returns void - read leader board object player data from <DBF.dat> and load it into object <best>.
+
+PlaySound() - Returns void - Plays audio track(for main menu, game play etc).
+
+genBall()- Returns center and radius of Ball - This function is used to generate the coordinates of the circle which will be
+used to draw a Ball. The coordinates are generated with respect to the resolution of the window.
+
+genBallArrow()- Returns the coordinate of Arrow on ball used to aim. - This function is used to generate the initial coordinates
+of the Arrow on Ball which will be used for aiming.
+
+drawBallArrow()- Returns void - This function is used to draw the Arrow on screen from the points generated from
+"genBallArrow()".
+
+genRods()- Returns void - This function is used to generate the coordinates of the up and down Rods with respect to the
+resolution of the window.
+
+genFootball() - Returns void - This function is used to draw the Football on the screen.
+
+drawRods - Returns void - This function is used to draw the 2 Rods.
+
+genGoalPost()- Returns void - This function is used to generate the coordinates of the Goal Post and draw it on the screen.
+
+GetAsyncKeyState() - Returns void – Starts the game when the SPACE key is tapped.
+
+updateAABB() – Returns coordinate of Bounding Box – This function is used to create a bounding box for the object which
+will be used for collision detection.
+
+getEuclideanDistance – Returns the Euclidean distance between two points.
+
+ismouseclick() -  Returns void – This function is used to capture mouse click events. Here left click of mouse.
+
+swapbuffers() – Returns void – This function is used to swap the front and the back buffer.
+
+point2Vec() – Returns Vector – This function is used to return vector from source point to destination point.
+
+Vec2Point() – Returns Pint – This function is used to return Point from Vector.
+
+getNextPositionVerlet() – Returns Point – This function is used to calculate next position of object using Verlet Integration.
+
+collideCircleScreen() – Returns a Boolean value – This function is used
+
+collideCircleRectangle() – Returns a Boolean value – This function is used to
+
+collideCircleLine() – Returns a Boolean value – This function is used to
+
+**********************************************************************************************************************/
+
 #include <windows.h>
 #include <string>
 #include "graphics.h"
