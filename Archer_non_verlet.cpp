@@ -1,3 +1,35 @@
+/****************************************************************************************************************************
+The following code implements the Archery game. The piece of code has following components:
+
+loadLeaderBoard() - Returns void - read leader board object player data from <DBF.dat> and load it into object <best>.
+
+PlaySound() - Returns void - Plays audio track(for main menu, game play etc).
+
+genInitBow() - Return the initial coordinates of Bow - This function is used to generate the coordinates for the Bow at the
+start of game play.
+
+genArrow() - Returns Arrow size and its point of origin - This function is used to generate Arrow’s size and its coordinate
+of origin.
+
+genTarget() - Return the coordinate of the Target - This function is used to generate coordinates of Target.
+
+drawBow() - Returns void - This function is used to draw Bow on the screen.
+
+drawArrow() - Returns void - This function is used to draw the Arrow on the screen.
+
+drawTarget() - Return void - This function is used to draw Target on screen.
+
+GetAsyncKeyState() – Returns void – Starts the game when the SPACE key is tapped.
+
+ismouseclick() -  Returns void – This function is used to capture mouse click events. Here left click of mouse.
+
+swapbuffers() – Returns void – This function is used to swap the front and the back buffer.
+
+shockwave – Returns void – This function is used to generate waves of pixel when the arrow hits the target.
+*****************************************************************************************************************************/
+
+
+
 #include <iostream>
 #include <vector>
 #include <windows.h>
