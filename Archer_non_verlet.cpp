@@ -1,9 +1,9 @@
 /****************************************************************************************************************************
-The following code implements the Archery game. The piece of code has following components:
+The following code implements the Archery game. This piece of code has the following components:
 
-loadLeaderBoard() - Returns void - read leader board object player data from <DBF.dat> and load it into object <best>.
+loadLeaderBoard() - Returns void - read leader board object player data from <DBA.DAT> and load it into object <best>.
 
-PlaySound() - Returns void - Plays audio track(for main menu, game play etc).
+PlaySound() - Returns bool - Plays audio track(for main menu, game play etc).
 
 genInitBow() - Return the initial coordinates of Bow - This function is used to generate the coordinates for the Bow at the
 start of game play.
@@ -19,16 +19,14 @@ drawArrow() - Returns void - This function is used to draw the Arrow on the scre
 
 drawTarget() - Return void - This function is used to draw Target on screen.
 
-GetAsyncKeyState() – Returns void – Starts the game when the SPACE key is tapped.
+GetAsyncKeyState() – Returns bool – Starts the game when the SPACE key is tapped.
 
-ismouseclick() -  Returns void – This function is used to capture mouse click events. Here left click of mouse.
+ismouseclick() -  Returns bool – This function is used to capture mouse click events. Here left click of mouse.
 
 swapbuffers() – Returns void – This function is used to swap the front and the back buffer.
 
-shockwave – Returns void – This function is used to generate waves of pixel when the arrow hits the target.
+shockwave() – Returns void – This function is used to generate waves of pixel when the arrow hits the target.
 *****************************************************************************************************************************/
-
-
 
 #include <iostream>
 #include <vector>
@@ -114,7 +112,7 @@ int main()
 			drawBow(bow, TRUE);
 			drawArrow(arrow.size, bow.center);
 			
-			/*Target Traslation*/
+			/*Target Translation*/
 			if (score > 20 && target_flag == FALSE)
 			{
 				target_inc = 1;

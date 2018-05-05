@@ -1,9 +1,9 @@
 /*****************************************************************************************************************************
-The following code implements the Football game. The piece of code has following components and dependencies.
+The following code implements the Football game. This piece of code has the following components and dependencies.
 
-loadLeaderBoard() - Returns void - read leader board object player data from <DBF.dat> and load it into object <best>.
+loadLeaderBoard() - Returns void - read leader board object player data from <DBF.DAT> and load it into object <best>.
 
-PlaySound() - Returns void - Plays audio track(for main menu, game play etc).
+PlaySound() - Returns bool - Plays audio track(for main menu, game play etc).
 
 genBall()- Returns center and radius of Ball - This function is used to generate the coordinates of the circle which will be
 used to draw a Ball. The coordinates are generated with respect to the resolution of the window.
@@ -19,24 +19,24 @@ resolution of the window.
 
 genFootball() - Returns void - This function is used to draw the Football on the screen.
 
-drawRods - Returns void - This function is used to draw the 2 Rods.
+drawRods() - Returns void - This function is used to draw the 2 Rods.
 
 genGoalPost()- Returns void - This function is used to generate the coordinates of the Goal Post and draw it on the screen.
 
-GetAsyncKeyState() - Returns void – Starts the game when the SPACE key is tapped.
+GetAsyncKeyState() - Returns bool – Starts the game when the SPACE key is tapped.
 
 updateAABB() – Returns coordinate of Bounding Box – This function is used to create a bounding box for the object which
 will be used for collision detection.
 
 getEuclideanDistance – Returns the Euclidean distance between two points.
 
-ismouseclick() -  Returns void – This function is used to capture mouse click events. Here left click of mouse.
+ismouseclick() -  Returns bool – This function is used to capture mouse click events. Here left click of mouse.
 
 swapbuffers() – Returns void – This function is used to swap the front and the back buffer.
 
-point2Vec() – Returns Vector – This function is used to return vector from source point to destination point.
+point2Vec() – Returns Vec2 – This function is used to return vector from source point to destination point.
 
-Vec2Point() – Returns Pint – This function is used to return Point from Vector.
+Vec2Point() – Returns Point – This function is used to return Point from Vector.
 
 getNextPositionVerlet() – Returns Point – This function is used to calculate next position of object using Verlet Integration.
 
@@ -48,7 +48,7 @@ collideCircleLine() – Returns a Boolean value – This function is used to
 
 **********************************************************************************************************************/
 
-#include <windows.h>
+#include "windows.h"
 #include <string>
 #include "graphics.h"
 #include "primitives.h"
@@ -58,7 +58,7 @@ collideCircleLine() – Returns a Boolean value – This function is used to
 #include <iostream>
 #include "vector.h"
 #include "leaderboard.h"
-#include <time.h>
+#include <ctime>
 
 int main()
 {
@@ -94,7 +94,7 @@ int main()
 	while (1)							//Loop1-Outer game loop (Can be Removed)
 	{
 		cleardevice();
-		loadLeaderBoard("DBF.DAT", best); // loads profile dat
+		loadLeaderBoard("DBF.DAT", best); // loads profile 
 		if (!mainMenu)
 		{
 			PlaySound(TEXT("menu.wav"), NULL, SND_ASYNC|SND_LOOP);
@@ -106,7 +106,7 @@ int main()
 		ball = primitives::genBall();								//Ball Positioning and ball generating function
 		ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
 		primitives::drawBallArrow(ballArrow);						//Draw arrow on the ball
-		primitives::genRods(upRod, downRod);						//Generates Cordinates for the Rod
+		primitives::genRods(upRod, downRod);						//Generates Coordinates for the Rod
 
 		primitives::genFootball(ball.center, ball.radius);			//Ball Draw Call
 		primitives::drawRods(upRod, downRod);						//Rod Draw Call
@@ -271,9 +271,9 @@ int main()
 				delay(3000);
 			}												//End ball Movement	
 			clearmouseclick(WM_LBUTTONDOWN);
-			// upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position
-			// upRod.bR.y = rand() % ((static_cast<int>(yMax - 100))-100) + 100;										//	Randomizing Rods Position
-			// updateRods(upRod, downRod);																				//	Update Bounding Box for new Rod Position 
+			upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position
+			upRod.bR.y = rand() % ((static_cast<int>(yMax - 100))-100) + 100;										//	Randomizing Rods Position
+			updateRods(upRod, downRod);																				//	Update Bounding Box for new Rod Position 
 			swapbuffers();
 		}													//End Inner Game Loop
 		swapbuffers();
@@ -281,4 +281,4 @@ int main()
     system("pause");
     closegraph();
 	return 0;
-}															//End Main
+}														//End Main
