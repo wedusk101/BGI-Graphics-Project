@@ -8,7 +8,7 @@ PlaySound() - Returns bool - Plays audio track(for main menu, game play etc).
 genBall()- Returns center and radius of Ball - This function is used to generate the coordinates of the circle which will be
 used to draw a Ball. The coordinates are generated with respect to the resolution of the window.
 
-genBallArrow()- Returns the coordinate of Arrow on ball used to aim. - This function is used to generate the initial coordinates
+genBallArrow()- Returns the coordinate of Arrow on ball used to aim - This function is used to generate the initial coordinates
 of the Arrow on Ball which will be used for aiming.
 
 drawBallArrow()- Returns void - This function is used to draw the Arrow on screen from the points generated from
