@@ -10,7 +10,6 @@ namespace primitives
 		p.y = static_cast<int>(pivotY + (bak.x - pivotX) * sin(theta) + (bak.y - pivotY) * cos(theta));
 	}
 
-
 	void translatePoint(Point &p, const int &tx, const int &ty)
 	{
 		p.x = p.x + tx;
@@ -21,6 +20,13 @@ namespace primitives
 	{
 		p.x = sx * p.x;
 		p.y = sy * p.y;
+	}
+
+	void shearRay(Point &p, const int &shX, const int &shY)
+	{
+		Point bak = p;
+		p.x = bak.x + (shY * bak.y);
+		p.y = (bak.x * shX) + bak.y;
 	}
 
 	Point getTranslatedPoint(const Point &p, const int &tx, const int &ty)

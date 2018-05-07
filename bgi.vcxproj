@@ -71,7 +71,6 @@
   <ItemGroup>
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="bgiout.cxx" />
-    <ClCompile Include="Demo.cpp" />
     <ClCompile Include="dibutil.cxx" />
     <ClCompile Include="drawing.cxx" />
     <ClCompile Include="file.cxx" />
@@ -84,6 +83,7 @@
     <ClCompile Include="main.cxx" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="quadtree.cpp" />
+    <ClCompile Include="shearing_test.cpp" />
     <ClCompile Include="text.cxx" />
     <ClCompile Include="vector.cpp" />
     <ClCompile Include="winbgi.cxx" />

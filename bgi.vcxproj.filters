@@ -66,11 +66,11 @@
     <ClCompile Include="leaderboard.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="quadtree.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shearing_test.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
