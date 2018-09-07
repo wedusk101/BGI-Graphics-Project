@@ -76,7 +76,9 @@ namespace primitives
 			}
 		}
 
-		delete[] locus, currentPosition, confetti; // cleanup
+		delete [] locus;
+		delete [] currentPosition;
+		delete [] confetti; // cleanup
 	}
 
 
