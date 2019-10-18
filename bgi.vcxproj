@@ -10,6 +10,42 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bgi\bgiout.cxx" />
+    <ClCompile Include="bgi\dibutil.cxx" />
+    <ClCompile Include="bgi\drawing.cxx" />
+    <ClCompile Include="bgi\file.cxx" />
+    <ClCompile Include="bgi\main.cxx" />
+    <ClCompile Include="bgi\misc.cxx" />
+    <ClCompile Include="bgi\mouse.cxx" />
+    <ClCompile Include="bgi\palette.cxx" />
+    <ClCompile Include="bgi\text.cxx" />
+    <ClCompile Include="bgi\winbgi.cxx" />
+    <ClCompile Include="bgi\winthread.cxx" />
+    <ClCompile Include="examples\Archery_main.cpp" />
+    <ClCompile Include="src\assets.cpp" />
+    <ClCompile Include="src\fx.cpp" />
+    <ClCompile Include="src\leaderboard.cpp" />
+    <ClCompile Include="src\matrix.cpp" />
+    <ClCompile Include="src\physics.cpp" />
+    <ClCompile Include="src\quadtree.cpp" />
+    <ClCompile Include="src\vector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bgi\dibutil.h" />
+    <ClInclude Include="bgi\graphics.h" />
+    <ClInclude Include="bgi\winbgi.h" />
+    <ClInclude Include="bgi\winbgim.h" />
+    <ClInclude Include="bgi\winbgitypes.h" />
+    <ClInclude Include="include\assets.h" />
+    <ClInclude Include="include\fx.h" />
+    <ClInclude Include="include\leaderboard.h" />
+    <ClInclude Include="include\matrix.h" />
+    <ClInclude Include="include\physics.h" />
+    <ClInclude Include="include\primitives.h" />
+    <ClInclude Include="include\quadtree.h" />
+    <ClInclude Include="include\vector.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B0A1AF87-F642-456A-9C64-9C7ABBDF9EC1}</ProjectGuid>
     <RootNamespace>bgi</RootNamespace>
@@ -47,6 +83,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\navon\Documents\GitHub\BGI-Graphics-Project\include;C:\Users\navon\Documents\GitHub\BGI-Graphics-Project\bgi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,6 +97,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\navon\Documents\GitHub\BGI-Graphics-Project\include;C:\Users\navon\Documents\GitHub\BGI-Graphics-Project\bgi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,42 +106,6 @@
       <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="assets.cpp" />
-    <ClCompile Include="bgiout.cxx" />
-    <ClCompile Include="dibutil.cxx" />
-    <ClCompile Include="drawing.cxx" />
-    <ClCompile Include="file.cxx" />
-    <ClCompile Include="fx.cpp" />
-    <ClCompile Include="leaderboard.cpp" />
-    <ClCompile Include="matrix.cpp" />
-    <ClCompile Include="misc.cxx" />
-    <ClCompile Include="mouse.cxx" />
-    <ClCompile Include="palette.cxx" />
-    <ClCompile Include="main.cxx" />
-    <ClCompile Include="physics.cpp" />
-    <ClCompile Include="quadtree.cpp" />
-    <ClCompile Include="shearing_test.cpp" />
-    <ClCompile Include="text.cxx" />
-    <ClCompile Include="vector.cpp" />
-    <ClCompile Include="winbgi.cxx" />
-    <ClCompile Include="winthread.cxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="assets.h" />
-    <ClInclude Include="dibutil.h" />
-    <ClInclude Include="fx.h" />
-    <ClInclude Include="graphics.h" />
-    <ClInclude Include="leaderboard.h" />
-    <ClInclude Include="matrix.h" />
-    <ClInclude Include="physics.h" />
-    <ClInclude Include="primitives.h" />
-    <ClInclude Include="quadtree.h" />
-    <ClInclude Include="vector.h" />
-    <ClInclude Include="winbgi.h" />
-    <ClInclude Include="winbgim.h" />
-    <ClInclude Include="winbgitypes.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

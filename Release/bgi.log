@@ -1,0 +1,56 @@
+﻿  bgiout.cxx
+  dibutil.cxx
+  drawing.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\drawing.cxx(819): warning C4101: 'tries': unreferenced local variable
+c:\users\navon\documents\github\bgi-graphics-project\bgi\drawing.cxx(859): warning C4101: 'answer': unreferenced local variable
+c:\users\navon\documents\github\bgi-graphics-project\bgi\drawing.cxx(1110): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(89): note: see declaration of 'strcat'
+  file.cxx
+  main.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(189): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(192): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(195): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(194): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(333): warning C4805: '==': unsafe mix of type 'int' and type 'bool' in operation
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(367): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(388): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\bgi\main.cxx(397): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  misc.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\misc.cxx(595): warning C4838: conversion from 'int' to 'unsigned short' requires a narrowing conversion
+c:\users\navon\documents\github\bgi-graphics-project\bgi\misc.cxx(596): warning C4838: conversion from 'int' to 'unsigned short' requires a narrowing conversion
+c:\users\navon\documents\github\bgi-graphics-project\bgi\misc.cxx(597): warning C4838: conversion from 'int' to 'unsigned short' requires a narrowing conversion
+c:\users\navon\documents\github\bgi-graphics-project\bgi\misc.cxx(598): warning C4838: conversion from 'int' to 'unsigned short' requires a narrowing conversion
+c:\users\navon\documents\github\bgi-graphics-project\bgi\misc.cxx(599): warning C4838: conversion from 'int' to 'unsigned short' requires a narrowing conversion
+  mouse.cxx
+  palette.cxx
+  text.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\text.cxx(348): warning C4018: '<': signed/unsigned mismatch
+  winbgi.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\winbgi.cxx(134): warning C4101: 'actual_color': unreferenced local variable
+c:\users\navon\documents\github\bgi-graphics-project\bgi\winbgi.cxx(133): warning C4101: 'bgi_color': unreferenced local variable
+c:\users\navon\documents\github\bgi-graphics-project\bgi\winbgi.cxx(494): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
+  winthread.cxx
+c:\users\navon\documents\github\bgi-graphics-project\bgi\winthread.cxx(320): warning C4101: 'i': unreferenced local variable
+  Archery_main.cpp
+  assets.cpp
+  fx.cpp
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(35): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(87): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(97): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\navon\documents\github\bgi-graphics-project\src\fx.cpp(98): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  leaderboard.cpp
+  matrix.cpp
+  physics.cpp
+c:\users\navon\documents\github\bgi-graphics-project\include\vector.h(77): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+  quadtree.cpp
+  vector.cpp
+c:\users\navon\documents\github\bgi-graphics-project\include\vector.h(77): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
+LINK : warning LNK4031: no subsystem specified; CONSOLE assumed
+  Generating code
+  All 889 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  bgi.vcxproj -> C:\Users\navon\Documents\GitHub\BGI-Graphics-Project\Release\Game.exe

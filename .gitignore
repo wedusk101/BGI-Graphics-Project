@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.vs/game/v15/.suo
+*.db
+*.opendb
+*.ipch

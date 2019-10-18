@@ -9,108 +9,110 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="BGI">
+      <UniqueIdentifier>{1ed1c2aa-b0a5-40fb-a334-046e498cf552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{e57f1840-e8b6-499a-8c01-f861592f4c0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bgiout.cxx">
+    <ClCompile Include="src\assets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="winthread.cxx">
+    <ClCompile Include="src\fx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="drawing.cxx">
+    <ClCompile Include="src\leaderboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="misc.cxx">
+    <ClCompile Include="src\matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="palette.cxx">
+    <ClCompile Include="src\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="text.cxx">
+    <ClCompile Include="src\quadtree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mouse.cxx">
+    <ClCompile Include="src\vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="winbgi.cxx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="bgi\winbgi.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="file.cxx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="bgi\bgiout.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="dibutil.cxx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="bgi\dibutil.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="main.cxx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="bgi\drawing.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="physics.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\file.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="matrix.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\main.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="assets.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\misc.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="vector.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\mouse.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="fx.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\palette.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="leaderboard.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\text.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="quadtree.cpp">
-      <Filter>Resource Files</Filter>
+    <ClCompile Include="bgi\winthread.cxx">
+      <Filter>BGI</Filter>
     </ClCompile>
-    <ClCompile Include="shearing_test.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="examples\Archery_main.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="winbgim.h">
+    <ClInclude Include="bgi\dibutil.h">
+      <Filter>BGI</Filter>
+    </ClInclude>
+    <ClInclude Include="bgi\graphics.h">
+      <Filter>BGI</Filter>
+    </ClInclude>
+    <ClInclude Include="bgi\winbgi.h">
+      <Filter>BGI</Filter>
+    </ClInclude>
+    <ClInclude Include="bgi\winbgim.h">
+      <Filter>BGI</Filter>
+    </ClInclude>
+    <ClInclude Include="bgi\winbgitypes.h">
+      <Filter>BGI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="winbgitypes.h">
+    <ClInclude Include="include\fx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics.h">
+    <ClInclude Include="include\leaderboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="winbgi.h">
+    <ClInclude Include="include\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dibutil.h">
+    <ClInclude Include="include\physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="primitives.h">
+    <ClInclude Include="include\primitives.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics.h">
+    <ClInclude Include="include\quadtree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="assets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="leaderboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="quadtree.h">
+    <ClInclude Include="include\vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
