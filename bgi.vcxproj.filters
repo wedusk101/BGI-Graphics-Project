@@ -74,6 +74,18 @@
     <ClCompile Include="examples\Archery_main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="examples\Football_main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\Archery_Verlet.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\pong_Main_Bak.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\Sandbox.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bgi\dibutil.h">

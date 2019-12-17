@@ -22,7 +22,21 @@
     <ClCompile Include="bgi\text.cxx" />
     <ClCompile Include="bgi\winbgi.cxx" />
     <ClCompile Include="bgi\winthread.cxx" />
-    <ClCompile Include="examples\Archery_main.cpp" />
+    <ClCompile Include="examples\Archery_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="examples\Archery_Verlet.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="examples\Football_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="examples\pong_Main_Bak.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="examples\Sandbox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\assets.cpp" />
     <ClCompile Include="src\fx.cpp" />
     <ClCompile Include="src\leaderboard.cpp" />

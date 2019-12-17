@@ -44,12 +44,14 @@ shockwave() – Returns void – This function is used to generate waves of pixe
 int main()                    
 {
 	int xMax = 0, yMax = 0;
+	std::string name;
 	std::cout << "Please enter the desired resolution." << std::endl;
 	std::cout << "Please enter the width, followed by the height in pixels." << std::endl;
 	std::cin >> xMax >> yMax;
+	std::cin.get();	
 	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
-    	yMax = getmaxy();
+    yMax = getmaxy();
 	int y_inc = 1,target_inc = 0, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;		// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -64,28 +66,39 @@ int main()
 	/**object declarations**/
 	primitives::Bow bow;                             
 	primitives::Arrow arrow;       
-	primitives::Target target;
-
-	Leaderboard profile, best;
+	primitives::Target target;	
 
 	// std::vector<Leaderboard> list;
-	
+	Leaderboard best;	
     
 	while (1) // Main game loop
 	{
-		cleardevice();
-		loadLeaderBoard("saves/DBA.DAT", best); // loads profile data
+		cleardevice();		
 		if (!mainMenu)
 		{
+			try
+			{
+				loadLeaderBoard("saves/DBA.DAT", best); // loads profile data
+			}
+			catch (std::exception &err)
+			{
+				std::cout << err.what() << std::endl;
+				std::cout << "Error occured while loading player data!" << std::endl;
+			}
 			PlaySound(TEXT("media/menu.wav"), NULL, SND_ASYNC|SND_LOOP);
-			mainMenu = true;
+			mainMenu = true;			
+			std::cout << "Please enter your player avatar name." << std::endl;
+			std::getline(std::cin, name);
 		}
 		// displayLeaderBoard(best); // debugging
+		char *avatarName = new char[name.length() + 1];
+		strcpy(avatarName, name.c_str());
+		Leaderboard profile(avatarName);
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        	arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
 		target = primitives::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
@@ -262,22 +275,34 @@ int main()
 		}
 
 		if (lives == 0) // scoring and leader board - WIP
-		{
+		{					
 			outtextxy(xMax / 2 - 75, yMax / 2, "Game Over!");
 			outtextxy(xMax / 2 - 75, yMax / 2 + 20, "Top Score is ");
-			profile.topScore = score;
+			profile.topScore = score;				
+			
 			// list.push_back(profile);
 			if (profile.topScore > best.topScore)
 			{
 				best = profile;
-				saveLeaderBoard("saves/DBA.DAT", best); // save profile data
+				try
+				{
+					saveLeaderBoard("saves/DBA.DAT", best); // save profile data
+				}
+				catch (std::exception &err)
+				{
+					std::cout << err.what() << std::endl;
+					std::cout << "Error occured while saving score!" << std::endl;
+				}				
 			}
 			top = std::to_string(best.topScore);
 			const char *ptop = top.c_str();
 			outtextxy(xMax / 2 + 25, yMax / 2 + 20, (char*)ptop);
+			outtextxy(xMax / 2 - 75, yMax / 2 + 40, "Player name: ");
+			outtextxy(xMax / 2 + 25, yMax / 2 + 40, best.playerName);
 			mainMenu = false;
 			swapbuffers();
 			delay(3000);
+			delete[] avatarName;
 		}
 		swapbuffers();
 	}

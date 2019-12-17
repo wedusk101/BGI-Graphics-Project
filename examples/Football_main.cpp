@@ -81,7 +81,8 @@ int main()
 	std::string earnedPoint;			// for displaying the current earned point
 	std::string livesStr;
 	std::string leader;					// top score
-	Leaderboard profile, best;
+	std::string name;
+	Leaderboard best;
 
 										// x-y components for acceleration - useful for parabolic motion
 	acceleration.x = 0;
@@ -93,14 +94,29 @@ int main()
 	int xMax = getmaxx(), yMax = getmaxy();
 	while (1)							//Loop1-Outer game loop (Can be Removed)
 	{
-		cleardevice();
-		loadLeaderBoard("saves/DBF.DAT", best); // loads profile 
+		cleardevice();		
 		if (!mainMenu)
 		{
+			try
+			{
+				loadLeaderBoard("saves/DBF.DAT", best); // loads profile data
+			}
+			catch (std::exception &err)
+			{
+				std::cout << err.what() << std::endl;
+				std::cout << "Error occured while loading player data!" << std::endl;
+			}
+
 			PlaySound(TEXT("media/menu.wav"), NULL, SND_ASYNC|SND_LOOP);
-			mainMenu = true;
+			mainMenu = true;			
+			std::cout << "Please enter your player avatar name." << std::endl;
+			std::getline(std::cin, name);			
 		}
-		lives = 10, score = 0;
+		char *avatarName = new char[name.length() + 1];
+		strcpy(avatarName, name.c_str());
+		Leaderboard profile(avatarName);
+
+		lives = 5, score = 0;
 		ready = false;
 
 		ball = primitives::genBall();								//Ball Positioning and ball generating function
@@ -261,14 +277,25 @@ int main()
 				if (profile.topScore > best.topScore)
 				{
 					best = profile;
-					saveLeaderBoard("saves/DBF.DAT", best); // save profile data
+					try
+					{
+						saveLeaderBoard("saves/DBF.DAT", best); // save profile data
+					}
+					catch (std::exception &err)
+					{
+						std::cout << err.what() << std::endl;
+						std::cout << "Error occured while saving score!" << std::endl;
+					}					
 				}
 				leader = std::to_string(best.topScore);
 				const char *ptop = leader.c_str();
 				outtextxy(xMax / 2 + 25, yMax / 2 + 20, (char*)ptop); // displays top score
+				outtextxy(xMax / 2 - 75, yMax / 2 + 40, "Player name: ");
+				outtextxy(xMax / 2 + 25, yMax / 2 + 40, best.playerName);
 				mainMenu = false;
 				swapbuffers();
 				delay(3000);
+				delete[] avatarName;
 			}												//End ball Movement	
 			clearmouseclick(WM_LBUTTONDOWN);
 			upRod.tL.x = rand() % ((static_cast<int>(xMax * 2 / 3) - 250)- (static_cast<int>(xMax * 2 / 3) - 150)) + (static_cast<int>(xMax * 2 / 3) - 150);	//	Randomizing Rods Position

@@ -11,11 +11,21 @@
 
 struct Leaderboard
 {
-	int rank;
-	// std::string name; // object serialization fails for strings as of now
+	int rank;	
 	int topScore;
+	uint32_t nameLen;
+	char *playerName; 
 
-	Leaderboard() : rank(INT_MAX), /*name("player"),*/ topScore(INT_MIN) {} // default constructor
+
+	Leaderboard() : rank(INT_MAX), playerName(""), topScore(INT_MIN)
+	{
+		nameLen = strlen(playerName);
+	}
+
+	Leaderboard(char *name) : rank(INT_MAX), playerName(name), topScore(INT_MIN)
+	{
+		nameLen = strlen(playerName);
+	}
 };
 
 

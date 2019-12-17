@@ -220,7 +220,7 @@ if (((circleBB.topLeft.x <= rectangleBB.bottomRight.x + 2) && (circleBB.topLeft.
 				{	// left side of the circle AABB collides with the right side of the rectangle AABB
 			circleBB.faceID = 4;
 			rectangleBB.faceID = 2;
-			std::cout << "\nCASE 1" << std::endl; // debugging
+			// std::cout << "\nCASE 1" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.leftMid, circlePrevBB.leftMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.leftMid, circle.radius, 0);
@@ -232,7 +232,7 @@ if (((circleBB.topLeft.x <= rectangleBB.bottomRight.x + 2) && (circleBB.topLeft.
 		{	// top side of the circle AABB collides with the bottom side of the rectangle AABB
 			circleBB.faceID = 3;
 			rectangleBB.faceID = 1;
-			std::cout << "\nCASE 2" << std::endl; // debugging
+			// std::cout << "\nCASE 2" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.topMid, circlePrevBB.topMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, circle.radius);
 			circle.center = getTranslatedPoint(circleBB.topMid, 0, circle.radius);
@@ -246,7 +246,7 @@ if (((circleBB.topRight.x <= rectangleBB.bottomLeft.x + 2) && (circleBB.topRight
 				{	// right side of the circle AABB collides with the left side of the rectangle AABB
 			circleBB.faceID = 2;
 			rectangleBB.faceID = 4;
-			std::cout << "\nCASE 3" << std::endl; // debugging
+			// std::cout << "\nCASE 3" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.rightMid, circlePrevBB.rightMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, -circle.radius, 0);
 			circle.center = getTranslatedPoint(circleBB.rightMid, -circle.radius, 0);
@@ -258,7 +258,7 @@ if (((circleBB.topRight.x <= rectangleBB.bottomLeft.x + 2) && (circleBB.topRight
 		{	// bottom side of the circle AABB collides with the top side of the rectangle AABB
 			circleBB.faceID = 1;
 			rectangleBB.faceID = 3;
-			std::cout << "\nCASE 4" << std::endl; // debugging
+			// std::cout << "\nCASE 4" << std::endl; // debugging
 			circleNextPoint = getCollisionVector(circleBB.bottomMid, circlePrevBB.bottomMid, stepSize, xMax, yMax, circleBB.faceID);
 			translatePoint(circleNextPoint, 0, -circle.radius);
 			circle.center = getTranslatedPoint(circleBB.bottomMid, 0, -circle.radius);
