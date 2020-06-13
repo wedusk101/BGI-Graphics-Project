@@ -9,8 +9,8 @@ void saveLeaderBoard(const std::string &fileName, Leaderboard &playerData) // wr
 	const uint32_t size = 3 * sizeof(uint32_t); // calculate data packing sizes
 	const uint32_t len = playerData.nameLen + 1;
 	char *dst = new char[size + len];
-	memcpy(dst, (void*)&playerData, size); // serialize the class
-	memcpy(dst + size, playerData.playerName, len);
+	memcpy(dst, (void*) &playerData, size); // serialize the class
+	memcpy(dst + size, (void*) playerData.playerName, len);
 	std::ofstream out;
 	out.open(fileName, std::ofstream::binary); // for appending ---->   out.open(fileName, std::ofstream::binary | std::ofstream::app); 
 	out.write(dst, size + len); // write out the data
@@ -36,7 +36,7 @@ void loadLeaderBoard(const std::string &fileName, Leaderboard &playerData) // re
 	fp = fopen(fileName.c_str(), "r");
 	fgets(src, nBytes, fp); // deserialize file
 	fclose(fp);
-	memcpy((void*)&playerData, src, size);
+	memcpy((void*)&playerData, (void*) src, size);
 	playerData.nameLen = pLen;
 	char *name = new char[pLen]; // freeing this pointer will not be possible as there is a shallow copy taking place later
 	memcpy(name, src + size, pLen);

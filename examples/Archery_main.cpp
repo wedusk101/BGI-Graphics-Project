@@ -51,7 +51,7 @@ int main()
 	std::cin.get();	
 	initwindow(xMax, yMax, "Archery");
 	xMax = getmaxx();
-    yMax = getmaxy();
+	yMax = getmaxy();
 	int y_inc = 1,target_inc = 0, lives = 3;
 	int score = 0, addScore = 0, lastScore = 0;		// Variable for scoring
 	int division = 0;					// Variable to divide the target into fixed no. of zones.
@@ -70,7 +70,7 @@ int main()
 
 	// std::vector<Leaderboard> list;
 	Leaderboard best;	
-    
+	
 	while (1) // Main game loop
 	{
 		cleardevice();		
@@ -98,7 +98,7 @@ int main()
 		flag = false;
 
 		bow = primitives::genInitBow();                             //By default a stretched bow.
-        arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+		arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
 		target = primitives::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
