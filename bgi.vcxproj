@@ -55,8 +55,8 @@
     <ClInclude Include="bgi\winbgi.h" />
     <ClInclude Include="bgi\winbgim.h" />
     <ClInclude Include="bgi\winbgitypes.h" />
-    <ClInclude Include="colors.h" />
     <ClInclude Include="include\assets.h" />
+    <ClInclude Include="include\colors.h" />
     <ClInclude Include="include\fx.h" />
     <ClInclude Include="include\leaderboard.h" />
     <ClInclude Include="include\matrix.h" />
