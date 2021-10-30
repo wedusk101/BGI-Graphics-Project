@@ -6,7 +6,9 @@ functions that I might have used.
 
 Cheers!
 
-## Hi Dada!!
-
-I made this change.
-Pls accept the pull request.
+## Contributors:
+1. Navonil Mukherjee
+2. Arihant Kumar Seragoi
+3. Akash Gargh
+4. Vishal Agarwal
+5. Gagan
