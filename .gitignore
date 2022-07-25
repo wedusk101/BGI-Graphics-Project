@@ -53,4 +53,5 @@ Temporary Items
 *.db
 *.opendb
 *.ipch
-.vs/game/v16/.suo
+.vs
+
