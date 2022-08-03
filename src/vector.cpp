@@ -2,7 +2,7 @@
 #include "primitives.h"
 #include "vector.h"
 
-namespace primitives
+namespace bgilib
 {
 	Vec2 getNormalized(const Vec2 &v) // normalizes a vector
 	{

@@ -4,7 +4,7 @@
 #ifndef PRIMITIVES__H_
 #define PRIMITIVES__H_
 
-namespace primitives
+namespace bgilib
 {
 	struct Point
 	{

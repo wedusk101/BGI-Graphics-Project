@@ -7,7 +7,7 @@
 #include "primitives.h"
 #include "matrix.h"
 
-namespace primitives
+namespace bgilib
 {
 	// we intend on defining an inheritance hierarchy for easier code organization, especially for collision detection functions
 	typedef struct

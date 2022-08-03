@@ -8,7 +8,7 @@
 #include "matrix.h"
 
 
-namespace primitives
+namespace bgilib
 {
 	void shockWave(const Point &center, const int &minRadius, const int &maxRadius)
 	{

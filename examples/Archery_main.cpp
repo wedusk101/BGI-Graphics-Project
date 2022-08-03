@@ -61,12 +61,12 @@ int main()
 	std::string earnedPoint;				// for displaying the current earned point
 	std::string livesStr;
 	std::string top;
-	primitives::Point arrowHitPos;				//Point Variable to store the arrow position.
+	bgilib::Point arrowHitPos;				//Point Variable to store the arrow position.
 
 	/**object declarations**/
-	primitives::Bow bow;                             
-	primitives::Arrow arrow;       
-	primitives::Target target;	
+	bgilib::Bow bow;                             
+	bgilib::Arrow arrow;       
+	bgilib::Target target;	
 
 	// std::vector<Leaderboard> list;
 	Leaderboard best;	
@@ -97,9 +97,9 @@ int main()
 		score = 0, addScore = 0, lastScore = 0, division = 0, lives = 3, profile.topScore = 0;
 		flag = false;
 
-		bow = primitives::genInitBow();                             //By default a stretched bow.
-		arrow = primitives::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
-		target = primitives::genTarget(bow.center);
+		bow = bgilib::genInitBow();                             //By default a stretched bow.
+		arrow = bgilib::genArrow(bow.radius, bow.center);        //scaled in accordance to bow radius origin at bow.center
+		target = bgilib::genTarget(bow.center);
 
 		drawBow(bow, TRUE);
 		drawArrow(arrow.size, bow.center);
@@ -136,7 +136,7 @@ int main()
 			if (target.vert.src.y + 10 < 0)           		//bound checking for target  (lower screen)
 				target_inc = 1;
 			target.horiz.src.y += target_inc;
-			target = primitives::genTarget(target.horiz.src);
+			target = bgilib::genTarget(target.horiz.src);
 			
 			drawTarget(target);
 
@@ -268,7 +268,7 @@ int main()
 				score += addScore;
 				addScore = 0;
 				target.horiz.src.y = rand() % (yMax - 75 - static_cast<int>(yMax / 8)) + static_cast<int>(yMax / 8);
-				target = primitives::genTarget(target.horiz.src);
+				target = bgilib::genTarget(target.horiz.src);
 				delay(700);
 			}
 			swapbuffers();

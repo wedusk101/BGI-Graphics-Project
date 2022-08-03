@@ -9,7 +9,7 @@ https://github.com/wedusk101/C/blob/master/quadtree.c
 #ifndef QUADTREE__H_
 #define QUADTREE__H_
 
-namespace primitives
+namespace bgilib
 {
 	struct Quadtree
 	{

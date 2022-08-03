@@ -5,7 +5,7 @@
 #include <iostream> // debugging
 
 
-namespace primitives
+namespace bgilib
 {
 
 	AABB updateAABB(const Point &objPosition, const int &objWidth, const int &objHeight) // objPosition = center of the object, width = x axis, height = y axis

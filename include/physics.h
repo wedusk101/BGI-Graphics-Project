@@ -8,7 +8,7 @@
 #include "primitives.h"
 #include "assets.h"
 
-namespace primitives
+namespace bgilib
 {
 	typedef struct
 	{

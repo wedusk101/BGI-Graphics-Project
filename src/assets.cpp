@@ -62,7 +62,7 @@ drawTarget() - Return void - This function is used to draw Target on screen.
 #include "matrix.h"
 #include <cstdio>
 
-namespace primitives
+namespace bgilib
 {
 	Rectangle getRectangle(const int &topLeftX, const int &topLeftY, const int &bottomRightX, const int &bottomRightY)
 	{
@@ -239,7 +239,7 @@ namespace primitives
 	void genRods(const int &X, const int &Y)
 	{
         	setcolor(15);
-    		primitives :: Rectangle rod1,rod2;
+			bgilib :: Rectangle rod1,rod2;
     		rod1.tL.x = X;
         	rod1.tL.y = 0;
         	rod1.bR.y = Y;
@@ -279,7 +279,7 @@ namespace primitives
 	{
 
 		//primitives::Line top,reaR,bottom,front;
-		primitives::Line bottom, front;
+		bgilib::Line bottom, front;
 		int xMax=getmaxx();
 		int yMax=getmaxy();
 		top.src.x=xMax*2/3;

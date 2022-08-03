@@ -7,7 +7,7 @@
 #include <cmath>
 #include "primitives.h"
 
-namespace primitives
+namespace bgilib
 {
 	struct Vec2
 	{

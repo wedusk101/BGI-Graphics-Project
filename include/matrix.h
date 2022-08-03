@@ -7,7 +7,7 @@
 #include <cmath>
 #include "primitives.h"
 
-namespace primitives
+namespace bgilib
 {
 	void rotateRay(Point &, const double &, const int &, const int &); // rotates a ray about a given pivot by an angle of theta radians
 	void translatePoint(Point &, const int &, const int &); // translates a point P(x,y) by tx and ty 

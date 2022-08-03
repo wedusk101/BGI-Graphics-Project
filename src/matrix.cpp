@@ -1,7 +1,7 @@
 //matrix.cpp
 #include "matrix.h"
 
-namespace primitives
+namespace bgilib
 {
 	void rotateRay(Point &p, const double &theta, const int &pivotX, const int &pivotY)
 	{
