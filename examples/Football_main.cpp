@@ -48,17 +48,20 @@ collideCircleLine() – Returns a Boolean value – This function is used to
 
 **********************************************************************************************************************/
 
-#include "windows.h"
+#include <iostream>
 #include <string>
+#include <ctime>
+
+#include "windows.h"
 #include "graphics.h"
+
 #include "primitives.h"
 #include "physics.h"
 #include "matrix.h"
 #include "assets.h"
-#include <iostream>
 #include "vector.h"
 #include "leaderboard.h"
-#include <ctime>
+
 
 int main()
 {
@@ -68,14 +71,14 @@ int main()
 	int lives = 10;											//player lives
 	bool ready = false, mainMenu = false;					//ready for inner Game Loop and mainMenu for game restart 
 															//Initializing Assets and datatypes
-	primitives::Ray arrowRay;
-	primitives::Line top, rear;				
-	primitives::Point locus, nextPoint, arrowHead, arrowTail, origin;
-	primitives::Circle ball;
-	primitives::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
-	primitives::Rectangle upRod, downRod;
-	primitives::BallArrow ballArrow;
-	primitives::Acceleration acceleration;
+	bgilib::Ray arrowRay;
+	bgilib::Line top, rear;				
+	bgilib::Point locus, nextPoint, arrowHead, arrowTail, origin;
+	bgilib::Circle ball;
+	bgilib::AABB ballBB, prevBB, upRodBB, downRodBB, prevUpRodBB, prevDownRodBB;
+	bgilib::Rectangle upRod, downRod;
+	bgilib::BallArrow ballArrow;
+	bgilib::Acceleration acceleration;
 
 	std::string points;					// for displaying the score
 	std::string earnedPoint;			// for displaying the current earned point
@@ -119,14 +122,14 @@ int main()
 		lives = 5, score = 0;
 		ready = false;
 
-		ball = primitives::genBall();								//Ball Positioning and ball generating function
-		ballArrow = primitives::genBallArrow(ball.center);			//Generates coordinates for arrow initially
-		primitives::drawBallArrow(ballArrow);						//Draw arrow on the ball
-		primitives::genRods(upRod, downRod);						//Generates Coordinates for the Rod
+		ball = bgilib::genBall();								//Ball Positioning and ball generating function
+		ballArrow = bgilib::genBallArrow(ball.center);			//Generates coordinates for arrow initially
+		bgilib::drawBallArrow(ballArrow);						//Draw arrow on the ball
+		bgilib::genRods(upRod, downRod);						//Generates Coordinates for the Rod
 
-		primitives::genFootball(ball.center, ball.radius);			//Ball Draw Call
-		primitives::drawRods(upRod, downRod);						//Rod Draw Call
-		primitives::genGoalPost(top, rear);							//Goal Post draw Call
+		bgilib::genFootball(ball.center, ball.radius);			//Ball Draw Call
+		bgilib::drawRods(upRod, downRod);						//Rod Draw Call
+		bgilib::genGoalPost(top, rear);							//Goal Post draw Call
 
 		outtextxy(xMax / 2 - 75, yMax / 2, "Press Space to Play!");
 		outtextxy(xMax / 2 - 75, yMax / 2 + 25, "Left click to shoot the ball.");
@@ -141,9 +144,9 @@ int main()
 		{
 			double duration = 0.0;													//For timer
 			bool flag = false, takeShot = false;
-			ball = primitives::genBall();											//Ball Positioning and ball generating function
-			ballArrow = primitives::genBallArrow(ball.center);						//Generates coordinates for arrow initially
-			primitives::drawBallArrow(ballArrow);									//Draw arrow on ball
+			ball = bgilib::genBall();											//Ball Positioning and ball generating function
+			ballArrow = bgilib::genBallArrow(ball.center);						//Generates coordinates for arrow initially
+			bgilib::drawBallArrow(ballArrow);									//Draw arrow on ball
 			ballBB = updateAABB(ball.center, 2 * ball.radius, 2 * ball.radius);		// binds the axis aligned bounding box to the ball for the first time
 			upRodBB = updateAABB(upRod.center, upRod.width, upRod.height);			// binds the axis aligned bounding box to the upperRod for the first time
 			downRodBB = updateAABB(downRod.center, downRod.width, downRod.height);	// binds the axis aligned bounding box to the lowerRod for the first time
@@ -151,9 +154,9 @@ int main()
 			prevUpRodBB = upRodBB;													//Copying the position of the upperRod
 			prevDownRodBB = downRodBB;												//Copying the position of the lowerRod
 
-			primitives::genFootball(ball.center, ball.radius);						//Ball Draw Call
-			primitives::drawRods(upRod, downRod);									//Rods Draw Call
-			primitives::genGoalPost(top, rear);										//GoalPost Draw Call
+			bgilib::genFootball(ball.center, ball.radius);						//Ball Draw Call
+			bgilib::drawRods(upRod, downRod);									//Rods Draw Call
+			bgilib::genGoalPost(top, rear);										//GoalPost Draw Call
 
 			double deg = -0.78539;													//Arrow Points to the x-axis
 			double state = 0.01;
@@ -169,13 +172,13 @@ int main()
 				cleardevice();
 				if (deg <= -1.57079 || deg >= 0)
 					state *= -1;
-				primitives::genFootball(ball.center, ball.radius);  
-				primitives::drawRods(upRod, downRod);
-				primitives::genGoalPost(top, rear);
+				bgilib::genFootball(ball.center, ball.radius);  
+				bgilib::drawRods(upRod, downRod);
+				bgilib::genGoalPost(top, rear);
 				
 				ballArrow.head.x = ballArrow.tail.x + static_cast<int>(radius*cos(deg));
 				ballArrow.head.y = ballArrow.tail.y + static_cast<int>(radius*sin(deg));
-				primitives::drawBallArrow(ballArrow);								//Draw arrow on screen
+				bgilib::drawBallArrow(ballArrow);								//Draw arrow on screen
 				
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
@@ -203,8 +206,8 @@ int main()
 				cleardevice();
 				locus = getNextPositionVerlet(ball.center, nextPoint, acceleration, stepSize, theta); // locus is the next position of the center of the ball along the direction of motion
 				genFootball(locus, ball.radius);									// primary draw call for the ball
-				primitives::drawRods(upRod, downRod);								// primary draw call for the Rods
-				primitives::genGoalPost(top, rear);									// primary draw call for the goalPost
+				bgilib::drawRods(upRod, downRod);								// primary draw call for the Rods
+				bgilib::genGoalPost(top, rear);									// primary draw call for the goalPost
 				points = std::to_string(score);
 				const char *pstr = points.c_str();
 				livesStr = std::to_string(lives);
@@ -223,24 +226,24 @@ int main()
 				if (collideCircleScreen(ball, ballBB, prevBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 				{																	//Checking Collision with Screen
 					genFootball(locus, ball.radius);
-					primitives::drawRods(upRod, downRod);
-					primitives::genGoalPost(top, rear);
+					bgilib::drawRods(upRod, downRod);
+					bgilib::genGoalPost(top, rear);
 					PlaySound(TEXT("media/football.wav"), NULL, SND_ASYNC);
 				}
 
 				if (collideCircleRectangle(ball, upRod, ballBB, prevBB, upRodBB, prevUpRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 				{																	//Checking ball's Collision with UpperRod using Bounding Box
 					genFootball(locus, ball.radius);
-					primitives::drawRods(upRod, downRod);
-					primitives::genGoalPost(top, rear);
+					bgilib::drawRods(upRod, downRod);
+					bgilib::genGoalPost(top, rear);
 					PlaySound(TEXT("media/football.wav"), NULL, SND_ASYNC);
 				}
 
 				if (collideCircleRectangle(ball, downRod, ballBB, prevBB, downRodBB, prevDownRodBB, stepSize, xMax, yMax, locus, nextPoint, acceleration, theta))
 				{																	//Checking ball's Collision with lowerRod using Bounding Box
 					genFootball(locus, ball.radius);
-					primitives::drawRods(upRod, downRod);
-					primitives::genGoalPost(top, rear);
+					bgilib::drawRods(upRod, downRod);
+					bgilib::genGoalPost(top, rear);
 					PlaySound(TEXT("media/football.wav"), NULL, SND_ASYNC);
 				}
 
